@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "tsubwindow.h"
 #include "dirform.h"
+#include <QClipboard>
+#include <QMimeData>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -52,10 +54,10 @@ void MainWindow::on_actionSwitch_View_triggered(bool isTabbed)
 
 DirForm * MainWindow::createForm(QWidget *parent){
     DirForm *doc = new DirForm(parent,&this->m_bookmarkMgr);   //指定父窗口，必须在父窗口为Widget窗口提供一个显示区域;
-    // connect(doc->codeEditor,&CodeEditor::selectionChanged,this,&MainWindow::on_selectionChanged) ;
-    // connect(doc->codeEditor,&CodeEditor::copyAvailable,this,&MainWindow::on_copyAvailable) ;
-    // connect(doc->codeEditor,&CodeEditor::undoAvailable,this,&MainWindow::on_undoAvailable) ;
-    // connect(doc->codeEditor,&CodeEditor::redoAvailable,this,&MainWindow::on_redoAvailable) ;
+    connect(doc,&DirForm::copyUrlsToClip,&m_clip,&FileClipboard::on_copyUrls);
+    connect(doc,&DirForm::cutUrlsToClip,&m_clip,&FileClipboard::on_cutUrls);
+    connect(doc,&DirForm::pasteFromClip,&m_clip,&FileClipboard::on_paste);
+
     return doc;
 }
 
@@ -89,4 +91,7 @@ void MainWindow::on_actionSwitch_View_triggered()
 {
 
 }
+
+
+
 

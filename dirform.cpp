@@ -22,6 +22,7 @@ DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr)
     bool replaceView = true, comboItemChanged = true;
     loadDir(QDir::homePath(),replaceView,comboItemChanged);
     connect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
+    connect(&m_fileWatcher, &QFileSystemWatcher::directoryChanged,this, &DirForm::on_dirChange);
     updateBookmarks();
 }
 
@@ -177,7 +178,12 @@ bool DirForm::loadDir(QString filePath,bool replaceView ,bool changeComboItem )
     if(!fileInfo.exists()) return false;
     QString dirPath  = fileInfo.isDir() ? fileInfo.absoluteFilePath() : fileInfo.absolutePath();
     QDir dir(dirPath);
+    if(!m_curDir.isEmpty()){
+        m_fileWatcher.removePath(m_curDir);
+    }
+
     m_curDir = dirPath;
+    m_fileWatcher.addPath(m_curDir);
     m_history.addItem(m_curDir);
 
     if(changeComboItem)
@@ -287,9 +293,8 @@ void DirForm::on_addBookmark_clicked()
 
 }
 
-
-QList<QUrl> DirForm::copyToClipboard(){
-    QClipboard *clip = QApplication::clipboard();
+void DirForm::copyToClipboard(bool isCut)
+{
     auto indexes = m_filesWidget->selectionModel()->selectedIndexes();
     QList<QUrl> urls;
     QString text;
@@ -299,17 +304,19 @@ QList<QUrl> DirForm::copyToClipboard(){
         text += (path) + "\n";
     }
 
-    QMimeData *mime = new QMimeData();
-    mime->setUrls(urls);
-    mime->setText(text);
-    clip->setMimeData(mime);
-    return urls;
+    if(isCut){
+        emit cutUrlsToClip(urls,text);
+    }
+    else{
+        emit copyUrlsToClip(urls,text);
+    }
 }
+
 
 
 void DirForm::on_toolButtonCut_clicked()
 {
-    this->m_cutUrls = copyToClipboard();
+     copyToClipboard(true);
 
 }
 
@@ -321,56 +328,24 @@ void DirForm::on_toolButtonCopy_clicked()
 
 }
 
-bool isParentOf(QString leftPath,QString rightPath){
-    QFileInfo left(leftPath);
-    QString leftStr = left.absoluteFilePath() + "/";
-    QFileInfo right(rightPath);
-    QString rightStr = right.absoluteFilePath() + "/";
-    return rightStr.contains(leftStr) && (rightStr != leftStr);
-}
-
 
 void DirForm::on_toolButtonPaste_clicked()
 {
-    QList<QUrl> urls = QApplication::clipboard()->mimeData()->urls();
-    bool isCut = false;
-    if(urls == m_cutUrls){
-        isCut = true;
-    }
-    QFileInfo fileInfo(m_curDir);
-    if(!fileInfo.exists() ||  !fileInfo.isDir()){
-        return;
-    }
-    QString destPath = fileInfo.absoluteFilePath();
+    emit pasteFromClip(this->m_curDir);
 
-    for(auto &url : urls){
-        QFileInfo srcFile(url.toLocalFile());
-        QString srcFilePath = srcFile.absoluteFilePath();
-        if(!srcFile.exists()){
-            qDebug() << "file not exist in copy clipboard" << srcFilePath ;
-            continue;
-        }
-        QString destFilePath = destPath + "/" + srcFile.fileName();
-        QFileInfo destFile(destFilePath);
+    ////refreshView(this->m_curDir);
 
-        if(isParentOf(srcFilePath,destFilePath)){
-            qDebug() << "src is parent of  dest";
-            continue;
-        }
-        if(destFile.exists()) {
-            qDebug()<< "file exits!" << destFile.absoluteFilePath();
-            continue;
-        }
-        if(isCut){
-            QFile::rename(srcFilePath,destFilePath);
-        }
-        else{
-            QFile::copy(srcFilePath,destFilePath);
-        }
-    }
+}
 
+void DirForm::on_dirChange(const QString &path)
+{
     refreshView(this->m_curDir);
+    qDebug()<< "dirChange" << path;
+}
 
+void DirForm::on_fileChange(const QString &path)
+{
+    qDebug() << "fileChange" << path;
 }
 
 

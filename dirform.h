@@ -7,6 +7,7 @@
 #include "bookmarkMgr.h"
 #include <QVBoxLayout>
 #include <QUrl>
+#include <QFileSystemWatcher>
 namespace Ui {
 class DirForm;
 }
@@ -19,6 +20,11 @@ public:
     explicit DirForm(QWidget *parent ,BookmarkMgr * bookmarkMgr);
     ~DirForm();
     bool loadDir(QString filePath,bool replaceView = false,bool changeCombItem=false);
+
+Q_SIGNALS:
+    void copyUrlsToClip(QList<QUrl> urls,QString text);
+    void cutUrlsToClip(QList<QUrl> urls,QString text);
+    void pasteFromClip(QString destDir);
 protected slots:
 
     void on_comboDirIndexChange(int index);
@@ -44,13 +50,17 @@ private slots:
     void on_toolButtonCopy_clicked();
 
     void on_toolButtonPaste_clicked();
+    void on_dirChange(const QString &path);
+    void on_fileChange(const QString &path);
+
 
 private:
     void updateBookmarks();
     void addFileComboItems(QString dirPath);
     bool isFileComboContains(QString filePath);
-    QList<QUrl> copyToClipboard();
+    void copyToClipboard(bool isCut = false);
     void refreshView(QString dirPath);
+    QFileSystemWatcher m_fileWatcher;
 
     Ui::DirForm *ui;
     QString m_curDir ;
@@ -61,6 +71,8 @@ private:
     QAbstractItemView *m_filesWidget;
     BookmarkMgr * m_bookmarkMgr;
     QList<QUrl> m_cutUrls;
+
+
 
 };
 

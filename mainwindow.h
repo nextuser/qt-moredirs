@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QUrl>
 #include "bookmarkMgr.h"
+#include "fileclipboard.h"
 class TFormDoc;
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -32,9 +34,12 @@ private slots:
 
 
 
+
 private:
     Ui::MainWindow *ui;
     BookmarkMgr m_bookmarkMgr;
+    void doCopyUrls(const QList<QUrl> &urls,QString text,bool isCut);
+    FileClipboard m_clip;
 
 };
 #endif // MAINWINDOW_H

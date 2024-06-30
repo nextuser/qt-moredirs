@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     bookmarkMgr.cpp \
+    fileclipboard.cpp \
     fileutil.cpp \
     thistory.cpp \
     dirform.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
 
 HEADERS += \
     bookmarkMgr.h \
+    fileclipboard.h \
     fileutil.h \
     thistory.h \
     dirform.h \
