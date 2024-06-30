@@ -1,7 +1,7 @@
 #include "bookmarkMgr.h"
 #include <QSettings>
-BookmarkMgr::BookmarkMgr(int maxCount)
-    :QObject{nullptr},m_maxCount(maxCount) {
+BookmarkMgr::BookmarkMgr(QObject *parent,int maxCount)
+    :QObject{parent},m_maxCount(maxCount) {
 
 }
 

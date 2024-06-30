@@ -22,6 +22,20 @@ DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr)
     layoutFileContent->setContentsMargins(0, 0, 0, 0);
     bool replaceView = true, comboItemChanged = true;
 
+    initToolButtons();
+
+
+
+    loadDir(QDir::homePath(),replaceView,comboItemChanged);
+    m_history.addItem(m_curDir);
+    connect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
+    connect(&m_fileWatcher, &QFileSystemWatcher::directoryChanged,this, &DirForm::on_dirChange);
+    connect(QApplication::clipboard(),&QClipboard::dataChanged ,this , &DirForm::on_clipDataChanged);
+    updateBookmarks();
+
+}
+
+void DirForm::initToolButtons(){
     ui->toolButtonPrev->setDefaultAction(ui->actionPrev);
     ui->toolButtonNext->setDefaultAction(ui->actionNext);
     ui->toolButtonUp->setDefaultAction(ui->actionUP);
@@ -32,15 +46,7 @@ DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr)
     ui->toolButtonBookMarkList->setDefaultAction(ui->actionBookmarkList);
     ui->toolButtonAddBookmark->setDefaultAction(ui->actionAdd_Bookmark);
     ui->toolButtonBrowse->setDefaultAction(ui->actionOpenDir);
-
-
-
-    loadDir(QDir::homePath(),replaceView,comboItemChanged);
-    m_history.addItem(m_curDir);
-    connect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
-    connect(&m_fileWatcher, &QFileSystemWatcher::directoryChanged,this, &DirForm::on_dirChange);
-    connect(QApplication::clipboard(),&QClipboard::dataChanged ,this , &DirForm::on_clipDataChanged);
-    updateBookmarks();
+    ui->toolButtonBookMarkList->setPopupMode(QToolButton::MenuButtonPopup);
 }
 
 DirForm::~DirForm()
@@ -110,6 +116,36 @@ QAbstractItemView * DirForm::createFileIconsView(QString dirPath,bool replaceVie
     }
 
     refreshView(dirPath);
+    return m_filesWidget;
+}
+
+#include <QTableView>
+QAbstractItemView * DirForm::createTableView(QString dirPath,bool replaceView)
+{
+    if(replaceView || m_filesWidget == nullptr){
+
+        if(m_filesWidget != nullptr){
+            layoutFileContent->removeWidget(m_filesWidget);
+            delete m_filesWidget;
+        }
+
+        QTableView *w = new QTableView(ui->frameContent);
+        m_filesWidget = w;
+        layoutFileContent->addWidget(m_filesWidget);
+        ///m_filesWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+        ////connect(w,&QListWidget::itemDoubleClicked,this,&DirForm::on_fileItemOpen);
+        fileModel.setRootPath(dirPath);
+        w->setModel(&fileModel);
+
+
+        connect(w->selectionModel(),&QItemSelectionModel::selectionChanged,this,&DirForm::on_selectedFileChanged);
+        connect(w,SIGNAL(doubleClicked(QModelIndex)),
+                this,SLOT(on_fileItemDblClicked(QModelIndex)));;
+    }
+
+    m_filesWidget->setRootIndex(fileModel.index(dirPath));
+
+    /////refreshView2(dirPath);
     return m_filesWidget;
 }
 
@@ -216,8 +252,9 @@ bool DirForm::loadDir(QString filePath,bool replaceView ,bool changeComboItem )
         }
         ui->comboBoxDir->setCurrentText(dir.dirName());
     }
-    ui->toolButtonBookMarkList->setPopupMode(QToolButton::MenuButtonPopup);
-    createFileIconsView(dirPath,replaceView);
+
+    ///createFileIconsView(dirPath,replaceView);
+    createTableView(dirPath,replaceView);
 
     return true;
 }
@@ -256,6 +293,21 @@ void DirForm::on_fileItemOpen(QListWidgetItem *item)
     }
 }
 
+void DirForm::on_fileItemDblClicked(QModelIndex index)
+{
+    if(index.column() != 0) return;
+    QString text  = fileModel.filePath(index);
+
+    QFileInfo info(text);
+    if(!info.isDir()){
+        QDesktopServices::openUrl(QUrl::fromLocalFile(info.absoluteFilePath()));
+    }else{
+        bool replaceView = false, changeCombo = true;
+        loadDir(info.absoluteFilePath(),replaceView,changeCombo);
+        m_history.addItem(m_curDir);
+    }
+}
+
 #include <QMenu>
 
 void DirForm:: updateBookmarks(){
@@ -279,7 +331,8 @@ void DirForm::copyToClipboard(bool isCut)
     QList<QUrl> urls;
     QString text;
     for(auto &index :indexes){
-        QString path = m_filesWidget->model()->data(index,Qt::UserRole).toString();
+        if(index.column() != 0) continue;
+        QString path = this->fileModel.filePath(index);
         urls.append(QUrl::fromLocalFile(path));
         text += (path) + "\n";
     }
@@ -298,7 +351,7 @@ void DirForm::copyToClipboard(bool isCut)
 
 void DirForm::on_dirChange(const QString &path)
 {
-    refreshView(this->m_curDir);
+
     qDebug()<< "dirChange" << path;
 }
 
@@ -333,7 +386,8 @@ void DirForm::on_actionMoveToTrash_triggered()
 {
     auto indexes = m_filesWidget->selectionModel()->selectedIndexes();
     for(auto index: indexes){
-        QString path = m_filesWidget->model()->data(index,Qt::UserRole).toString();
+        if(index.column() != 0) return;
+        QString path = fileModel.filePath(index);
         QFile::moveToTrash(path);
     }
 }
@@ -397,12 +451,14 @@ void DirForm::on_selectedFileChanged(const QItemSelection &selected, const QItem
 QString DirForm::getPastePath(){
     QString destPath = this->m_curDir;
     auto indexes = m_filesWidget->selectionModel()->selectedIndexes();
-    if(indexes.count() > 0){
-        destPath = m_filesWidget->model()->data(indexes.at(0),Qt::UserRole).toString();
+    for(auto &index:indexes){
+        if(index.column() != 0) continue;
+        destPath = fileModel.filePath(index);
         QFileInfo info(destPath);
         if(!info.isDir()){
             destPath = info.absoluteFilePath();
         }
+        break;
     }
     return destPath;
 }
@@ -411,17 +467,22 @@ void DirForm:: updatePasteAction(){
     const QMimeData * mime = QApplication::clipboard()->mimeData();
 
     QString pastePath = getPastePath();
+    int validCount =0;
     if(mime->hasUrls()){
         for(QUrl & url :mime->urls()){
+            if(!url.isValid()) continue;
             QString  srcPath = url.toLocalFile();
-            if(FileUtil::isParentOf(srcPath,pastePath)){
+            if(!srcPath.isEmpty() && FileUtil::isParentOf(srcPath,pastePath)){
                 ui->actionPasteSelect->setEnabled(false);
                 return;
+            }
+            else{
+                validCount ++;
             }
         }
 
     }
-    ui->actionPasteSelect->setEnabled(mime->hasUrls());
+    ui->actionPasteSelect->setEnabled(validCount > 0);
 }
 void DirForm::on_clipDataChanged()
 {

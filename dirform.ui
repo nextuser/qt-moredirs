@@ -364,9 +364,6 @@
    <property name="text">
     <string>拷贝</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+C</string>
-   </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>

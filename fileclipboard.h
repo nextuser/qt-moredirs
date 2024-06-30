@@ -9,7 +9,7 @@ class FileClipboard : public QObject
 {
     Q_OBJECT
 public:
-    explicit FileClipboard();
+    explicit FileClipboard(QObject *parent =nullptr);
 
 
 signals:

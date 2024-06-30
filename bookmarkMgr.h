@@ -8,7 +8,7 @@ class BookmarkMgr :public QObject
 {
     Q_OBJECT
 public:
-    explicit BookmarkMgr(int maxCount = 20);
+    explicit BookmarkMgr(QObject* parent = nullptr,int maxCount = 20);
 
     void addBookmark(QString filePath) ;
 

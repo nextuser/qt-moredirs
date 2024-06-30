@@ -8,6 +8,7 @@
 #include <QVBoxLayout>
 #include <QUrl>
 #include <QFileSystemWatcher>
+#include     <QFileSystemModel>
 namespace Ui {
 class DirForm;
 }
@@ -32,6 +33,7 @@ protected slots:
     void on_comboDirIndexChange(int index);
     void on_fileItemOpen(QListWidgetItem * item);
     void on_bookmarkSelected();
+
 private slots:
 
 
@@ -64,6 +66,7 @@ private slots:
     void on_actionOpenDir_triggered();
 
     void on_actionAdd_Bookmark_triggered();
+    void on_fileItemDblClicked(QModelIndex index);
 
 
 private:
@@ -74,6 +77,8 @@ private:
     void refreshView(QString dirPath);
     QString getPastePath();
     void updatePasteAction();
+    void initToolButtons();
+    QAbstractItemView * createTableView(QString dirPath,bool replaceView);
 
     QFileSystemWatcher m_fileWatcher;
 
@@ -86,6 +91,7 @@ private:
     QAbstractItemView *m_filesWidget;
     BookmarkMgr * m_bookmarkMgr;
     QList<QUrl> m_cutUrls;
+    QFileSystemModel fileModel;
 
 
 

@@ -4,8 +4,8 @@
 #include <QMimeData>
 #include <QApplication>
 #include "fileutil.h"
-FileClipboard::FileClipboard()
-    : QObject{nullptr}
+FileClipboard::FileClipboard(QObject *parent)
+    : QObject{parent}
 {
 
 
@@ -40,9 +40,18 @@ void FileClipboard::on_paste(QString destDir)
 {
     QList<QUrl> urls = QApplication::clipboard()->mimeData()->urls();
     bool isCut = false;
-    if(urls == m_cutUrls){
-        isCut = true;
+    bool eq = true;
+    if(urls.count() == m_cutUrls.count() ){
+        for(auto &e : m_cutUrls){
+            if(!urls.contains(e)){
+                eq = false;
+            }
+        }
     }
+    else{
+        eq = false;
+    }
+    isCut = eq;
     QFileInfo fileInfo(destDir);
     if(!fileInfo.exists() ){
         return;
@@ -53,7 +62,11 @@ void FileClipboard::on_paste(QString destDir)
     QString destPath = fileInfo.absoluteFilePath();
 
     for(auto &url : urls){
-        QFileInfo srcFile(url.toLocalFile());
+
+        QString srcUrl = url.toLocalFile();
+        if(srcUrl.isEmpty()) continue;
+        QFileInfo srcFile(srcUrl);
+
         QString srcFilePath = srcFile.absoluteFilePath();
         if(!srcFile.exists()){
             qDebug() << "file not exist in copy clipboard" << srcFilePath ;
