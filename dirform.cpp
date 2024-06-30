@@ -6,6 +6,8 @@
 #include <QListWidgetItem>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QMimeData>
+#include <QClipboard>
 #include "fileutil.h"
 DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr)
     : QWidget(parent)
@@ -36,23 +38,8 @@ int getItemHeight(){
     return 64;
 }
 
-QWidget * DirForm::createFileIconsView(QString dirPath,bool replaceView)
+void DirForm:: refreshView(QString dirPath)
 {
-    if(replaceView || m_filesWidget == nullptr){
-
-        if(m_filesWidget != nullptr){
-            layoutFileContent->removeWidget(m_filesWidget);
-            delete m_filesWidget;
-
-        }
-
-        m_filesWidget = new QListWidget(ui->frameContent);
-        connect((QListWidget*)m_filesWidget,&QListWidget::itemDoubleClicked,this,&DirForm::on_fileItemOpen);
-
-        layoutFileContent->addWidget(m_filesWidget);
-    }
-
-
     QListWidget *listWidget = (QListWidget*)m_filesWidget;
     listWidget->clear();
     QDir dir(dirPath);
@@ -76,10 +63,30 @@ QWidget * DirForm::createFileIconsView(QString dirPath,bool replaceView)
 
         listWidget->addItem(b);
     }
+}
+
+QAbstractItemView * DirForm::createFileIconsView(QString dirPath,bool replaceView)
+{
+    if(replaceView || m_filesWidget == nullptr){
+
+        if(m_filesWidget != nullptr){
+            layoutFileContent->removeWidget(m_filesWidget);
+            delete m_filesWidget;
+
+        }
+
+        m_filesWidget = new QListWidget(ui->frameContent);
+        connect((QListWidget*)m_filesWidget,&QListWidget::itemDoubleClicked,this,&DirForm::on_fileItemOpen);
+
+        layoutFileContent->addWidget(m_filesWidget);
+    }
+
+    refreshView(dirPath);
 
 
 
-    return listWidget;
+
+    return m_filesWidget;
 }
 
 // QWidget *DirForm::createSmallsIconsView(QString dirPath)
@@ -134,6 +141,35 @@ QWidget * DirForm::createFileIconsView(QString dirPath,bool replaceView)
 //     return frame;
 // }
 
+void DirForm::addFileComboItems(QString dirPath)
+{
+    int itemCount = ui->comboBoxDir->count();
+    for(int i = itemCount -1 ; i >= 0; --i){
+        ui->comboBoxDir->removeItem(i);
+    }
+    ////disconnect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
+    m_combModifying = true;
+    ui->comboBoxDir->clear();
+    QList<NameUrl> paths = FileUtil::generatePathUrls(dirPath);
+    for(auto nu : paths){
+        ui->comboBoxDir->addItem(nu.first,nu.second);
+    }
+
+    //connect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
+    m_combModifying = false;
+}
+
+bool DirForm::isFileComboContains(QString filePath)
+{
+    int count = ui->comboBoxDir->count();
+    for(int i = 0 ;  i < count ;++ i )
+    {
+        if(ui->comboBoxDir->itemData(i).toString() == filePath)
+            return true;
+    }
+    return false;
+}
+
 bool DirForm::loadDir(QString filePath,bool replaceView ,bool changeComboItem )
 {
 
@@ -146,22 +182,14 @@ bool DirForm::loadDir(QString filePath,bool replaceView ,bool changeComboItem )
 
     if(changeComboItem)
     {
-        int itemCount = ui->comboBoxDir->count();
-        for(int i = itemCount -1 ; i >= 0; --i){
-            ui->comboBoxDir->removeItem(i);
+        if(!isFileComboContains(dirPath)){
+            addFileComboItems(dirPath);
         }
-        ////disconnect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
-        m_combModifying = true;
-        ui->comboBoxDir->clear();
-        QList<NameUrl> paths = FileUtil::generatePathUrls(dirPath);
-        for(auto nu : paths){
-            ui->comboBoxDir->addItem(nu.first,nu.second);
-        }
-
-        //connect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
-        m_combModifying = false;
         ui->comboBoxDir->setCurrentText(dir.dirName());
+
     }
+
+
 
     ui->toolButtonBookMarkList->setPopupMode(QToolButton::MenuButtonPopup);
 
@@ -250,10 +278,100 @@ void DirForm:: updateBookmarks(){
     }
     ui->toolButtonBookMarkList->setMenu(menu);
 }
+
+#include <QClipboard>
 void DirForm::on_addBookmark_clicked()
 {
     m_bookmarkMgr->addBookmark(this->m_curDir);
     updateBookmarks();
 
 }
+
+
+QList<QUrl> DirForm::copyToClipboard(){
+    QClipboard *clip = QApplication::clipboard();
+    auto indexes = m_filesWidget->selectionModel()->selectedIndexes();
+    QList<QUrl> urls;
+    QString text;
+    for(auto &index :indexes){
+        QString path = m_filesWidget->model()->data(index,Qt::UserRole).toString();
+        urls.append(QUrl::fromLocalFile(path));
+        text += (path) + "\n";
+    }
+
+    QMimeData *mime = new QMimeData();
+    mime->setUrls(urls);
+    mime->setText(text);
+    clip->setMimeData(mime);
+    return urls;
+}
+
+
+void DirForm::on_toolButtonCut_clicked()
+{
+    this->m_cutUrls = copyToClipboard();
+
+}
+
+
+
+void DirForm::on_toolButtonCopy_clicked()
+{
+    copyToClipboard();
+
+}
+
+bool isParentOf(QString leftPath,QString rightPath){
+    QFileInfo left(leftPath);
+    QString leftStr = left.absoluteFilePath() + "/";
+    QFileInfo right(rightPath);
+    QString rightStr = right.absoluteFilePath() + "/";
+    return rightStr.contains(leftStr) && (rightStr != leftStr);
+}
+
+
+void DirForm::on_toolButtonPaste_clicked()
+{
+    QList<QUrl> urls = QApplication::clipboard()->mimeData()->urls();
+    bool isCut = false;
+    if(urls == m_cutUrls){
+        isCut = true;
+    }
+    QFileInfo fileInfo(m_curDir);
+    if(!fileInfo.exists() ||  !fileInfo.isDir()){
+        return;
+    }
+    QString destPath = fileInfo.absoluteFilePath();
+
+    for(auto &url : urls){
+        QFileInfo srcFile(url.toLocalFile());
+        QString srcFilePath = srcFile.absoluteFilePath();
+        if(!srcFile.exists()){
+            qDebug() << "file not exist in copy clipboard" << srcFilePath ;
+            continue;
+        }
+        QString destFilePath = destPath + "/" + srcFile.fileName();
+        QFileInfo destFile(destFilePath);
+
+        if(isParentOf(srcFilePath,destFilePath)){
+            qDebug() << "src is parent of  dest";
+            continue;
+        }
+        if(destFile.exists()) {
+            qDebug()<< "file exits!" << destFile.absoluteFilePath();
+            continue;
+        }
+        if(isCut){
+            QFile::rename(srcFilePath,destFilePath);
+        }
+        else{
+            QFile::copy(srcFilePath,destFilePath);
+        }
+    }
+
+    refreshView(this->m_curDir);
+
+}
+
+
 

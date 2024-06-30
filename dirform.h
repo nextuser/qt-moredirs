@@ -6,6 +6,7 @@
 #include "thistory.h"
 #include "bookmarkMgr.h"
 #include <QVBoxLayout>
+#include <QUrl>
 namespace Ui {
 class DirForm;
 }
@@ -33,21 +34,33 @@ private slots:
 
 
 
-    QWidget *createFileIconsView(QString dirPath,bool replaceView);
+    QAbstractItemView *createFileIconsView(QString dirPath,bool replaceView);
     // QWidget *createSmallsIconsView(QString dirPath);
 
-    void on_addBookmark_clicked();
+    void on_addBookmark_clicked();  
+
+    void on_toolButtonCut_clicked();
+
+    void on_toolButtonCopy_clicked();
+
+    void on_toolButtonPaste_clicked();
 
 private:
     void updateBookmarks();
+    void addFileComboItems(QString dirPath);
+    bool isFileComboContains(QString filePath);
+    QList<QUrl> copyToClipboard();
+    void refreshView(QString dirPath);
+
     Ui::DirForm *ui;
     QString m_curDir ;
     THistory m_history;
     bool m_combModifying;
     void updateButtonState();
     QVBoxLayout *layoutFileContent;
-    QWidget *m_filesWidget;
+    QAbstractItemView *m_filesWidget;
     BookmarkMgr * m_bookmarkMgr;
+    QList<QUrl> m_cutUrls;
 
 };
 

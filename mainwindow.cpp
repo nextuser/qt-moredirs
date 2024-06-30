@@ -11,16 +11,10 @@ MainWindow::MainWindow(QWidget *parent)
     this->setCentralWidget(ui->mdiArea);
     ui->mdiArea->setViewMode(QMdiArea::ViewMode::SubWindowView);
     int subCount = 4;
-    DirForm *form ;
+    // DirForm *form ;
 
 
     for(int i = 0; i < subCount ; ++ i){
-        // TSubWindow *w = new TSubWindow(this,this);
-
-        // form = new CreateForm(this);
-        // w->setWidget(form);
-
-        // ui->mdiArea->addSubWindow(w);
         addSubWin();
     }
 
@@ -46,12 +40,6 @@ QMenu *MainWindow::createTitleMenu(QWidget *target)
 
 void MainWindow::on_actionSwitch_View_triggered(bool isTabbed)
 {
-    // ui->mdiArea->setViewMode(bTab? QMdiArea::TabbedView : QMdiArea::SubWindowView);
-    // if(bTab){
-    //     ui->mdiArea->setTabsClosable(true);
-    //     ui->mdiArea->setTabsMovable(true);
-    // }
-
     if (isTabbed) {//Tab多页显示模式
         ui->mdiArea->setViewMode(QMdiArea::TabbedView); //Tab多页显示模式
         ui->mdiArea->setTabsClosable(true);
@@ -78,19 +66,8 @@ DirForm* MainWindow::addSubWin()
     DirForm    *formDoc = createForm(subWin);
     subWin->setWidget(formDoc);
     ui->mdiArea->addSubWindow(subWin);
-    // DirForm * formDoc = createForm(this);
-    ////ui->mdiArea->addSubWindow(formDoc);
+
     return formDoc;
-
-    // for(int i = 0; i < subCount ; ++ i){
-    //     TSubWindow *w = new TSubWindow(this,this);
-
-    //     form = new CreateForm(this);
-    //     w->setWidget(form);
-
-    //     ui->mdiArea->addSubWindow(w);
-    // }
-
 }
 
 
