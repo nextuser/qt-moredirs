@@ -33,6 +33,7 @@ public:
     static void  defaultOpen(QString filepaths);
     static QList<NameUrl> generatePathUrls(QString filePath);
     static QString generateFileLink(QString filePath);
+    static bool isParentOf(QString leftPath,QString rightPath);
 
 };
 

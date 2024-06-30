@@ -172,6 +172,7 @@
         <file>icons/upfold2.bmp</file>
         <file>icons/viewfile.png</file>
         <file>icons/viewprop.png</file>
+        <file>icons/moredirs-48.png</file>
     </qresource>
     <qresource prefix="/">
         <file>icons/icons8-filter-24.png</file>

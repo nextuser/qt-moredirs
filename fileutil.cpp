@@ -8,6 +8,13 @@
 #include <QFileInfo>
 const QString FileUtil::TIME_FORMAT = "yyyy-MM-dd hh:mm:ss";
 
+bool FileUtil::isParentOf(QString leftPath,QString rightPath){
+    QFileInfo left(leftPath);
+    QString leftStr = left.absoluteFilePath() + "/";
+    QFileInfo right(rightPath);
+    QString rightStr = right.absoluteFilePath() + "/";
+    return rightStr.contains(leftStr) ;
+};
 EncodingFormat FileUtil::FileCharacterEncoding(const QString &fileName)
 {
     //假定默认编码utf8

@@ -3,6 +3,7 @@
 #include <QFileInfo>
 #include <QMimeData>
 #include <QApplication>
+#include "fileutil.h"
 FileClipboard::FileClipboard(QObject *parent)
     : QObject{parent}
 {
@@ -32,13 +33,7 @@ void FileClipboard::on_cutUrls(const QList<QUrl> urls,QString text)
     doCopyUrls(urls,text,true);
 }
 
-bool isParentOf(QString leftPath,QString rightPath){
-    QFileInfo left(leftPath);
-    QString leftStr = left.absoluteFilePath() + "/";
-    QFileInfo right(rightPath);
-    QString rightStr = right.absoluteFilePath() + "/";
-    return rightStr.contains(leftStr) && (rightStr != leftStr);
-}
+
 
 
 void FileClipboard::on_paste(QString destDir)
@@ -49,8 +44,11 @@ void FileClipboard::on_paste(QString destDir)
         isCut = true;
     }
     QFileInfo fileInfo(destDir);
-    if(!fileInfo.exists() ||  !fileInfo.isDir()){
+    if(!fileInfo.exists() ){
         return;
+    }
+    if(!fileInfo.isDir()){
+        destDir = fileInfo.absolutePath();
     }
     QString destPath = fileInfo.absoluteFilePath();
 
@@ -64,7 +62,7 @@ void FileClipboard::on_paste(QString destDir)
         QString destFilePath = destPath + "/" + srcFile.fileName();
         QFileInfo destFile(destFilePath);
 
-        if(isParentOf(srcFilePath,destFilePath)){
+        if(FileUtil::isParentOf(srcFilePath,destFilePath)){
             qDebug() << "src is parent of  dest";
             continue;
         }

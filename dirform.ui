@@ -47,7 +47,7 @@
          <string>...</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="res.qrc">
           <normaloff>:/new/icons/icons/310.bmp</normaloff>
           <disabledoff>:/new/icons/icons/311.bmp</disabledoff>:/new/icons/icons/310.bmp</iconset>
         </property>
@@ -65,7 +65,7 @@
          <string>...</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="res.qrc">
           <normaloff>:/new/icons/icons/312.bmp</normaloff>
           <disabledoff>:/new/icons/icons/313.bmp</disabledoff>:/new/icons/icons/312.bmp</iconset>
         </property>
@@ -83,7 +83,7 @@
          <string>...</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="res.qrc">
           <normaloff>:/new/icons/icons/320.bmp</normaloff>
           <disabledoff>:/new/icons/icons/321.bmp</disabledoff>:/new/icons/icons/320.bmp</iconset>
         </property>
@@ -101,7 +101,7 @@
          <string>...</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="res.qrc">
           <normaloff>:/new/icons/icons/addfolder2.png</normaloff>:/new/icons/icons/addfolder2.png</iconset>
         </property>
         <property name="iconSize">
@@ -121,7 +121,7 @@
          <string>...</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="res.qrc">
           <normaloff>:/new/icons/icons/open3.bmp</normaloff>
           <disabledoff>:/new/icons/icons/open4.bmp</disabledoff>:/new/icons/icons/open3.bmp</iconset>
         </property>
@@ -139,7 +139,7 @@
          <string>...</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="res.qrc">
           <normaloff>:/new/icons/icons/addbook.png</normaloff>:/new/icons/icons/addbook.png</iconset>
         </property>
         <property name="iconSize">
@@ -156,7 +156,7 @@
          <string>...</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="res.qrc">
           <normaloff>:/new/icons/icons/favourlist.png</normaloff>:/new/icons/icons/favourlist.png</iconset>
         </property>
         <property name="iconSize">
@@ -201,7 +201,7 @@
          <string>...</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="res.qrc">
           <normaloff>:/new/icons/icons/cut.bmp</normaloff>
           <disabledoff>:/new/icons/icons/cut2.bmp</disabledoff>:/new/icons/icons/cut.bmp</iconset>
         </property>
@@ -257,7 +257,7 @@
          <string>...</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="res.qrc">
           <normaloff>:/new/icons/icons/delete1.bmp</normaloff>
           <disabledoff>:/new/icons/icons/325.bmp</disabledoff>:/new/icons/icons/delete1.bmp</iconset>
         </property>
@@ -275,7 +275,7 @@
          <string>...</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="res.qrc">
           <normaloff>:/new/icons/icons/preview1.bmp</normaloff>
           <disabledoff>:/new/icons/icons/preview2.bmp</disabledoff>:/new/icons/icons/preview1.bmp</iconset>
         </property>
@@ -294,8 +294,9 @@
   </layout>
   <action name="actionPrev">
    <property name="icon">
-    <iconset>
-     <normaloff>:/new/icons/icons/310.bmp</normaloff>:/new/icons/icons/310.bmp</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/icons/icons/310.bmp</normaloff>
+     <disabledoff>:/new/icons/icons/311.bmp</disabledoff>:/new/icons/icons/310.bmp</iconset>
    </property>
    <property name="text">
     <string>Prev</string>
@@ -306,7 +307,7 @@
   </action>
   <action name="actionNext">
    <property name="icon">
-    <iconset>
+    <iconset resource="res.qrc">
      <normaloff>:/new/icons/icons/312.bmp</normaloff>
      <disabledoff>:/new/icons/icons/313.bmp</disabledoff>:/new/icons/icons/312.bmp</iconset>
    </property>
@@ -319,8 +320,9 @@
   </action>
   <action name="actionUP">
    <property name="icon">
-    <iconset>
-     <normaloff>:/new/icons/icons/320.bmp</normaloff>:/new/icons/icons/320.bmp</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/icons/icons/320.bmp</normaloff>
+     <disabledon>:/new/icons/icons/321.bmp</disabledon>:/new/icons/icons/320.bmp</iconset>
    </property>
    <property name="text">
     <string>UP</string>
@@ -331,7 +333,7 @@
   </action>
   <action name="actionAdd_Bookmark">
    <property name="icon">
-    <iconset>
+    <iconset resource="res.qrc">
      <normaloff>:/new/icons/icons/addfavour.png</normaloff>:/new/icons/icons/addfavour.png</iconset>
    </property>
    <property name="text">
@@ -343,7 +345,7 @@
   </action>
   <action name="actionBookmarkList">
    <property name="icon">
-    <iconset>
+    <iconset resource="res.qrc">
      <normaloff>:/new/icons/icons/favourlist.png</normaloff>:/new/icons/icons/favourlist.png</iconset>
    </property>
    <property name="text">
@@ -353,7 +355,72 @@
     <enum>QAction::NoRole</enum>
    </property>
   </action>
+  <action name="actionCopySelect">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/new/icons/icons/copy.bmp</normaloff>
+     <disabledoff>:/new/icons/icons/copy2.bmp</disabledoff>:/new/icons/icons/copy.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>拷贝</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionCutSelect">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/new/icons/icons/cut.bmp</normaloff>
+     <disabledoff>:/new/icons/icons/cut2.bmp</disabledoff>:/new/icons/icons/cut.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>剪切</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionPasteSelect">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/new/icons/icons/paste.bmp</normaloff>
+     <disabledoff>:/new/icons/icons/paste2.bmp</disabledoff>:/new/icons/icons/paste.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>粘贴</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionMoveToTrash">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/new/icons/icons/trash2.png</normaloff>:/new/icons/icons/trash2.png</iconset>
+   </property>
+   <property name="text">
+    <string>删除</string>
+   </property>
+   <property name="toolTip">
+    <string>移动到回收站</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>
