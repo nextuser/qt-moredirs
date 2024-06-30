@@ -5,6 +5,7 @@
 #include <QUrl>
 #include "bookmarkMgr.h"
 #include "fileclipboard.h"
+#include <QSettings>
 class TFormDoc;
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -40,6 +41,11 @@ private:
     BookmarkMgr m_bookmarkMgr;
     void doCopyUrls(const QList<QUrl> &urls,QString text,bool isCut);
     FileClipboard m_clip;
+    QSettings *m_settings;
+
+    // QWidget interface
+protected:
+    void closeEvent(QCloseEvent *event);
 
 };
 #endif // MAINWINDOW_H

@@ -14,14 +14,16 @@ MainWindow::MainWindow(QWidget *parent)
     ui->mdiArea->setViewMode(QMdiArea::ViewMode::SubWindowView);
     int subCount = 4;
     // DirForm *form ;
+    m_settings = new QSettings(QSettings::Format::IniFormat,QSettings::Scope::UserScope,"ljlhome","moredirs",this);
 
-
+    m_bookmarkMgr.loadSettings(m_settings);
     for(int i = 0; i < subCount ; ++ i){
         addSubWin();
     }
 
 
     ui->mdiArea->tileSubWindows();
+
 }
 
 MainWindow::~MainWindow()
@@ -57,7 +59,7 @@ DirForm * MainWindow::createForm(QWidget *parent){
     connect(doc,&DirForm::copyUrlsToClip,&m_clip,&FileClipboard::on_copyUrls);
     connect(doc,&DirForm::cutUrlsToClip,&m_clip,&FileClipboard::on_cutUrls);
     connect(doc,&DirForm::pasteFromClip,&m_clip,&FileClipboard::on_paste);
-
+    connect(&m_bookmarkMgr,&BookmarkMgr::bookmarkChanged,doc,&DirForm::updateBookmarks);
     return doc;
 }
 
@@ -90,6 +92,12 @@ void MainWindow::on_actionTileWindow_triggered()
 void MainWindow::on_actionSwitch_View_triggered()
 {
 
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    m_bookmarkMgr.saveSettings(m_settings);
+    QMainWindow::closeEvent(event);
 }
 
 

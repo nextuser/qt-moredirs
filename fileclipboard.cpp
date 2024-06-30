@@ -4,8 +4,8 @@
 #include <QMimeData>
 #include <QApplication>
 #include "fileutil.h"
-FileClipboard::FileClipboard(QObject *parent)
-    : QObject{parent}
+FileClipboard::FileClipboard()
+    : QObject{nullptr}
 {
 
 

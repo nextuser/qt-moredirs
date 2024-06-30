@@ -8,6 +8,7 @@
 #include <QUrl>
 #include <QMimeData>
 #include <QClipboard>
+#include <QFileDialog>
 #include "fileutil.h"
 DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr)
     : QWidget(parent)
@@ -28,16 +29,17 @@ DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr)
     ui->toolButtonCopy->setDefaultAction(ui->actionCopySelect);
     ui->toolButtonDel->setDefaultAction(ui->actionMoveToTrash);
     ui->toolButtonPaste->setDefaultAction(ui->actionPasteSelect);
+    ui->toolButtonBookMarkList->setDefaultAction(ui->actionBookmarkList);
+    ui->toolButtonAddBookmark->setDefaultAction(ui->actionAdd_Bookmark);
+    ui->toolButtonBrowse->setDefaultAction(ui->actionOpenDir);
+
 
 
     loadDir(QDir::homePath(),replaceView,comboItemChanged);
     m_history.addItem(m_curDir);
     connect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
     connect(&m_fileWatcher, &QFileSystemWatcher::directoryChanged,this, &DirForm::on_dirChange);
-
     connect(QApplication::clipboard(),&QClipboard::dataChanged ,this , &DirForm::on_clipDataChanged);
-
-
     updateBookmarks();
 }
 
@@ -57,9 +59,16 @@ int getItemHeight(){
 void DirForm:: refreshView(QString dirPath)
 {
     QListWidget *listWidget = (QListWidget*)m_filesWidget;
+    listWidget->setIconSize(QSize(48,48));
     listWidget->clear();
-    QDir dir(dirPath);
+    listWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    listWidget->setViewMode(QListView::IconMode);
+    listWidget->setGridSize(QSize(64,64));
+    listWidget->setResizeMode(QListView::Adjust);
+    listWidget->setMovement(QListView::Static);
+
     QFileIconProvider provider ;
+    QDir dir(dirPath);
 
     QFileInfoList list = dir.entryInfoList(QDir::NoDotAndDotDot|QDir::Files|QDir::Dirs);
     int count = list.size();
@@ -90,7 +99,6 @@ QAbstractItemView * DirForm::createFileIconsView(QString dirPath,bool replaceVie
         if(m_filesWidget != nullptr){
             layoutFileContent->removeWidget(m_filesWidget);
             delete m_filesWidget;
-
         }
 
         QListWidget *w = new QListWidget(ui->frameContent);
@@ -98,9 +106,7 @@ QAbstractItemView * DirForm::createFileIconsView(QString dirPath,bool replaceVie
         layoutFileContent->addWidget(m_filesWidget);
         ///m_filesWidget->setContextMenuPolicy(Qt::CustomContextMenu);
         connect(w,&QListWidget::itemDoubleClicked,this,&DirForm::on_fileItemOpen);
-
         connect(w->selectionModel(),&QItemSelectionModel::selectionChanged,this,&DirForm::on_selectedFileChanged);
-
     }
 
     refreshView(dirPath);
@@ -209,7 +215,6 @@ bool DirForm::loadDir(QString filePath,bool replaceView ,bool changeComboItem )
             addFileComboItems(dirPath);
         }
         ui->comboBoxDir->setCurrentText(dir.dirName());
-
     }
     ui->toolButtonBookMarkList->setPopupMode(QToolButton::MenuButtonPopup);
     createFileIconsView(dirPath,replaceView);
@@ -379,12 +384,7 @@ void DirForm::on_toolButtonNew_triggered(QAction *arg1)
 }
 
 
-void DirForm::on_addBookmark_triggered(QAction *arg1)
-{
-    Q_UNUSED(arg1);
-    m_bookmarkMgr->addBookmark(this->m_curDir);
-    updateBookmarks();
-}
+
 
 void DirForm::on_selectedFileChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
@@ -427,4 +427,26 @@ void DirForm::on_clipDataChanged()
 {
     updatePasteAction();
 }
+
+
+void DirForm::on_actionOpenDir_triggered()
+{
+    QString filePath = QFileDialog::getExistingDirectory(this,"打开目录","选择目录打开");
+    if(!filePath.isEmpty()){
+        loadDir(filePath,false,true);
+        m_history.addItem(filePath);
+    }
+
+}
+
+#include <QFileDialog>
+
+void DirForm::on_actionAdd_Bookmark_triggered()
+{
+
+    m_bookmarkMgr->addBookmark(this->m_curDir);
+    ///updateBookmarks();
+}
+
+
 

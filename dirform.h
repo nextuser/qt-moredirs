@@ -25,6 +25,8 @@ Q_SIGNALS:
     void copyUrlsToClip(QList<QUrl> urls,QString text);
     void cutUrlsToClip(QList<QUrl> urls,QString text);
     void pasteFromClip(QString destDir);
+public slots:
+    void updateBookmarks();
 protected slots:
 
     void on_comboDirIndexChange(int index);
@@ -56,11 +58,16 @@ private slots:
 
     void on_toolButtonNew_triggered(QAction *arg1);
 
-    void on_addBookmark_triggered(QAction *arg1);
+
     void on_selectedFileChanged(const QItemSelection &selected, const QItemSelection &deselected) ;
     void on_clipDataChanged();
+    void on_actionOpenDir_triggered();
+
+    void on_actionAdd_Bookmark_triggered();
+
+
 private:
-    void updateBookmarks();
+
     void addFileComboItems(QString dirPath);
     bool isFileComboContains(QString filePath);
     void copyToClipboard(bool isCut = false);

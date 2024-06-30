@@ -134,7 +134,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QToolButton" name="addBookmark">
+       <widget class="QToolButton" name="toolButtonAddBookmark">
         <property name="text">
          <string>...</string>
         </property>
@@ -413,6 +413,22 @@
    </property>
    <property name="toolTip">
     <string>移动到回收站</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionOpenDir">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/new/icons/icons/open3.bmp</normaloff>
+     <disabledoff>:/new/icons/icons/open4.bmp</disabledoff>:/new/icons/icons/open3.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>打开</string>
+   </property>
+   <property name="toolTip">
+    <string>打开目录</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
