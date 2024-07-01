@@ -11,9 +11,11 @@
 #include <QFileDialog>
 #include <QMenu>
 #include "fileutil.h"
-DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr)
+#include <QSettings>
+
+DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr,int index)
     : QWidget(parent)
-    , ui(new Ui::DirForm),m_combModifying(false),m_bookmarkMgr(bookMgr)
+    , ui(new Ui::DirForm),m_combModifying(false),m_bookmarkMgr(bookMgr),m_index(index)
 {
     ui->setupUi(this);
 
@@ -21,10 +23,7 @@ DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr)
     layoutFileContent = new QVBoxLayout(ui->frameContent);
     layoutFileContent->setObjectName("verticalLayout_content");
     layoutFileContent->setContentsMargins(0, 0, 0, 0);
-
-
     initToolButtons();
-
     initViewMenu();
     bool comboItemChanged = true;
     loadDir(QDir::homePath(),comboItemChanged);
@@ -49,6 +48,7 @@ void DirForm::initViewMenu(){
         QAbstractItemView * w = m_views[i];
         w->setModel(&m_fileModel);
         w->setSelectionMode(QAbstractItemView::ExtendedSelection);
+        w->setSelectionBehavior(QAbstractItemView::SelectRows);
         connect(w->selectionModel(),&QItemSelectionModel::selectionChanged,this,&DirForm::on_selectedFileChanged);
         connect(w,SIGNAL(doubleClicked(QModelIndex)),
                 this,SLOT(on_fileItemDblClicked(QModelIndex)));
@@ -59,6 +59,15 @@ void DirForm::initViewMenu(){
     ui->listView->setMovement(QListView::Static);
 
     ui->tableView->verticalHeader()->setVisible(false);
+    ui->tableView->clearSpans();
+    ui->tableView->setSortingEnabled(true);
+    ////ui->tableView->horizontalHeader()->set
+    auto font = ui->tableView->font();
+    qDebug()<< "fontsize=" << font.pointSize() << " pixel size" << font.pixelSize();
+    font.setPointSize(9);
+    qDebug()<< "fontsize=" << font.pointSize() << " pixel size" << font.pixelSize();
+    ui->tableView->setFont(font);
+
 
     QMenu *menu = new QMenu(this);
     menu->addAction(ui->actionViewLargeIcon);
@@ -70,6 +79,13 @@ void DirForm::initViewMenu(){
     ui->toolButtonSwitchView->setMenu(menu);
 
     switchViewType(ViewType_DetailList);
+}
+
+#include <QCloseEvent>
+void DirForm::closeEvent(QCloseEvent *event)
+{
+
+    QWidget::closeEvent(event);
 }
 void DirForm::initToolButtons(){
     ui->toolButtonPrev->setDefaultAction(ui->actionPrev);
@@ -83,7 +99,27 @@ void DirForm::initToolButtons(){
     ui->toolButtonAddBookmark->setDefaultAction(ui->actionAdd_Bookmark);
     ui->toolButtonBrowse->setDefaultAction(ui->actionOpenDir);
     ui->toolButtonBookMarkList->setPopupMode(QToolButton::MenuButtonPopup);
+    ui->toolButtonNew->setDefaultAction(ui->actionNew_Folder);
 }
+
+QList<QVariant> DirForm::getHeaderLens()
+{
+    QList<QVariant> list;
+    for(int i = 0; i < ui->tableView->horizontalHeader()->count(); ++ i)
+    {
+        list.append(ui->tableView->columnWidth(i));
+    }
+    return list;
+}
+
+void DirForm::updateHeaderLens(QList<QVariant> headerLens)
+{
+    for(int i = 0; i < headerLens.length() && i < ui->tableView->horizontalHeader()->count(); ++ i)
+    {
+        ui->tableView->setColumnWidth(i,headerLens[i].toInt());
+    }
+}
+
 
 DirForm::~DirForm()
 {
@@ -475,17 +511,20 @@ void DirForm::switchViewType(ViewType viewTable)
             index = ViewIndexList;
             m_iconSize = 16;
             setListView(ui->listView,m_iconSize);
+            ui->listView->setViewMode(QListView::ListMode);
             break;
 
         case ViewType_MiddleIcon:
             index = ViewIndexList;
             m_iconSize = 32;
             setListView(ui->listView,m_iconSize);
+            ui->listView->setViewMode(QListView::IconMode);
             break;
         case ViewType_LargIcon:
             index = ViewIndexList;
             m_iconSize = 64;
             setListView(ui->listView,m_iconSize);
+            ui->listView->setViewMode(QListView::IconMode);
             break;
         case ViewType_DetailList:
 
@@ -610,5 +649,30 @@ void DirForm::on_actionViewSmallIcon_triggered()
 void DirForm::on_actionViewDetailTable_triggered()
 {
     switchViewType(ViewType_DetailList);
+}
+
+
+
+#include <QInputDialog>
+#include <QMessageBox>
+void DirForm::on_actionNew_Folder_triggered()
+{
+    QString fileName = QInputDialog::getText(this,"新建文件夹","请输入文件夹名");
+    QString path = getTargetPath();
+    QString newName = path + "/" + fileName;
+    if(QFileInfo(newName).exists()){
+        QMessageBox::information(this,"错误","文件已存在");
+        return;
+    }
+    if(!QDir(path).mkdir(newName)){
+        QMessageBox::information(this,"错误","重建文件夹失败");
+            return;
+    }
+    else{
+        QModelIndex index = m_fileModel.index(newName);
+        m_curItemView->scrollTo(index);
+
+    }
+
 }
 

@@ -15,15 +15,31 @@ MainWindow::MainWindow(QWidget *parent)
     int subCount = 4;
     // DirForm *form ;
     m_settings = new QSettings(QSettings::Format::IniFormat,QSettings::Scope::UserScope,"ljlhome","moredirs",this);
-
     m_bookmarkMgr.loadSettings(m_settings);
     for(int i = 0; i < subCount ; ++ i){
-        addSubWin();
+        addSubWin(i);
+    }
+    ui->mdiArea->tileSubWindows();
+    loadSettings();
+}
+
+const QString KEY_COLUMN_HEADERS = "ColumnHeaders_%1";
+void MainWindow::loadSettings(){
+    ///QSettings settings(QSettings::Format::IniFormat,QSettings::Scope::UserScope,"ljlhome","moredirs",this);
+    for(auto &form : formList){
+        QList<QVariant> lens = m_settings->value(QString(KEY_COLUMN_HEADERS).arg(form->index())).toList();
+        form->updateHeaderLens(lens);
     }
 
+}
 
-    ui->mdiArea->tileSubWindows();
+void MainWindow::saveSettings(){
+    ///QSettings settings(QSettings::Format::IniFormat,QSettings::Scope::UserScope,"ljlhome","moredirs",this);
+    QList<QVariant> list;
+    for(DirForm * form : formList){
 
+        m_settings->setValue(QString(KEY_COLUMN_HEADERS).arg(form->index()),form->getHeaderLens());
+    }
 
 
 }
@@ -56,8 +72,8 @@ void MainWindow::on_actionSwitch_View_triggered(bool isTabbed)
     }
 }
 
-DirForm * MainWindow::createForm(QWidget *parent){
-    DirForm *doc = new DirForm(parent,&this->m_bookmarkMgr);   //指定父窗口，必须在父窗口为Widget窗口提供一个显示区域;
+DirForm * MainWindow::createForm(QWidget *parent,int index){
+    DirForm *doc = new DirForm(parent,&this->m_bookmarkMgr,index);   //指定父窗口，必须在父窗口为Widget窗口提供一个显示区域;
     connect(doc,&DirForm::copyUrlsToClip,&m_clip,&FileClipboard::on_copyUrls);
     connect(doc,&DirForm::cutUrlsToClip,&m_clip,&FileClipboard::on_cutUrls);
     connect(doc,&DirForm::pasteFromClip,&m_clip,&FileClipboard::on_paste);
@@ -65,11 +81,13 @@ DirForm * MainWindow::createForm(QWidget *parent){
     return doc;
 }
 
-DirForm* MainWindow::addSubWin()
+DirForm* MainWindow::addSubWin(int index)
 {
 
     TSubWindow *subWin = new TSubWindow(ui->mdiArea,this);
-    DirForm    *formDoc = createForm(subWin);
+    DirForm    *formDoc = createForm(subWin,index);
+    this->formList.append(formDoc);
+
     subWin->setWidget(formDoc);
     ui->mdiArea->addSubWindow(subWin);
 
@@ -100,6 +118,7 @@ void MainWindow::on_actionSwitch_View_triggered()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     m_bookmarkMgr.saveSettings(m_settings);
+    saveSettings();
     QMainWindow::closeEvent(event);
 }
 

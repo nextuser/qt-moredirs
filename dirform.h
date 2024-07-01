@@ -18,9 +18,12 @@ class DirForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit DirForm(QWidget *parent ,BookmarkMgr * bookmarkMgr);
+    explicit DirForm(QWidget *parent ,BookmarkMgr * bookmarkMgr,int index);
     ~DirForm();
     bool loadDir(QString filePath,bool changeCombItem=false);
+    QList<QVariant> getHeaderLens();
+    inline int index(){ return m_index;}
+    void updateHeaderLens(QList<QVariant> headerLens );
 
 Q_SIGNALS:
     void copyUrlsToClip(QList<QUrl> urls,QString text);
@@ -28,11 +31,13 @@ Q_SIGNALS:
     void pasteFromClip(QString destDir);
 public slots:
     void updateBookmarks();
+
 protected slots:
 
     void on_comboDirIndexChange(int index);
     void on_fileItemOpen(QListWidgetItem * item);
     void on_bookmarkSelected();
+
 
 private slots:
 
@@ -76,6 +81,9 @@ private slots:
 
     void on_actionViewDetailTable_triggered();
 
+
+    void on_actionNew_Folder_triggered();
+
 private:
     enum ViewIndex{
         ViewIndexTable = 0,
@@ -101,6 +109,8 @@ private:
     QString getTargetPath();
     void updatePasteAction();
     void initToolButtons();
+
+
     QAbstractItemView * createTableView(QString dirPath,bool replaceView);
 
     QFileSystemWatcher m_fileWatcher;
@@ -116,6 +126,7 @@ private:
     QFileSystemModel m_fileModel;
     QAbstractItemView *m_curItemView;
     int m_iconSize;
+    int m_index;
 
     void switchViewType(ViewType viewTable);
 
@@ -126,6 +137,10 @@ private:
 
 
 
+
+    // QWidget interface
+protected:
+    void closeEvent(QCloseEvent *event);
 };
 
 #endif // DIRFORM_H

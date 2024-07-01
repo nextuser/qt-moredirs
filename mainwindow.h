@@ -26,8 +26,8 @@ public:
 
 private slots:
     void on_actionSwitch_View_triggered(bool bTab);
-    DirForm* addSubWin();
-    DirForm * createForm(QWidget* form);
+    DirForm* addSubWin(int index);
+    DirForm * createForm(QWidget* form,int index);
     void on_actionCascade_triggered();
 
     void on_actionTileWindow_triggered();
@@ -38,8 +38,12 @@ private:
     BookmarkMgr m_bookmarkMgr;
     void doCopyUrls(const QList<QUrl> &urls,QString text,bool isCut);
     FileClipboard m_clip;
+    QList<DirForm*> formList;
     QSettings *m_settings;
     int m_curIndex = 0;
+
+    void loadSettings();
+    void saveSettings();
 
     // QWidget interface
 protected:
