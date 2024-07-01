@@ -9,10 +9,11 @@
 #include <QMimeData>
 #include <QClipboard>
 #include <QFileDialog>
+#include <QMenu>
 #include "fileutil.h"
 DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr)
     : QWidget(parent)
-    , ui(new Ui::DirForm),m_combModifying(false),m_filesWidget(nullptr),m_bookmarkMgr(bookMgr)
+    , ui(new Ui::DirForm),m_combModifying(false),m_bookmarkMgr(bookMgr)
 {
     ui->setupUi(this);
 
@@ -20,21 +21,56 @@ DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr)
     layoutFileContent = new QVBoxLayout(ui->frameContent);
     layoutFileContent->setObjectName("verticalLayout_content");
     layoutFileContent->setContentsMargins(0, 0, 0, 0);
-    bool replaceView = true, comboItemChanged = true;
+
 
     initToolButtons();
 
-
-
-    loadDir(QDir::homePath(),replaceView,comboItemChanged);
+    initViewMenu();
+    bool comboItemChanged = true;
+    loadDir(QDir::homePath(),comboItemChanged);
     m_history.addItem(m_curDir);
     connect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
     connect(&m_fileWatcher, &QFileSystemWatcher::directoryChanged,this, &DirForm::on_dirChange);
     connect(QApplication::clipboard(),&QClipboard::dataChanged ,this , &DirForm::on_clipDataChanged);
     updateBookmarks();
 
+
+
 }
 
+void DirForm::initViewMenu(){
+    m_fileModel.setRootPath(m_curDir);
+    m_views[ViewIndexList] = ui->listView;
+    m_views[ViewIndexTable] = ui->tableView;
+    m_views[ViewIndexTree] = ui->treeView;
+
+    for(int i = 0 ; i < ViewIndexCount; ++ i)
+    {
+        QAbstractItemView * w = m_views[i];
+        w->setModel(&m_fileModel);
+        w->setSelectionMode(QAbstractItemView::ExtendedSelection);
+        connect(w->selectionModel(),&QItemSelectionModel::selectionChanged,this,&DirForm::on_selectedFileChanged);
+        connect(w,SIGNAL(doubleClicked(QModelIndex)),
+                this,SLOT(on_fileItemDblClicked(QModelIndex)));
+    }
+
+    ui->listView->setViewMode(QListView::IconMode);
+    ui->listView->setResizeMode(QListView::Adjust);
+    ui->listView->setMovement(QListView::Static);
+
+    ui->tableView->verticalHeader()->setVisible(false);
+
+    QMenu *menu = new QMenu(this);
+    menu->addAction(ui->actionViewLargeIcon);
+    menu->addAction(ui->actionViewMiddleIcon);
+    menu->addAction(ui->actionViewSmallIcon);
+    menu->addAction(ui->actionViewDetailTable);
+
+    ui->toolButtonSwitchView->setPopupMode(QToolButton::MenuButtonPopup);
+    ui->toolButtonSwitchView->setMenu(menu);
+
+    switchViewType(ViewType_DetailList);
+}
 void DirForm::initToolButtons(){
     ui->toolButtonPrev->setDefaultAction(ui->actionPrev);
     ui->toolButtonNext->setDefaultAction(ui->actionNext);
@@ -54,100 +90,93 @@ DirForm::~DirForm()
     delete ui;
 }
 
-int getItemWidth(){
-    return 48;
-}
 
-int getItemHeight(){
-    return 64;
-}
+// void DirForm:: refreshView(QString dirPath)
+// {
+//     QListWidget *listWidget = (QListWidget*)m_filesWidget;
+//     listWidget->setIconSize(QSize(48,48));
+//     listWidget->clear();
+//     listWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
+//     listWidget->setViewMode(QListView::IconMode);
+//     listWidget->setGridSize(QSize(64,64));
+//     listWidget->setResizeMode(QListView::Adjust);
+//     listWidget->setMovement(QListView::Static);
 
-void DirForm:: refreshView(QString dirPath)
-{
-    QListWidget *listWidget = (QListWidget*)m_filesWidget;
-    listWidget->setIconSize(QSize(48,48));
-    listWidget->clear();
-    listWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    listWidget->setViewMode(QListView::IconMode);
-    listWidget->setGridSize(QSize(64,64));
-    listWidget->setResizeMode(QListView::Adjust);
-    listWidget->setMovement(QListView::Static);
+//     QFileIconProvider provider ;
+//     QDir dir(dirPath);
 
-    QFileIconProvider provider ;
-    QDir dir(dirPath);
+//     QFileInfoList list = dir.entryInfoList(QDir::NoDotAndDotDot|QDir::Files|QDir::Dirs);
+//     int count = list.size();
 
-    QFileInfoList list = dir.entryInfoList(QDir::NoDotAndDotDot|QDir::Files|QDir::Dirs);
-    int count = list.size();
+//     m_filesWidget->selectionModel()->clearSelection();
+//     for(int i = 0; i < count ; ++ i){
+//         QFileInfo info = list[i];
+//         QListWidgetItem * b = new QListWidgetItem();
 
-    m_filesWidget->selectionModel()->clearSelection();
-    for(int i = 0; i < count ; ++ i){
-        QFileInfo info = list[i];
-        QListWidgetItem * b = new QListWidgetItem();
+//         b->setText(info.fileName());
+//         b->setIcon(provider.icon(info));
 
-        b->setText(info.fileName());
-        b->setIcon(provider.icon(info));
+//         b->setData(Qt::UserRole,QVariant(info.absoluteFilePath()));
+//         auto font = b->font();
+//         font.setPointSize(8);
+//         b->setFont(font);
 
-        b->setData(Qt::UserRole,QVariant(info.absoluteFilePath()));
-        auto font = b->font();
-        font.setPointSize(8);
-        b->setFont(font);
+//         listWidget->addItem(b);
+//     }
 
-        listWidget->addItem(b);
-    }
+//     updateButtonState();
+// }
 
-    updateButtonState();
-}
+// QAbstractItemView * DirForm::createFileIconsView(QString dirPath,bool replaceView)
+// {
+//     if(replaceView || m_filesWidget == nullptr){
 
-QAbstractItemView * DirForm::createFileIconsView(QString dirPath,bool replaceView)
-{
-    if(replaceView || m_filesWidget == nullptr){
+//         if(m_filesWidget != nullptr){
+//             layoutFileContent->removeWidget(m_filesWidget);
+//             delete m_filesWidget;
+//         }
 
-        if(m_filesWidget != nullptr){
-            layoutFileContent->removeWidget(m_filesWidget);
-            delete m_filesWidget;
-        }
+//         QListWidget *w = new QListWidget(ui->frameContent);
+//         m_filesWidget = w;
+//         layoutFileContent->addWidget(m_filesWidget);
+//         ///m_filesWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+//         connect(w,&QListWidget::itemDoubleClicked,this,&DirForm::on_fileItemOpen);
+//         connect(w->selectionModel(),&QItemSelectionModel::selectionChanged,this,&DirForm::on_selectedFileChanged);
+//     }
 
-        QListWidget *w = new QListWidget(ui->frameContent);
-        m_filesWidget = w;
-        layoutFileContent->addWidget(m_filesWidget);
-        ///m_filesWidget->setContextMenuPolicy(Qt::CustomContextMenu);
-        connect(w,&QListWidget::itemDoubleClicked,this,&DirForm::on_fileItemOpen);
-        connect(w->selectionModel(),&QItemSelectionModel::selectionChanged,this,&DirForm::on_selectedFileChanged);
-    }
-
-    refreshView(dirPath);
-    return m_filesWidget;
-}
+//     refreshView(dirPath);
+//     return m_filesWidget;
+// }
 
 #include <QTableView>
-QAbstractItemView * DirForm::createTableView(QString dirPath,bool replaceView)
-{
-    if(replaceView || m_filesWidget == nullptr){
+// QAbstractItemView * DirForm::createTableView(QString dirPath,bool replaceView)
+// {
+//     if(replaceView || m_filesWidget == nullptr){
 
-        if(m_filesWidget != nullptr){
-            layoutFileContent->removeWidget(m_filesWidget);
-            delete m_filesWidget;
-        }
+//         if(m_filesWidget != nullptr){
+//             layoutFileContent->removeWidget(m_filesWidget);
+//             delete m_filesWidget;
+//         }
 
-        QTableView *w = new QTableView(ui->frameContent);
-        m_filesWidget = w;
-        layoutFileContent->addWidget(m_filesWidget);
-        ///m_filesWidget->setContextMenuPolicy(Qt::CustomContextMenu);
-        ////connect(w,&QListWidget::itemDoubleClicked,this,&DirForm::on_fileItemOpen);
-        fileModel.setRootPath(dirPath);
-        w->setModel(&fileModel);
+//         QTableView *w = new QTableView(ui->frameContent);
+//         m_filesWidget = w;
+//         layoutFileContent->addWidget(m_filesWidget);
+//         ///m_filesWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+//         ////connect(w,&QListWidget::itemDoubleClicked,this,&DirForm::on_fileItemOpen);
+//         m_fileModel.setRootPath(dirPath);
+//         w->setModel(&m_fileModel);
 
 
-        connect(w->selectionModel(),&QItemSelectionModel::selectionChanged,this,&DirForm::on_selectedFileChanged);
-        connect(w,SIGNAL(doubleClicked(QModelIndex)),
-                this,SLOT(on_fileItemDblClicked(QModelIndex)));;
-    }
+//         connect(w->selectionModel(),&QItemSelectionModel::selectionChanged,this,&DirForm::on_selectedFileChanged);
+//         connect(w,SIGNAL(doubleClicked(QModelIndex)),
+//                 this,SLOT(on_fileItemDblClicked(QModelIndex)));;
+//     }
 
-    m_filesWidget->setRootIndex(fileModel.index(dirPath));
+//     m_filesWidget->setRootIndex(m_fileModel.index(dirPath));
 
-    /////refreshView2(dirPath);
-    return m_filesWidget;
-}
+//     /////refreshView2(dirPath);
+//     return m_filesWidget;
+// }
 
 // QWidget *DirForm::createSmallsIconsView(QString dirPath)
 // {
@@ -230,7 +259,7 @@ bool DirForm::isFileComboContains(QString filePath)
     return false;
 }
 
-bool DirForm::loadDir(QString filePath,bool replaceView ,bool changeComboItem )
+bool DirForm::loadDir(QString filePath,bool changeComboItem )
 {
 
     QFileInfo fileInfo(filePath);
@@ -253,8 +282,9 @@ bool DirForm::loadDir(QString filePath,bool replaceView ,bool changeComboItem )
         ui->comboBoxDir->setCurrentText(dir.dirName());
     }
 
-    ///createFileIconsView(dirPath,replaceView);
-    createTableView(dirPath,replaceView);
+    m_fileModel.setRootPath(m_curDir);
+    auto modelIndex = m_fileModel.index(m_curDir);
+    m_curItemView->setRootIndex(modelIndex);
 
     return true;
 }
@@ -264,8 +294,8 @@ void DirForm::on_comboDirIndexChange(int index)
     if(!m_combModifying && index < ui->comboBoxDir->count())
     {
         QString filePath = ui->comboBoxDir->itemData(index).toString();
-        bool replaceView = false, comboItemChanged = false;
-        loadDir(filePath,replaceView,comboItemChanged);
+
+        loadDir(filePath);
         m_history.addItem(m_curDir);
     }
 }
@@ -274,8 +304,8 @@ void DirForm::on_comboDirIndexChange(int index)
 void DirForm::on_bookmarkSelected()
 {
     QString path = ((QAction *)sender())->data().toString();
-    bool replaceView = false, changeCombo = true;
-    loadDir(path,replaceView,changeCombo);
+    bool  changeCombo = true;
+    loadDir(path,changeCombo);
     m_history.addItem(m_curDir);
 }
 
@@ -287,8 +317,8 @@ void DirForm::on_fileItemOpen(QListWidgetItem *item)
     if(!info.isDir()){
         QDesktopServices::openUrl(QUrl::fromLocalFile(item->data(Qt::UserRole).toString()));
     }else{
-        bool replaceView = false, changeCombo = true;
-        loadDir(info.absoluteFilePath(),replaceView,changeCombo);
+        bool  changeCombo = true;
+        loadDir(info.absoluteFilePath(),changeCombo);
         m_history.addItem(m_curDir);
     }
 }
@@ -296,14 +326,14 @@ void DirForm::on_fileItemOpen(QListWidgetItem *item)
 void DirForm::on_fileItemDblClicked(QModelIndex index)
 {
     if(index.column() != 0) return;
-    QString text  = fileModel.filePath(index);
+    QString text  = m_fileModel.filePath(index);
 
     QFileInfo info(text);
     if(!info.isDir()){
         QDesktopServices::openUrl(QUrl::fromLocalFile(info.absoluteFilePath()));
     }else{
-        bool replaceView = false, changeCombo = true;
-        loadDir(info.absoluteFilePath(),replaceView,changeCombo);
+        bool changeCombo = true;
+        loadDir(info.absoluteFilePath(),changeCombo);
         m_history.addItem(m_curDir);
     }
 }
@@ -327,12 +357,12 @@ void DirForm:: updateBookmarks(){
 
 void DirForm::copyToClipboard(bool isCut)
 {
-    auto indexes = m_filesWidget->selectionModel()->selectedIndexes();
+    auto indexes = m_curItemView->selectionModel()->selectedIndexes();
     QList<QUrl> urls;
     QString text;
     for(auto &index :indexes){
         if(index.column() != 0) continue;
-        QString path = this->fileModel.filePath(index);
+        QString path = this->m_fileModel.filePath(index);
         urls.append(QUrl::fromLocalFile(path));
         text += (path) + "\n";
     }
@@ -377,17 +407,17 @@ void DirForm::on_actionCutSelect_triggered()
 
 void DirForm::on_actionPasteSelect_triggered()
 {
-    QString destPath = getPastePath();
+    QString destPath = getTargetPath();
     emit pasteFromClip(destPath);
 }
 
 
 void DirForm::on_actionMoveToTrash_triggered()
 {
-    auto indexes = m_filesWidget->selectionModel()->selectedIndexes();
+    auto indexes = m_curItemView->selectionModel()->selectedIndexes();
     for(auto index: indexes){
         if(index.column() != 0) return;
-        QString path = fileModel.filePath(index);
+        QString path = m_fileModel.filePath(index);
         QFile::moveToTrash(path);
     }
 }
@@ -423,12 +453,56 @@ void DirForm::updateButtonState()
     ui->actionPrev->setEnabled(m_history.prevable());
 
 
-    auto indexes = this->m_filesWidget->selectionModel()->selectedIndexes();
+    auto indexes = this->m_curItemView->selectionModel()->selectedIndexes();
     bool selected = !indexes.isEmpty();
     ui->actionCopySelect->setEnabled(selected);
     ui->actionCutSelect->setEnabled(selected);
     ui->actionMoveToTrash->setEnabled(selected);
     updatePasteAction();
+}
+
+void setListView(QListView *listView,int iconSize){
+    int extraSize = 12;
+    listView->setIconSize(QSize(iconSize ,iconSize ));
+    listView->setGridSize(QSize(iconSize + extraSize,iconSize + extraSize));
+}
+void DirForm::switchViewType(ViewType viewTable)
+{
+    ViewIndex index;
+
+    switch(viewTable){
+        case ViewType_SmallIcon:
+            index = ViewIndexList;
+            m_iconSize = 16;
+            setListView(ui->listView,m_iconSize);
+            break;
+
+        case ViewType_MiddleIcon:
+            index = ViewIndexList;
+            m_iconSize = 32;
+            setListView(ui->listView,m_iconSize);
+            break;
+        case ViewType_LargIcon:
+            index = ViewIndexList;
+            m_iconSize = 64;
+            setListView(ui->listView,m_iconSize);
+            break;
+        case ViewType_DetailList:
+
+        default:
+            index = ViewIndexTable;
+
+    };
+
+    QAbstractItemView *newView = m_views[index];
+    if(newView != m_curItemView ){
+        m_curItemView = newView;
+        ui->stackedWidget->setCurrentIndex(index);
+    }
+
+
+    auto modelIndex = m_fileModel.index(m_curDir);
+    m_curItemView->setRootIndex(modelIndex);
 }
 
 
@@ -448,12 +522,12 @@ void DirForm::on_selectedFileChanged(const QItemSelection &selected, const QItem
 
 }
 
-QString DirForm::getPastePath(){
+QString DirForm::getTargetPath(){
     QString destPath = this->m_curDir;
-    auto indexes = m_filesWidget->selectionModel()->selectedIndexes();
+    auto indexes = m_curItemView->selectionModel()->selectedIndexes();
     for(auto &index:indexes){
         if(index.column() != 0) continue;
-        destPath = fileModel.filePath(index);
+        destPath = m_fileModel.filePath(index);
         QFileInfo info(destPath);
         if(!info.isDir()){
             destPath = info.absoluteFilePath();
@@ -466,7 +540,7 @@ QString DirForm::getPastePath(){
 void DirForm:: updatePasteAction(){
     const QMimeData * mime = QApplication::clipboard()->mimeData();
 
-    QString pastePath = getPastePath();
+    QString pastePath = getTargetPath();
     int validCount =0;
     if(mime->hasUrls()){
         for(QUrl & url :mime->urls()){
@@ -494,7 +568,8 @@ void DirForm::on_actionOpenDir_triggered()
 {
     QString filePath = QFileDialog::getExistingDirectory(this,"打开目录","选择目录打开");
     if(!filePath.isEmpty()){
-        loadDir(filePath,false,true);
+        bool comboChanged = true;
+        loadDir(filePath,comboChanged);
         m_history.addItem(filePath);
     }
 
@@ -510,4 +585,30 @@ void DirForm::on_actionAdd_Bookmark_triggered()
 }
 
 
+
+
+
+
+void DirForm::on_actionViewLargeIcon_triggered()
+{
+    switchViewType(ViewType_LargIcon);
+}
+
+
+void DirForm::on_actionViewMiddleIcon_triggered()
+{
+    switchViewType(ViewType_MiddleIcon);
+}
+
+
+void DirForm::on_actionViewSmallIcon_triggered()
+{
+    switchViewType(ViewType_SmallIcon);
+}
+
+
+void DirForm::on_actionViewDetailTable_triggered()
+{
+    switchViewType(ViewType_DetailList);
+}
 

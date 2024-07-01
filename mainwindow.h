@@ -5,6 +5,7 @@
 #include <QUrl>
 #include "bookmarkMgr.h"
 #include "fileclipboard.h"
+#include <QAbstractItemView>
 #include <QSettings>
 class TFormDoc;
 QT_BEGIN_NAMESPACE
@@ -32,16 +33,13 @@ private slots:
     void on_actionTileWindow_triggered();
 
     void on_actionSwitch_View_triggered();
-
-
-
-
 private:
     Ui::MainWindow *ui;
     BookmarkMgr m_bookmarkMgr;
     void doCopyUrls(const QList<QUrl> &urls,QString text,bool isCut);
     FileClipboard m_clip;
     QSettings *m_settings;
+    int m_curIndex = 0;
 
     // QWidget interface
 protected:

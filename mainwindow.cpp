@@ -24,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->mdiArea->tileSubWindows();
 
+
+
 }
 
 MainWindow::~MainWindow()
@@ -94,11 +96,13 @@ void MainWindow::on_actionSwitch_View_triggered()
 
 }
 
+
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     m_bookmarkMgr.saveSettings(m_settings);
     QMainWindow::closeEvent(event);
 }
+
 
 
 

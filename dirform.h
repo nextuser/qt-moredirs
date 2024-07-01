@@ -20,7 +20,7 @@ class DirForm : public QWidget
 public:
     explicit DirForm(QWidget *parent ,BookmarkMgr * bookmarkMgr);
     ~DirForm();
-    bool loadDir(QString filePath,bool replaceView = false,bool changeCombItem=false);
+    bool loadDir(QString filePath,bool changeCombItem=false);
 
 Q_SIGNALS:
     void copyUrlsToClip(QList<QUrl> urls,QString text);
@@ -37,7 +37,7 @@ protected slots:
 private slots:
 
 
-    QAbstractItemView *createFileIconsView(QString dirPath,bool replaceView);
+    // QAbstractItemView *createFileIconsView(QString dirPath,bool replaceView);
     // QWidget *createSmallsIconsView(QString dirPath);
 
     void on_dirChange(const QString &path);
@@ -68,14 +68,37 @@ private slots:
     void on_actionAdd_Bookmark_triggered();
     void on_fileItemDblClicked(QModelIndex index);
 
+    void on_actionViewLargeIcon_triggered();
+
+    void on_actionViewMiddleIcon_triggered();
+
+    void on_actionViewSmallIcon_triggered();
+
+    void on_actionViewDetailTable_triggered();
 
 private:
+    enum ViewIndex{
+        ViewIndexTable = 0,
+        ViewIndexList,
+        ViewIndexTree,
+        ViewIndexCount,
+    };
+
+    enum ViewType{
+        ViewType_SmallIcon = 0,
+        ViewType_MiddleIcon,
+        ViewType_LargIcon,
+        ViewType_DetailList,
+        ViewType_List,
+        ViewType_Count
+    };
+
 
     void addFileComboItems(QString dirPath);
     bool isFileComboContains(QString filePath);
     void copyToClipboard(bool isCut = false);
-    void refreshView(QString dirPath);
-    QString getPastePath();
+    // void refreshView(QString dirPath);
+    QString getTargetPath();
     void updatePasteAction();
     void initToolButtons();
     QAbstractItemView * createTableView(QString dirPath,bool replaceView);
@@ -88,10 +111,18 @@ private:
     bool m_combModifying;
     void updateButtonState();
     QVBoxLayout *layoutFileContent;
-    QAbstractItemView *m_filesWidget;
     BookmarkMgr * m_bookmarkMgr;
     QList<QUrl> m_cutUrls;
-    QFileSystemModel fileModel;
+    QFileSystemModel m_fileModel;
+    QAbstractItemView *m_curItemView;
+    int m_iconSize;
+
+    void switchViewType(ViewType viewTable);
+
+    void initViewMenu();
+
+
+    QAbstractItemView * m_views[3] ;
 
 
 
