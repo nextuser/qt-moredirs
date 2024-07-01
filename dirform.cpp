@@ -18,9 +18,6 @@ DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr,int index)
     , ui(new Ui::DirForm),m_combModifying(false),m_bookmarkMgr(bookMgr),m_index(index)
 {
     ui->setupUi(this);
-
-
-
     initToolButtons();
     initViewMenu();
     bool comboItemChanged = true;
@@ -31,9 +28,6 @@ DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr,int index)
     connect(&m_fileWatcher, &QFileSystemWatcher::fileChanged,this, &DirForm::on_fileChanged);
     connect(QApplication::clipboard(),&QClipboard::dataChanged ,this , &DirForm::on_clipDataChanged);
     updateBookmarks();
-
-
-
 }
 
 void DirForm::initViewMenu(){
@@ -62,7 +56,7 @@ void DirForm::initViewMenu(){
     ui->tableView->setSortingEnabled(true);
     auto font = ui->tableView->font();
     qDebug()<< "fontsize=" << font.pointSize() << " pixel size" << font.pixelSize();
-    font.setPointSize(9);
+    font.setPointSize(11);
     qDebug()<< "fontsize=" << font.pointSize() << " pixel size" << font.pixelSize();
     ui->tableView->setFont(font);
 
@@ -512,7 +506,8 @@ void DirForm::updateButtonState()
 void setListView(QListView *listView,int iconSize){
     int extraSize = 12;
     listView->setIconSize(QSize(iconSize ,iconSize ));
-    listView->setGridSize(QSize(iconSize + extraSize,iconSize + extraSize));
+    int gridSize = iconSize * 1.3;
+    listView->setGridSize(QSize(gridSize,gridSize));
 }
 void DirForm::switchViewType(ViewType viewTable)
 {
@@ -561,9 +556,6 @@ void DirForm::on_toolButtonNew_triggered(QAction *arg1)
 {
     Q_UNUSED(arg1);
 }
-
-
-
 
 void DirForm::on_selectedFileChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
@@ -635,11 +627,6 @@ void DirForm::on_actionAdd_Bookmark_triggered()
     ///updateBookmarks();
 }
 
-
-
-
-
-
 void DirForm::on_actionViewLargeIcon_triggered()
 {
     switchViewType(ViewType_LargIcon);
@@ -662,8 +649,6 @@ void DirForm::on_actionViewDetailTable_triggered()
 {
     switchViewType(ViewType_DetailList);
 }
-
-
 
 #include <QInputDialog>
 #include <QMessageBox>

@@ -10,16 +10,10 @@
     <height>345</height>
    </rect>
   </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
-  </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Dir</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" rowstretch="0,1,0">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -32,8 +26,8 @@
    <property name="bottomMargin">
     <number>0</number>
    </property>
-   <item row="0" column="0">
-    <widget class="QFrame" name="frameup">
+   <item>
+    <widget class="QWidget" name="widgetup" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -55,8 +49,14 @@
       </property>
       <item>
        <widget class="QToolButton" name="toolButtonPrev">
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="text">
-         <string>...</string>
+         <string>Previous</string>
         </property>
         <property name="icon">
          <iconset resource="res.qrc">
@@ -73,8 +73,14 @@
       </item>
       <item>
        <widget class="QToolButton" name="toolButtonNext">
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="text">
-         <string>...</string>
+         <string>Next</string>
         </property>
         <property name="icon">
          <iconset resource="res.qrc">
@@ -91,6 +97,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="toolButtonUp">
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
@@ -109,6 +121,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="toolButtonNew">
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
@@ -126,6 +144,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="toolButtonSwitchView">
+        <property name="maximumSize">
+         <size>
+          <width>24</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
@@ -137,10 +161,23 @@
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBoxDir"/>
+       <widget class="QComboBox" name="comboBoxDir">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16</height>
+         </size>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QToolButton" name="toolButtonBrowse">
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
@@ -159,6 +196,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="toolButtonAddBookmark">
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
@@ -176,6 +219,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="toolButtonBookMarkList">
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
@@ -194,18 +243,9 @@
      </layout>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item>
     <widget class="QFrame" name="frameContent">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetDefaultConstraint</enum>
-      </property>
       <property name="leftMargin">
        <number>0</number>
       </property>
@@ -289,14 +329,8 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item>
     <widget class="QFrame" name="framedown">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0,0,0,0,1,0">
       <property name="leftMargin">
        <number>0</number>
@@ -312,6 +346,12 @@
       </property>
       <item>
        <widget class="QToolButton" name="toolButtonCut">
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
@@ -330,6 +370,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="toolButtonCopy">
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
@@ -349,6 +395,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="toolButtonPaste">
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
@@ -368,6 +420,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="toolButtonDel">
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
@@ -386,6 +444,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="toolButtonFilter">
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
@@ -398,6 +462,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="toolButtonRename">
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
@@ -409,6 +479,12 @@
       </item>
       <item>
        <widget class="QComboBox" name="comboBoxFilter">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="editable">
          <bool>true</bool>
         </property>
@@ -416,6 +492,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="toolButton_2">
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="text">
          <string>...</string>
         </property>
