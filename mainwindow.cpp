@@ -85,6 +85,7 @@ DirForm* MainWindow::addSubWin(int index)
 {
 
     TSubWindow *subWin = new TSubWindow(ui->mdiArea,this);
+    subWin->setWindowFlag(Qt::FramelessWindowHint);
     DirForm    *formDoc = createForm(subWin,index);
     this->formList.append(formDoc);
 
@@ -112,6 +113,16 @@ void MainWindow::on_actionTileWindow_triggered()
 void MainWindow::on_actionSwitch_View_triggered()
 {
 
+}
+
+DirForm *MainWindow::getDirForm(int formIndex)
+{
+    for(auto & form :formList){
+        if(formIndex == form->index()){
+            return form;
+        }
+    }
+    return nullptr;
 }
 
 

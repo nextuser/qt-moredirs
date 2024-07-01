@@ -41,7 +41,7 @@ private:
     QList<DirForm*> formList;
     QSettings *m_settings;
     int m_curIndex = 0;
-
+    DirForm *getDirForm(int formIndex);
     void loadSettings();
     void saveSettings();
 

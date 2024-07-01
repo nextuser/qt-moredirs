@@ -31,6 +31,7 @@ Q_SIGNALS:
     void pasteFromClip(QString destDir);
 public slots:
     void updateBookmarks();
+    void selectPath(QString filePath);
 
 protected slots:
 
@@ -45,8 +46,8 @@ private slots:
     // QAbstractItemView *createFileIconsView(QString dirPath,bool replaceView);
     // QWidget *createSmallsIconsView(QString dirPath);
 
-    void on_dirChange(const QString &path);
-    void on_fileChange(const QString &path);
+    void on_dirChanged(const QString &path);
+    void on_fileChanged(const QString &path);
 
 
     void on_actionCopySelect_triggered();
@@ -84,6 +85,8 @@ private slots:
 
     void on_actionNew_Folder_triggered();
 
+    void on_actionRenameSelect_triggered();
+
 private:
     enum ViewIndex{
         ViewIndexTable = 0,
@@ -120,7 +123,6 @@ private:
     THistory m_history;
     bool m_combModifying;
     void updateButtonState();
-    QVBoxLayout *layoutFileContent;
     BookmarkMgr * m_bookmarkMgr;
     QList<QUrl> m_cutUrls;
     QFileSystemModel m_fileModel;

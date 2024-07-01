@@ -20,16 +20,15 @@ DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr,int index)
     ui->setupUi(this);
 
 
-    layoutFileContent = new QVBoxLayout(ui->frameContent);
-    layoutFileContent->setObjectName("verticalLayout_content");
-    layoutFileContent->setContentsMargins(0, 0, 0, 0);
+
     initToolButtons();
     initViewMenu();
     bool comboItemChanged = true;
     loadDir(QDir::homePath(),comboItemChanged);
     m_history.addItem(m_curDir);
     connect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
-    connect(&m_fileWatcher, &QFileSystemWatcher::directoryChanged,this, &DirForm::on_dirChange);
+    connect(&m_fileWatcher, &QFileSystemWatcher::directoryChanged,this, &DirForm::on_dirChanged);
+    connect(&m_fileWatcher, &QFileSystemWatcher::fileChanged,this, &DirForm::on_fileChanged);
     connect(QApplication::clipboard(),&QClipboard::dataChanged ,this , &DirForm::on_clipDataChanged);
     updateBookmarks();
 
@@ -61,7 +60,6 @@ void DirForm::initViewMenu(){
     ui->tableView->verticalHeader()->setVisible(false);
     ui->tableView->clearSpans();
     ui->tableView->setSortingEnabled(true);
-    ////ui->tableView->horizontalHeader()->set
     auto font = ui->tableView->font();
     qDebug()<< "fontsize=" << font.pointSize() << " pixel size" << font.pixelSize();
     font.setPointSize(9);
@@ -100,6 +98,7 @@ void DirForm::initToolButtons(){
     ui->toolButtonBrowse->setDefaultAction(ui->actionOpenDir);
     ui->toolButtonBookMarkList->setPopupMode(QToolButton::MenuButtonPopup);
     ui->toolButtonNew->setDefaultAction(ui->actionNew_Folder);
+    ui->toolButtonRename->setDefaultAction(ui->actionRenameSelect);
 }
 
 QList<QVariant> DirForm::getHeaderLens()
@@ -304,10 +303,16 @@ bool DirForm::loadDir(QString filePath,bool changeComboItem )
     QDir dir(dirPath);
     if(!m_curDir.isEmpty()){
         m_fileWatcher.removePath(m_curDir);
+        // for(auto info : QDir(m_curDir).entryInfoList()){
+        //     m_fileWatcher.removePath(info.absoluteFilePath());
+        // }
     }
 
     m_curDir = dirPath;
     m_fileWatcher.addPath(m_curDir);
+    // for(auto info : QDir(dirPath).entryInfoList() ){
+    //     m_fileWatcher.addPath(info.absoluteFilePath());
+    // }
 
 
     if(changeComboItem)
@@ -390,6 +395,12 @@ void DirForm:: updateBookmarks(){
     ui->toolButtonBookMarkList->setMenu(menu);
 }
 
+void DirForm::selectPath(QString filePath)
+{
+    QModelIndex index = m_fileModel.index(filePath);
+    m_curItemView->scrollTo(index);
+}
+
 
 void DirForm::copyToClipboard(bool isCut)
 {
@@ -415,16 +426,16 @@ void DirForm::copyToClipboard(bool isCut)
 
 
 
-void DirForm::on_dirChange(const QString &path)
+void DirForm::on_dirChanged(const QString &path)
 {
 
     qDebug()<< "dirChange" << path;
 }
 
-void DirForm::on_fileChange(const QString &path)
-{
-    qDebug() << "fileChange" << path;
+void DirForm::on_fileChanged(const QString &path){
+    qDebug() << "fileChanged " <<path;
 }
+
 
 
 
@@ -445,6 +456,7 @@ void DirForm::on_actionPasteSelect_triggered()
 {
     QString destPath = getTargetPath();
     emit pasteFromClip(destPath);
+    ////auto index = m_fileModel.index(destPath)
 }
 
 
@@ -516,13 +528,13 @@ void DirForm::switchViewType(ViewType viewTable)
 
         case ViewType_MiddleIcon:
             index = ViewIndexList;
-            m_iconSize = 32;
+            m_iconSize = 64;
             setListView(ui->listView,m_iconSize);
             ui->listView->setViewMode(QListView::IconMode);
             break;
         case ViewType_LargIcon:
             index = ViewIndexList;
-            m_iconSize = 64;
+            m_iconSize = 96;
             setListView(ui->listView,m_iconSize);
             ui->listView->setViewMode(QListView::IconMode);
             break;
@@ -674,5 +686,26 @@ void DirForm::on_actionNew_Folder_triggered()
 
     }
 
+}
+
+
+void DirForm::on_actionRenameSelect_triggered()
+{
+    QModelIndexList rows = m_curItemView->selectionModel()->selectedRows();
+    if(rows.count() == 1){
+        QString filePath = m_fileModel.filePath(rows.at(0));
+        QFileInfo srcInfo(filePath);
+        QString newName = QInputDialog::getText(this,"输入新名字",srcInfo.fileName());
+        if(!newName.isEmpty() && newName != srcInfo.fileName()){
+            QString destPath = srcInfo.absolutePath() + "/" + newName;
+            if(QFileInfo(destPath).exists()){
+                QMessageBox::information(this,"错误","文件已存在");
+            }
+            else{
+                QFile::rename(srcInfo.absoluteFilePath(),destPath);
+                selectPath(destPath);
+            }
+        }
+    }
 }
 

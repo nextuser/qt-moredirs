@@ -89,6 +89,7 @@ void FileClipboard::on_paste(QString destDir)
         else{
             QFile::copy(srcFilePath,destFilePath);
         }
+
     }
 }
 
