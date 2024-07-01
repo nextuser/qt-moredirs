@@ -142,7 +142,7 @@ private:
 
     // QWidget interface
 protected:
-    void closeEvent(QCloseEvent *event);
+
 };
 
 #endif // DIRFORM_H

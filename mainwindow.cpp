@@ -91,6 +91,7 @@ DirForm* MainWindow::addSubWin(int index)
 
     subWin->setWidget(formDoc);
     ui->mdiArea->addSubWindow(subWin);
+    subwinList.append(subWin);
 
     return formDoc;
 }
@@ -99,13 +100,36 @@ DirForm* MainWindow::addSubWin(int index)
 void MainWindow::on_actionCascade_triggered()
 {
     ui->mdiArea->setViewMode(QMdiArea::SubWindowView);
+    showSubWin(4);
+    setSubWindowFrameLess(false);
     ui->mdiArea->cascadeSubWindows();
+
 }
 
+void MainWindow::setSubWindowFrameLess(bool frameless){
+    for(int i = 0; i < 4; ++ i){
+        subwinList[i]->setWindowFlag(Qt::FramelessWindowHint,frameless);
+    }
+}
+
+void MainWindow::showSubWin(int count)
+{
+
+    for(int i = 0 ; i < count && i < subwinList.count(); ++ i ){
+        subwinList[i]->setVisible(true);
+    }
+    for(int i = count ; i < subwinList.count(); ++ i){
+        subwinList[i]->setVisible(false);
+    }
+}
 
 void MainWindow::on_actionTileWindow_triggered()
 {
     ui->mdiArea->setViewMode(QMdiArea::SubWindowView);
+
+    showSubWin(4);
+
+    setSubWindowFrameLess(true);
     ui->mdiArea->tileSubWindows();
 }
 
@@ -136,4 +160,26 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 
 
+
+
+void MainWindow::on_action_wLeftRight_triggered()
+{
+    ui->mdiArea->setViewMode(QMdiArea::SubWindowView);
+
+     showSubWin(2);
+
+    setSubWindowFrameLess(true);
+    ui->mdiArea->tileSubWindows();
+}
+
+
+void MainWindow::on_action_wUpDown_triggered()
+{
+    ui->mdiArea->setViewMode(QMdiArea::SubWindowView);
+    ui->mdiArea->tileSubWindows();
+    showSubWin(2);
+
+    setSubWindowFrameLess(true);
+    ui->mdiArea->tileSubWindows();
+}
 

@@ -146,7 +146,7 @@
        <widget class="QToolButton" name="toolButtonSwitchView">
         <property name="maximumSize">
          <size>
-          <width>24</width>
+          <width>26</width>
           <height>16</height>
          </size>
         </property>
@@ -221,7 +221,7 @@
        <widget class="QToolButton" name="toolButtonBookMarkList">
         <property name="maximumSize">
          <size>
-          <width>16</width>
+          <width>26</width>
           <height>16</height>
          </size>
         </property>

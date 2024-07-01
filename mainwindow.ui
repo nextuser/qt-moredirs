@@ -57,6 +57,7 @@
    <addaction name="actionSwitch_View"/>
    <addaction name="actionCascade"/>
    <addaction name="actionTileWindow"/>
+   <addaction name="action_wLeftRight"/>
   </widget>
   <action name="actionCloseTab">
    <property name="text">
@@ -130,6 +131,32 @@
    </property>
    <property name="text">
     <string>TileWindow</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="action_wLeftRight">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/new/icons/icons/404.bmp</normaloff>
+     <disabledoff>:/new/icons/icons/405.bmp</disabledoff>:/new/icons/icons/404.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>上下分割</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="action_wUpDown">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/new/icons/icons/402.bmp</normaloff>
+     <disabledoff>:/new/icons/icons/403.bmp</disabledoff>:/new/icons/icons/402.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>上下分隔</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>

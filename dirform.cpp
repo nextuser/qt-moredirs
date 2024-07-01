@@ -73,12 +73,7 @@ void DirForm::initViewMenu(){
     switchViewType(ViewType_DetailList);
 }
 
-#include <QCloseEvent>
-void DirForm::closeEvent(QCloseEvent *event)
-{
 
-    QWidget::closeEvent(event);
-}
 void DirForm::initToolButtons(){
     ui->toolButtonPrev->setDefaultAction(ui->actionPrev);
     ui->toolButtonNext->setDefaultAction(ui->actionNext);
@@ -288,6 +283,7 @@ bool DirForm::isFileComboContains(QString filePath)
     return false;
 }
 
+#include "tsubwindow.h"
 bool DirForm::loadDir(QString filePath,bool changeComboItem )
 {
 
@@ -307,7 +303,7 @@ bool DirForm::loadDir(QString filePath,bool changeComboItem )
     // for(auto info : QDir(dirPath).entryInfoList() ){
     //     m_fileWatcher.addPath(info.absoluteFilePath());
     // }
-
+    ((TSubWindow*)parent())->setWindowTitle(QFileInfo(dirPath).fileName());
 
     if(changeComboItem)
     {
