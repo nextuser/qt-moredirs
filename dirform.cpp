@@ -78,6 +78,9 @@ void DirForm::initViewMenu(){
 
     ui->toolButtonSwitchView->setPopupMode(QToolButton::MenuButtonPopup);
     ui->toolButtonSwitchView->setMenu(menu);
+    ui->tableView->viewport()->setAcceptDrops(false);
+    ui->tableView->setDragEnabled(true);
+    this->setAcceptDrops(true);
 
     switchViewType(ViewType_DetailList);
 }
@@ -715,9 +718,11 @@ void DirForm::on_customContextMenuRequested(const QPoint &pos)
     QMenu menu(this);
     menu.addAction(ui->actionCutSelect);
     menu.addAction(ui->actionCopySelect);
+
     menu.addAction(ui->actionPasteSelect);
-    menu.addAction(ui->actionPasteSelect);
+    menu.addAction(ui->actionRenameSelect);
     menu.addAction(ui->actionMoveToTrash);
+
     menu.exec(QCursor::pos());
 }
 
@@ -748,6 +753,94 @@ void DirForm::on_actionFind_triggered()
     FindDialog dlg(this,this->m_curDir);
     dlg.exec();
 }
+
+
+bool inRect(const QPointF &p, qreal x,qreal y, int w ,int h)
+{
+    bool ret = p.x() > x && p.x() < x + w  && p.y() > y  && p.y() < y + h;
+    return ret;
+
+}
+
+#include <QPointF>
+#include <QPoint>
+#include <QAbstractItemView>>
+#include <QModelIndex>
+#include <QDropEvent>
+
+QString getDropPath(QAbstractItemView *treeView,const QPointF &globalDropPoint ){
+    QPointF p = treeView->viewport()->mapFromGlobal(globalDropPoint);
+    qDebug() << "event in treeview point:" << p.x() << "," << p.y();
+    QModelIndex index = treeView->indexAt(p.toPoint());
+    QString path = ((QFileSystemModel*)treeView->model())->fileInfo(index).absoluteFilePath();
+
+    if(path.isEmpty()){
+        path = ((QFileSystemModel*)treeView->model())->filePath( treeView->rootIndex());
+    }
+    qDebug() << "target path: " << path;
+    return path;
+}
+bool eventInWidget(const QPointF & globalPointF, QWidget *widget)
+{
+
+    int x,y,w,h;
+    widget->geometry().getRect(&x,&y,&w,&h);
+    QPointF pointArea = widget->parentWidget()->mapToGlobal(QPoint(x,y));
+    return inRect(globalPointF,pointArea.x(),pointArea.y(),w,h);
+}
+
+void scrollToPath(QAbstractItemView *itemView,QString newFile ){
+    if(newFile.isEmpty()) return;
+
+    ///treeView->setSortingEnabled(false);
+    QFileSystemModel * fileModel = (QFileSystemModel*) itemView->model();
+    QModelIndex index = fileModel->index(newFile);
+    itemView->selectionModel()->select(index,QItemSelectionModel::SelectionFlag::Select);
+    itemView->scrollTo(index);
+
+
+}
+void DirForm::dropEvent(QDropEvent *event)
+{
+    qDebug()<< "widget drop";
+
+    QPointF globalPoint = this->mapToGlobal(event->position());
+    if(eventInWidget(globalPoint,ui->tableView)){
+
+        QString target = getDropPath(ui->tableView,globalPoint);
+        QFileInfo targetInfo(target);
+        QString targetDir = targetInfo.isDir() ? targetInfo.absoluteFilePath() : targetInfo.absolutePath();
+        ui->tableView->selectionModel()->clear();
+        for(auto & url : event->mimeData()->urls()){
+            QFileInfo srcInfo(url.path());
+            qDebug()<< "mimeData url" << url.path();
+            if(srcInfo.absolutePath() != targetDir)
+            {
+                QString newPath = targetDir + "/" + srcInfo.fileName();
+                if(QFile::rename(srcInfo.absoluteFilePath(), newPath))
+                {
+                    scrollToPath(ui->tableView,newPath);
+                }
+                qDebug()<<"rename:" << srcInfo.absoluteFilePath() << "=>" << newPath;
+            }
+        }
+        qDebug() << "left drop,target=" << target;
+    }
+
+    event->accept();
+
+}
+
+void DirForm::dragEnterEvent(QDragEnterEvent *event)
+{
+    if(event->mimeData()->hasUrls()){
+        event->accept();
+    }
+    else{
+        event->ignore();
+    }
+}
+
 
 
 

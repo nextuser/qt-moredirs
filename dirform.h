@@ -156,6 +156,15 @@ private:
     // QWidget interface
 protected:
 
+
+    // QWidget interface
+protected:
+    void dropEvent(QDropEvent *event);
+
+
+    // QWidget interface
+protected:
+    void dragEnterEvent(QDragEnterEvent *event);
 };
 
 #endif // DIRFORM_H
