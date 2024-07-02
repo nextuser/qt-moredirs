@@ -13,6 +13,7 @@ SOURCES += \
     bookmarkMgr.cpp \
     fileclipboard.cpp \
     fileutil.cpp \
+    stringutil.cpp \
     tfilesystemmodel.cpp \
     thistory.cpp \
     dirform.cpp \
@@ -25,6 +26,7 @@ HEADERS += \
     bookmarkMgr.h \
     fileclipboard.h \
     fileutil.h \
+    stringutil.h \
     tfilesystemmodel.h \
     thistory.h \
     dirform.h \

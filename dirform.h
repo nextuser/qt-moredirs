@@ -93,6 +93,8 @@ private slots:
     void on_actionRenameSelect_triggered();
 
     void on_customContextMenuRequested(const QPoint &pos);
+    void on_comboBoxFilter_currentTextChanged(const QString &arg1);
+
 private:
     enum ViewIndex{
         ViewIndexTable = 0,

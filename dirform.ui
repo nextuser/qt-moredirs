@@ -496,6 +496,9 @@
         <property name="editable">
          <bool>true</bool>
         </property>
+        <property name="placeholderText">
+         <string>*.*</string>
+        </property>
        </widget>
       </item>
       <item>

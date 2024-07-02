@@ -60,8 +60,6 @@ void DirForm::initViewMenu(){
     ui->listView->setMovement(QListView::Static);
     ui->listView->setTextElideMode(Qt::ElideRight);
 
-
-
     ui->tableView->verticalHeader()->setVisible(false);
     ui->tableView->clearSpans();
     ui->tableView->setSortingEnabled(true);
@@ -717,5 +715,26 @@ void DirForm::on_customContextMenuRequested(const QPoint &pos)
     menu.addAction(ui->actionPasteSelect);
     menu.addAction(ui->actionMoveToTrash);
     menu.exec(QCursor::pos());
+}
+
+#include "stringutil.h"
+#include <QItemSelectionRange>
+void DirForm::on_comboBoxFilter_currentTextChanged(const QString &text)
+{
+    QDir dir(m_curDir);
+    QString filter = text.trimmed();
+    if(filter.isEmpty()) return;
+    m_curItemView->selectionModel()->clear();
+    bool notScrolled = true;
+    for(auto file : dir.entryInfoList()){
+        if(StringUtil::matchWildcard(filter.toStdString(),file.fileName().toStdString())){
+            auto index = m_fileModel.index(file.absoluteFilePath());
+            m_curItemView->selectionModel()->select(index,QItemSelectionModel::Select);
+            if(notScrolled){
+                m_curItemView->scrollTo(index);
+                notScrolled = false;
+            }
+        }
+    }
 }
 
