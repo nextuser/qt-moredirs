@@ -92,6 +92,7 @@ private slots:
 
     void on_actionRenameSelect_triggered();
 
+    void on_customContextMenuRequested(const QPoint &pos);
 private:
     enum ViewIndex{
         ViewIndexTable = 0,

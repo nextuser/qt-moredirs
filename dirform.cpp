@@ -46,15 +46,21 @@ void DirForm::initViewMenu(){
         w->setModel(&m_fileModel);
         w->setSelectionMode(QAbstractItemView::ExtendedSelection);
         w->setSelectionBehavior(QAbstractItemView::SelectRows);
+        w->setContextMenuPolicy(Qt::CustomContextMenu);
+
         connect(w->selectionModel(),&QItemSelectionModel::selectionChanged,this,&DirForm::on_selectedFileChanged);
         connect(w,SIGNAL(doubleClicked(QModelIndex)),
                 this,SLOT(on_fileItemDblClicked(QModelIndex)));
+        connect(w,&QAbstractItemView::customContextMenuRequested,
+                this,&DirForm::on_customContextMenuRequested);
     }
 
     ui->listView->setViewMode(QListView::IconMode);
     ui->listView->setResizeMode(QListView::Adjust);
     ui->listView->setMovement(QListView::Static);
     ui->listView->setTextElideMode(Qt::ElideRight);
+
+
 
     ui->tableView->verticalHeader()->setVisible(false);
     ui->tableView->clearSpans();
@@ -699,5 +705,17 @@ void DirForm::on_actionRenameSelect_triggered()
             }
         }
     }
+}
+
+void DirForm::on_customContextMenuRequested(const QPoint &pos)
+{
+    Q_UNUSED(pos);
+    QMenu menu(this);
+    menu.addAction(ui->actionCutSelect);
+    menu.addAction(ui->actionCopySelect);
+    menu.addAction(ui->actionPasteSelect);
+    menu.addAction(ui->actionPasteSelect);
+    menu.addAction(ui->actionMoveToTrash);
+    menu.exec(QCursor::pos());
 }
 

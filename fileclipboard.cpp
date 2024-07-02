@@ -85,6 +85,7 @@ void FileClipboard::on_paste(QString destDir)
         }
         if(isCut){
             QFile::rename(srcFilePath,destFilePath);
+            QApplication::clipboard()->clear();
         }
         else{
             QFile::copy(srcFilePath,destFilePath);
