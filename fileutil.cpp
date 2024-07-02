@@ -17,6 +17,9 @@ bool FileUtil::isParentOf(QString leftPath,QString rightPath){
     QString rightStr = right.absoluteFilePath() + "/";
     return rightStr.contains(leftStr) ;
 };
+
+
+
 EncodingFormat FileUtil::FileCharacterEncoding(const QString &fileName)
 {
     //假定默认编码utf8

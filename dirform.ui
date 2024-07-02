@@ -210,7 +210,7 @@
         </property>
         <property name="icon">
          <iconset resource="res.qrc">
-          <normaloff>:/new/icons/icons/icons8-add-to-favorites-24.png</normaloff>:/new/icons/icons/icons8-add-to-favorites-24.png</iconset>
+          <normaloff>:/new/icons/icons/icons-add-fav24.png</normaloff>:/new/icons/icons/icons-add-fav24.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -598,7 +598,7 @@
   <action name="actionAdd_Bookmark">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/new/icons/icons/icons8-add-to-favorites-24.png</normaloff>:/new/icons/icons/icons8-add-to-favorites-24.png</iconset>
+     <normaloff>:/new/icons/icons/icons-add-fav24.png</normaloff>:/new/icons/icons/icons-add-fav24.png</iconset>
    </property>
    <property name="text">
     <string>Add Bookmark</string>

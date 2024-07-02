@@ -3,6 +3,8 @@
 #include <string>
 #include <regex>
 #include <QDebug>
+#include <QList>
+#include <QString>
 using namespace std;
 
 
@@ -17,10 +19,26 @@ std::regex StringUtil::wildchardRex(string pattern){
     return std::regex(regstr);
 }
 
-bool StringUtil::matchWildcard(const std::string pattern, const std::string str) {
+bool StringUtil::matchWildcard(QString pattern, QString parentString) {
 
-    auto wildcardRegex = std::regex(pattern);
-    return std::regex_search(str, wildcardRegex);
+    QList<std::regex> regList;
+    QList<QString> filters = pattern.split(";");
+    for(QString filter: filters){
+        regList.append(StringUtil::wildchardRex(filter.toStdString()));
+    }
+
+    return StringUtil::match(regList,parentString);
+}
+
+bool StringUtil::match(const QList<std::regex> &regs,QString parentString){
+
+    std::string name = parentString.toLower().toStdString();
+    for(auto reg: regs){
+        if(std::regex_search(name,reg)){
+            return true;
+        }
+    }
+    return false;
 }
 
 string StringUtil::replaceAll(string &str, const string& oldStr, const string& newStr){

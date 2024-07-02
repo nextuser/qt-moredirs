@@ -588,7 +588,7 @@ QString DirForm::getTargetPath(){
         destPath = m_fileModel.filePath(index);
         QFileInfo info(destPath);
         if(!info.isDir()){
-            destPath = info.absoluteFilePath();
+            destPath = info.absolutePath();
         }
         break;
     }
@@ -731,7 +731,7 @@ void DirForm::on_comboBoxFilter_currentTextChanged(const QString &text)
     m_curItemView->selectionModel()->clear();
     bool notScrolled = true;
     for(auto file : dir.entryInfoList()){
-        if(StringUtil::matchWildcard(filter.toStdString(),file.fileName().toStdString())){
+        if(StringUtil::matchWildcard(filter,file.fileName())){
             auto index = m_fileModel.index(file.absoluteFilePath());
             m_curItemView->selectionModel()->select(index,QItemSelectionModel::Select);
             if(notScrolled){

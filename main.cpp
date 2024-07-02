@@ -12,6 +12,6 @@ int main(int argc, char *argv[])
 
     a.setOrganizationName("ljlhome");
     a.setApplicationName("moredirs");
-    a.setWindowIcon(QIcon(":/icons/icons/icons8-file-explorer-48.png"));
+    a.setWindowIcon(QIcon(":/new/icons/icons/moredirs-48.png"));
     return a.exec();
 }
