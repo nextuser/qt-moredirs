@@ -480,10 +480,10 @@ void DirForm::on_actionPasteSelect_triggered()
 
 void DirForm::on_actionMoveToTrash_triggered()
 {
-    auto indexes = m_curItemView->selectionModel()->selectedIndexes();
-    for(auto index: indexes){
-        if(index.column() != 0) return;
-        QString path = m_fileModel.filePath(index);
+    auto indexes = m_curItemView->selectionModel()->selectedRows();
+    for(auto it = indexes.rbegin(); it != indexes.rend(); ++ it){
+        if(it->column() != 0) continue;
+        QString path = m_fileModel.filePath(*it);
         QFile::moveToTrash(path);
     }
 }
@@ -711,21 +711,23 @@ void DirForm::on_actionNew_Folder_triggered()
 void DirForm::on_actionRenameSelect_triggered()
 {
     QModelIndexList rows = m_curItemView->selectionModel()->selectedRows();
-    if(rows.count() == 1){
-        QString filePath = m_fileModel.filePath(rows.at(0));
-        QFileInfo srcInfo(filePath);
-        QString newName = QInputDialog::getText(this,"变更名称","输入新名字",QLineEdit::EchoMode::Normal,srcInfo.fileName());
-        if(!newName.isEmpty() && newName != srcInfo.fileName()){
-            QString destPath = srcInfo.absolutePath() + "/" + newName;
-            if(QFileInfo(destPath).exists()){
-                QMessageBox::information(this,"错误","文件已存在");
-            }
-            else{
-                QFile::rename(srcInfo.absoluteFilePath(),destPath);
-                scrollToPath(m_curItemView,destPath);
-            }
+    if(rows.count() != 1) return;
+
+
+    QString filePath = m_fileModel.filePath(rows.at(0));
+    QFileInfo srcInfo(filePath);
+    QString newName = QInputDialog::getText(this,"变更名称","输入新名字",QLineEdit::EchoMode::Normal,srcInfo.fileName());
+    if(!newName.isEmpty() && newName != srcInfo.fileName()){
+        QString destPath = srcInfo.absolutePath() + "/" + newName;
+        if(QFileInfo(destPath).exists()){
+            QMessageBox::information(this,"错误","文件已存在");
+        }
+        else{
+            QFile::rename(srcInfo.absoluteFilePath(),destPath);
+            scrollToPath(m_curItemView,destPath);
         }
     }
+
 }
 
 void DirForm::on_customContextMenuRequested(const QPoint &pos)
@@ -871,6 +873,9 @@ void DirForm::dragEnterEvent(QDragEnterEvent *event)
         event->ignore();
     }
 }
+
+
+
 
 
 

@@ -98,6 +98,7 @@ private slots:
     void on_actionFind_triggered();
 
     void on_rowsInserted(const QModelIndex &parent, int first, int last);
+
 private:
     enum ViewIndex{
         ViewIndexTable = 0,
