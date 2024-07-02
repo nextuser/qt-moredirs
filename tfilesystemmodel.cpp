@@ -1,4 +1,5 @@
 #include "tfilesystemmodel.h"
+#include "fileutil.h"
 #include <QFileIconProvider>
 TFileSystemModel::TFileSystemModel(QObject *parent)
     : QFileSystemModel{parent}
@@ -16,9 +17,7 @@ QVariant TFileSystemModel::data(const QModelIndex &index, int role) const
         if(!m_previewImage)
             return m_iconProvider.icon(fileInfo);
 
-        QList<QByteArray> formats = QImageReader::supportedImageFormats();
-        QByteArray format = fileInfo.suffix().toLower().toUtf8();
-        if(formats.contains(format)){
+        if(FileUtil::isImage(fileInfo.absoluteFilePath())){
             auto image  = QImage(fileInfo.absoluteFilePath());
             image = image.scaled(QSize(m_iconSize,m_iconSize));
             return image;

@@ -97,6 +97,7 @@ void DirForm::initToolButtons(){
     ui->toolButtonBookMarkList->setPopupMode(QToolButton::MenuButtonPopup);
     ui->toolButtonNew->setDefaultAction(ui->actionNew_Folder);
     ui->toolButtonRename->setDefaultAction(ui->actionRenameSelect);
+    ui->toolButtonFind->setDefaultAction(ui->actionFind);
 }
 
 QList<QVariant> DirForm::getHeaderLens()
@@ -428,11 +429,11 @@ void DirForm::copyToClipboard(bool isCut)
 void DirForm::on_dirChanged(const QString &path)
 {
 
-    qDebug()<< "dirChange" << path;
+   // qDebug()<< "dirChange" << path;
 }
 
 void DirForm::on_fileChanged(const QString &path){
-    qDebug() << "fileChanged " <<path;
+   /// qDebug() << "fileChanged " <<path;
 }
 
 
@@ -737,4 +738,13 @@ void DirForm::on_comboBoxFilter_currentTextChanged(const QString &text)
         }
     }
 }
+
+#include "finddialog.h"
+void DirForm::on_actionFind_triggered()
+{
+    FindDialog dlg(this,this->m_curDir);
+    dlg.exec();
+}
+
+
 

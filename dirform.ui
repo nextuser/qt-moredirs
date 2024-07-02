@@ -168,6 +168,9 @@
           <height>16</height>
          </size>
         </property>
+        <property name="editable">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item>
@@ -502,15 +505,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QToolButton" name="toolButton_2">
-        <property name="maximumSize">
-         <size>
-          <width>16</width>
-          <height>16</height>
-         </size>
-        </property>
+       <widget class="QToolButton" name="toolButtonFind">
         <property name="text">
-         <string>...</string>
+         <string/>
         </property>
         <property name="icon">
          <iconset resource="res.qrc">
@@ -738,6 +735,19 @@
    </property>
    <property name="text">
     <string>New Folder</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionFind">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/new/icons/icons/414.bmp</normaloff>
+     <disabledoff>:/new/icons/icons/415.bmp</disabledoff>:/new/icons/icons/414.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>Find</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>

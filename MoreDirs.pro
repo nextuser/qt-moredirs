@@ -13,6 +13,8 @@ SOURCES += \
     bookmarkMgr.cpp \
     fileclipboard.cpp \
     fileutil.cpp \
+    finddialog.cpp \
+    searchthread.cpp \
     stringutil.cpp \
     tfilesystemmodel.cpp \
     thistory.cpp \
@@ -26,6 +28,8 @@ HEADERS += \
     bookmarkMgr.h \
     fileclipboard.h \
     fileutil.h \
+    finddialog.h \
+    searchthread.h \
     stringutil.h \
     tfilesystemmodel.h \
     thistory.h \
@@ -35,6 +39,7 @@ HEADERS += \
 
 FORMS += \
     dirform.ui \
+    finddialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.

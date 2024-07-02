@@ -4,14 +4,22 @@
 #include <regex>
 #include <QDebug>
 using namespace std;
+
+
+std::regex StringUtil::wildchardRex(string pattern){
+    std::string  regstr = pattern;
+    replaceAll(regstr,"\\","\\\\");
+    replaceAll(regstr,".","\\.");
+
+    replaceAll(regstr,"^","\\^");
+    replaceAll(regstr,"$","\\$");
+    replaceAll(regstr,"*","[\\w\\W]*");
+    return std::regex(regstr);
+}
+
 bool StringUtil::matchWildcard(const std::string pattern, const std::string str) {
 
-    std::string  regstr = pattern;
-    replaceAll(regstr,"*","[\\w\\W]*");
-    qDebug() << "patter:" << str;
-    auto wildcardRegex = std::regex(regstr);
-
-    qDebug() << "wildcardRegex:" <<  str;
+    auto wildcardRegex = std::regex(pattern);
     return std::regex_search(str, wildcardRegex);
 }
 

@@ -6,6 +6,8 @@
 #include <QList>
 #include <QUrl>
 #include <QFileInfo>
+#include <QByteArray>
+#include <QImageReader>
 const QString FileUtil::TIME_FORMAT = "yyyy-MM-dd hh:mm:ss";
 
 bool FileUtil::isParentOf(QString leftPath,QString rightPath){
@@ -143,6 +145,29 @@ QString FileUtil::sizeFormat(qint64 size)
         ret += QString::asprintf("%dB",(int)size );
     }
     return ret;
+}
+
+QString FileUtil::fileType(QString filePath)
+{
+    QFileInfo info(filePath);
+    QString suffix =  info.suffix();
+
+    if(info.isDir()){
+        return "目录";
+    }
+    else if(isImage(filePath)){
+        return "图片";
+    }
+    else{
+        return suffix;
+    }
+}
+
+bool FileUtil::isImage(QString filePath)
+{
+    QList<QByteArray> formats = QImageReader::supportedImageFormats();
+    QByteArray format = QFileInfo(filePath).suffix().toLower().toUtf8();
+    return formats.contains(format);
 }
 
 void showHardwareInfo(){

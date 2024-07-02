@@ -30,6 +30,8 @@ public:
     static inline QString timeStr(const QDateTime & datetime){
         return datetime.toString(TIME_FORMAT);
     }
+    static QString fileType(QString filePath);
+    static bool isImage(QString filePath);
     static void  defaultOpen(QString filepaths);
     static QList<NameUrl> generatePathUrls(QString filePath);
     static QString generateFileLink(QString filePath);
