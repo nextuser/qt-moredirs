@@ -97,7 +97,7 @@ private slots:
 
     void on_actionFind_triggered();
 
-
+    void on_rowsInserted(const QModelIndex &parent, int first, int last);
 private:
     enum ViewIndex{
         ViewIndexTable = 0,
@@ -138,7 +138,7 @@ private:
     QList<QUrl> m_cutUrls;
     TFileSystemModel m_fileModel;
     QAbstractItemView *m_curItemView;
-
+    bool m_viewModified = false;
 
     int m_iconSize;
     int m_index;
@@ -165,6 +165,9 @@ protected:
     // QWidget interface
 protected:
     void dragEnterEvent(QDragEnterEvent *event);
+    void scrollToPath(QAbstractItemView *itemView,QString newFile );
+
 };
+
 
 #endif // DIRFORM_H

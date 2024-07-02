@@ -8,9 +8,19 @@
 #include <QUrl>
 #include <QMimeData>
 #include <QClipboard>
-#include <QFileDialog>
 #include <QMenu>
 #include <QSettings>
+#include <QPointF>
+#include <QPoint>
+#include <QAbstractItemView>
+#include <QModelIndex>
+#include <QDropEvent>
+#include <QFileDialog>
+#include <QInputDialog>
+#include <QMessageBox>
+#include <QItemSelectionRange>
+#include "stringutil.h"
+#include "finddialog.h"
 #include "fileutil.h"
 #include "tsubwindow.h"
 
@@ -29,6 +39,7 @@ DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr,int index)
     connect(&m_fileWatcher, &QFileSystemWatcher::directoryChanged,this, &DirForm::on_dirChanged);
     connect(&m_fileWatcher, &QFileSystemWatcher::fileChanged,this, &DirForm::on_fileChanged);
     connect(QApplication::clipboard(),&QClipboard::dataChanged ,this , &DirForm::on_clipDataChanged);
+    connect(&m_fileModel,&QAbstractItemModel::rowsInserted,this,&DirForm::on_rowsInserted);
     updateBookmarks();
 
 
@@ -185,7 +196,7 @@ DirForm::~DirForm()
 //     return m_filesWidget;
 // }
 
-#include <QTableView>
+///#include <QTableView>
 // QAbstractItemView * DirForm::createTableView(QString dirPath,bool replaceView)
 // {
 //     if(replaceView || m_filesWidget == nullptr){
@@ -384,7 +395,7 @@ void DirForm::on_fileItemDblClicked(QModelIndex index)
     }
 }
 
-#include <QMenu>
+
 
 void DirForm:: updateBookmarks(){
     QMenu *menu = new QMenu(this);
@@ -462,6 +473,7 @@ void DirForm::on_actionPasteSelect_triggered()
 {
     QString destPath = getTargetPath();
     emit pasteFromClip(destPath);
+    m_viewModified = true;
     ////auto index = m_fileModel.index(destPath)
 }
 
@@ -500,7 +512,6 @@ void DirForm::on_actionUP_triggered()
 }
 
 
-
 void DirForm::updateButtonState()
 {
     ui->actionNext->setEnabled(m_history.nextable());
@@ -509,9 +520,12 @@ void DirForm::updateButtonState()
 
     auto indexes = this->m_curItemView->selectionModel()->selectedIndexes();
     bool selected = !indexes.isEmpty();
+    bool selectOne = this->m_curItemView->selectionModel()->selectedRows().count() == 1;
     ui->actionCopySelect->setEnabled(selected);
     ui->actionCutSelect->setEnabled(selected);
     ui->actionMoveToTrash->setEnabled(selected);
+    ui->actionPasteSelect->setEnabled(selected);
+    ui->actionRenameSelect->setEnabled(selectOne);
     updatePasteAction();
 }
 
@@ -559,6 +573,7 @@ void DirForm::switchViewType(ViewType viewTable)
         m_curItemView = newView;
         m_curItemView->setIconSize(QSize(m_iconSize,m_iconSize));
         ui->stackedWidget->setCurrentIndex(index);
+
     }
 
     if(m_curItemView == ui->listView){
@@ -567,6 +582,7 @@ void DirForm::switchViewType(ViewType viewTable)
 
     auto modelIndex = m_fileModel.index(m_curDir);
     m_curItemView->setRootIndex(modelIndex);
+    updateButtonState();
 }
 
 
@@ -602,22 +618,22 @@ void DirForm:: updatePasteAction(){
     const QMimeData * mime = QApplication::clipboard()->mimeData();
 
     QString pastePath = getTargetPath();
-    int validCount =0;
+    bool valid = false;
     if(mime->hasUrls()){
         for(QUrl & url :mime->urls()){
             if(!url.isValid()) continue;
             QString  srcPath = url.toLocalFile();
             if(!srcPath.isEmpty() && FileUtil::isParentOf(srcPath,pastePath)){
-                ui->actionPasteSelect->setEnabled(false);
-                return;
+                valid = false;
             }
             else{
-                validCount ++;
+                valid = true;
             }
+            break;
         }
 
     }
-    ui->actionPasteSelect->setEnabled(validCount > 0);
+    ui->actionPasteSelect->setEnabled(valid);
 }
 void DirForm::on_clipDataChanged()
 {
@@ -636,7 +652,6 @@ void DirForm::on_actionOpenDir_triggered()
 
 }
 
-#include <QFileDialog>
 
 void DirForm::on_actionAdd_Bookmark_triggered()
 {
@@ -668,11 +683,10 @@ void DirForm::on_actionViewDetailTable_triggered()
     switchViewType(ViewType_DetailList);
 }
 
-#include <QInputDialog>
-#include <QMessageBox>
+
 void DirForm::on_actionNew_Folder_triggered()
 {
-    QString fileName = QInputDialog::getText(this,"新建文件夹","请输入文件夹名");
+    QString fileName = QInputDialog::getText(this,"新建文件夹","请输入文件夹名",QLineEdit::EchoMode::Normal,"新文件夹");
     QString path = getTargetPath();
     QString newName = path + "/" + fileName;
     if(QFileInfo(newName).exists()){
@@ -684,10 +698,12 @@ void DirForm::on_actionNew_Folder_triggered()
             return;
     }
     else{
-        QModelIndex index = m_fileModel.index(newName);
-        m_curItemView->scrollTo(index);
-
+        ///QModelIndex index = m_fileModel.index(newName);
+        ///m_curItemView->scrollTo(index);
+        m_viewModified = true;
+        scrollToPath(m_curItemView,newName);
     }
+
 
 }
 
@@ -698,7 +714,7 @@ void DirForm::on_actionRenameSelect_triggered()
     if(rows.count() == 1){
         QString filePath = m_fileModel.filePath(rows.at(0));
         QFileInfo srcInfo(filePath);
-        QString newName = QInputDialog::getText(this,"输入新名字",srcInfo.fileName());
+        QString newName = QInputDialog::getText(this,"变更名称","输入新名字",QLineEdit::EchoMode::Normal,srcInfo.fileName());
         if(!newName.isEmpty() && newName != srcInfo.fileName()){
             QString destPath = srcInfo.absolutePath() + "/" + newName;
             if(QFileInfo(destPath).exists()){
@@ -706,7 +722,7 @@ void DirForm::on_actionRenameSelect_triggered()
             }
             else{
                 QFile::rename(srcInfo.absoluteFilePath(),destPath);
-                selectPath(destPath);
+                scrollToPath(m_curItemView,destPath);
             }
         }
     }
@@ -726,8 +742,7 @@ void DirForm::on_customContextMenuRequested(const QPoint &pos)
     menu.exec(QCursor::pos());
 }
 
-#include "stringutil.h"
-#include <QItemSelectionRange>
+
 void DirForm::on_comboBoxFilter_currentTextChanged(const QString &text)
 {
     QDir dir(m_curDir);
@@ -747,13 +762,22 @@ void DirForm::on_comboBoxFilter_currentTextChanged(const QString &text)
     }
 }
 
-#include "finddialog.h"
+
+
 void DirForm::on_actionFind_triggered()
 {
     FindDialog dlg(this,this->m_curDir);
     dlg.exec();
 }
 
+void DirForm::on_rowsInserted(const QModelIndex &parent, int first, int last)
+{
+    if(m_viewModified){
+        int col = parent.column();
+        //////todo m_curItemView->scrollTo(parent);
+        m_viewModified = false;
+    }
+}
 
 bool inRect(const QPointF &p, qreal x,qreal y, int w ,int h)
 {
@@ -761,12 +785,6 @@ bool inRect(const QPointF &p, qreal x,qreal y, int w ,int h)
     return ret;
 
 }
-
-#include <QPointF>
-#include <QPoint>
-#include <QAbstractItemView>>
-#include <QModelIndex>
-#include <QDropEvent>
 
 QString getDropPath(QAbstractItemView *treeView,const QPointF &globalDropPoint ){
     QPointF p = treeView->viewport()->mapFromGlobal(globalDropPoint);
@@ -778,6 +796,7 @@ QString getDropPath(QAbstractItemView *treeView,const QPointF &globalDropPoint )
         path = ((QFileSystemModel*)treeView->model())->filePath( treeView->rootIndex());
     }
     qDebug() << "target path: " << path;
+
     return path;
 }
 bool eventInWidget(const QPointF & globalPointF, QWidget *widget)
@@ -789,25 +808,37 @@ bool eventInWidget(const QPointF & globalPointF, QWidget *widget)
     return inRect(globalPointF,pointArea.x(),pointArea.y(),w,h);
 }
 
-void scrollToPath(QAbstractItemView *itemView,QString newFile ){
+void DirForm::scrollToPath(QAbstractItemView *itemView,QString newFile ){
     if(newFile.isEmpty()) return;
 
     ///treeView->setSortingEnabled(false);
     QFileSystemModel * fileModel = (QFileSystemModel*) itemView->model();
-    QModelIndex index = fileModel->index(newFile);
-    itemView->selectionModel()->select(index,QItemSelectionModel::SelectionFlag::Select);
-    itemView->scrollTo(index);
+    QFileInfo info(newFile);
+    QModelIndex index;
+    QString parentPath = info.absolutePath();
+    if(parentPath == this->m_curDir){
+        index = fileModel->index(newFile);
+    }
+    else if(QFileInfo(parentPath).absolutePath() == this->m_curDir ){
+        index = fileModel->index(parentPath);
+    }
 
 
+    if(index.isValid()){
+
+        itemView->selectionModel()->select(index,QItemSelectionModel::SelectionFlag::Select);
+        itemView->scrollTo(index);
+    }
 }
+
 void DirForm::dropEvent(QDropEvent *event)
 {
     qDebug()<< "widget drop";
 
     QPointF globalPoint = this->mapToGlobal(event->position());
-    if(eventInWidget(globalPoint,ui->tableView)){
+    if(eventInWidget(globalPoint,m_curItemView)){
 
-        QString target = getDropPath(ui->tableView,globalPoint);
+        QString target = getDropPath(m_curItemView,globalPoint);
         QFileInfo targetInfo(target);
         QString targetDir = targetInfo.isDir() ? targetInfo.absoluteFilePath() : targetInfo.absolutePath();
         ui->tableView->selectionModel()->clear();
@@ -819,14 +850,14 @@ void DirForm::dropEvent(QDropEvent *event)
                 QString newPath = targetDir + "/" + srcInfo.fileName();
                 if(QFile::rename(srcInfo.absoluteFilePath(), newPath))
                 {
-                    scrollToPath(ui->tableView,newPath);
+                    scrollToPath(m_curItemView,newPath);
                 }
                 qDebug()<<"rename:" << srcInfo.absoluteFilePath() << "=>" << newPath;
             }
         }
         qDebug() << "left drop,target=" << target;
     }
-
+    m_viewModified = true;
     event->accept();
 
 }
