@@ -173,6 +173,7 @@
         <file>icons/viewfile.png</file>
         <file>icons/viewprop.png</file>
         <file>icons/moredirs-48.png</file>
+        <file>icons/icons8-add-to-favorites-24.png</file>
     </qresource>
     <qresource prefix="/">
         <file>icons/icons8-filter-24.png</file>

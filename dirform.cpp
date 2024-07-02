@@ -317,10 +317,12 @@ bool DirForm::loadDir(QString filePath,bool changeComboItem )
 
     if(changeComboItem)
     {
+        disconnect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
         if(!isFileComboContains(dirPath)){
             addFileComboItems(dirPath);
         }
         ui->comboBoxDir->setCurrentText(dir.dirName());
+        connect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
     }
 
     m_fileModel.setRootPath(m_curDir);
@@ -428,11 +430,12 @@ void DirForm::copyToClipboard(bool isCut)
 
 void DirForm::on_dirChanged(const QString &path)
 {
-
+    Q_UNUSED(path);
    // qDebug()<< "dirChange" << path;
 }
 
 void DirForm::on_fileChanged(const QString &path){
+    Q_UNUSED(path);
    /// qDebug() << "fileChanged " <<path;
 }
 
