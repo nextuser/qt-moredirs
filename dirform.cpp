@@ -10,8 +10,10 @@
 #include <QClipboard>
 #include <QFileDialog>
 #include <QMenu>
-#include "fileutil.h"
 #include <QSettings>
+#include "fileutil.h"
+#include "tsubwindow.h"
+
 
 DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr,int index)
     : QWidget(parent)
@@ -28,6 +30,8 @@ DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr,int index)
     connect(&m_fileWatcher, &QFileSystemWatcher::fileChanged,this, &DirForm::on_fileChanged);
     connect(QApplication::clipboard(),&QClipboard::dataChanged ,this , &DirForm::on_clipDataChanged);
     updateBookmarks();
+
+
 }
 
 void DirForm::initViewMenu(){
@@ -50,14 +54,15 @@ void DirForm::initViewMenu(){
     ui->listView->setViewMode(QListView::IconMode);
     ui->listView->setResizeMode(QListView::Adjust);
     ui->listView->setMovement(QListView::Static);
+    ui->listView->setTextElideMode(Qt::ElideRight);
 
     ui->tableView->verticalHeader()->setVisible(false);
     ui->tableView->clearSpans();
     ui->tableView->setSortingEnabled(true);
     auto font = ui->tableView->font();
-    qDebug()<< "fontsize=" << font.pointSize() << " pixel size" << font.pixelSize();
+    ///qDebug()<< "fontsize=" << font.pointSize() << " pixel size" << font.pixelSize();
     font.setPointSize(11);
-    qDebug()<< "fontsize=" << font.pointSize() << " pixel size" << font.pixelSize();
+    ///qDebug()<< "fontsize=" << font.pointSize() << " pixel size" << font.pixelSize();
     ui->tableView->setFont(font);
 
 
@@ -283,7 +288,7 @@ bool DirForm::isFileComboContains(QString filePath)
     return false;
 }
 
-#include "tsubwindow.h"
+
 bool DirForm::loadDir(QString filePath,bool changeComboItem )
 {
 
@@ -499,11 +504,11 @@ void DirForm::updateButtonState()
     updatePasteAction();
 }
 
-void setListView(QListView *listView,int iconSize){
-    int extraSize = 12;
+void DirForm::setListView(QListView *listView,int iconSize){
     listView->setIconSize(QSize(iconSize ,iconSize ));
     int gridSize = iconSize * 1.3;
     listView->setGridSize(QSize(gridSize,gridSize));
+
 }
 void DirForm::switchViewType(ViewType viewTable)
 {
@@ -522,6 +527,7 @@ void DirForm::switchViewType(ViewType viewTable)
             m_iconSize = 64;
             setListView(ui->listView,m_iconSize);
             ui->listView->setViewMode(QListView::IconMode);
+
             break;
         case ViewType_LargIcon:
             index = ViewIndexList;
@@ -533,15 +539,20 @@ void DirForm::switchViewType(ViewType viewTable)
 
         default:
             index = ViewIndexTable;
+            m_iconSize = 20;
 
     };
 
     QAbstractItemView *newView = m_views[index];
     if(newView != m_curItemView ){
         m_curItemView = newView;
+        m_curItemView->setIconSize(QSize(m_iconSize,m_iconSize));
         ui->stackedWidget->setCurrentIndex(index);
     }
 
+    if(m_curItemView == ui->listView){
+        m_fileModel.setPreviewable(ui->listView->viewMode() == QListView::IconMode,m_iconSize);
+    }
 
     auto modelIndex = m_fileModel.index(m_curDir);
     m_curItemView->setRootIndex(modelIndex);

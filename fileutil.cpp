@@ -172,7 +172,11 @@ QList<NameUrl> FileUtil::generatePathUrls(QString filePath){
     do{
         curPath = fileInfo.absoluteFilePath();
         parentPath = fileInfo.absolutePath();
-        retList.push_front(std::make_pair(fileInfo.fileName(),curPath));
+        QString name = fileInfo.fileName();
+        if(name.isEmpty()){
+            name = curPath;
+        }
+        retList.push_front(std::make_pair(name,curPath));
         fileInfo = QFileInfo(parentPath);
     }while(curPath != parentPath);
     return retList;

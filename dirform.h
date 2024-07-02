@@ -8,7 +8,9 @@
 #include <QVBoxLayout>
 #include <QUrl>
 #include <QFileSystemWatcher>
-#include     <QFileSystemModel>
+#include <QImageReader>
+#include "tfilesystemmodel.h"
+
 namespace Ui {
 class DirForm;
 }
@@ -24,6 +26,9 @@ public:
     QList<QVariant> getHeaderLens();
     inline int index(){ return m_index;}
     void updateHeaderLens(QList<QVariant> headerLens );
+    inline QString getCurDir(){
+        return m_curDir;
+    }
 
 Q_SIGNALS:
     void copyUrlsToClip(QList<QUrl> urls,QString text);
@@ -104,7 +109,7 @@ private:
         ViewType_Count
     };
 
-
+    void setListView(QListView *listView,int iconSize);
     void addFileComboItems(QString dirPath);
     bool isFileComboContains(QString filePath);
     void copyToClipboard(bool isCut = false);
@@ -125,8 +130,10 @@ private:
     void updateButtonState();
     BookmarkMgr * m_bookmarkMgr;
     QList<QUrl> m_cutUrls;
-    QFileSystemModel m_fileModel;
+    TFileSystemModel m_fileModel;
     QAbstractItemView *m_curItemView;
+
+
     int m_iconSize;
     int m_index;
 

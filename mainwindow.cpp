@@ -24,11 +24,15 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 const QString KEY_COLUMN_HEADERS = "ColumnHeaders_%1";
+const QString KEY_FORM_FILE_PATH = "FilePath_%1";
 void MainWindow::loadSettings(){
     ///QSettings settings(QSettings::Format::IniFormat,QSettings::Scope::UserScope,"ljlhome","moredirs",this);
     for(auto &form : formList){
         QList<QVariant> lens = m_settings->value(QString(KEY_COLUMN_HEADERS).arg(form->index())).toList();
         form->updateHeaderLens(lens);
+        QString filePath = m_settings->value(QString(KEY_FORM_FILE_PATH).arg(form->index())).toString();
+        bool changeCombo = true;
+        if(!filePath.isEmpty())form->loadDir(filePath,changeCombo);
     }
 
 }
@@ -36,9 +40,11 @@ void MainWindow::loadSettings(){
 void MainWindow::saveSettings(){
     ///QSettings settings(QSettings::Format::IniFormat,QSettings::Scope::UserScope,"ljlhome","moredirs",this);
     QList<QVariant> list;
-    for(DirForm * form : formList){
 
+    for(DirForm * form : formList){
+        QString filePathKey = form->getCurDir();
         m_settings->setValue(QString(KEY_COLUMN_HEADERS).arg(form->index()),form->getHeaderLens());
+        m_settings->setValue(QString(KEY_FORM_FILE_PATH).arg(form->index()),form->getCurDir());
     }
 
 
