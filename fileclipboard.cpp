@@ -4,7 +4,7 @@
 #include <QMimeData>
 #include <QApplication>
 #include "fileutil.h"
-FileClipboard::FileClipboard(QObject *parent)
+FileClipboard::FileClipboard(QWidget *parent)
     : QObject{parent}
 {
 
@@ -33,7 +33,27 @@ void FileClipboard::on_cutUrls(const QList<QUrl> urls,QString text)
     doCopyUrls(urls,text,true);
 }
 
+void FileClipboard::releaseThread(){
+    if(m_dlg != nullptr){
+        delete m_dlg;
+    }
 
+    if(m_fileThread != nullptr)
+    {
+        m_fileThread->doStop();
+        delete m_fileThread;
+    }
+
+
+}
+
+void FileClipboard::copyInProces(QString srcPath, QString targetParentDir){
+
+    releaseThread();
+    m_fileThread = new FileThread(parent());
+    m_fileThread->startCopyFile(srcPath,targetParentDir);
+    m_dlg = new CopyProcessDialog((QWidget*)parent(),m_fileThread);
+}
 
 
 void FileClipboard::on_paste(QString destDir)
@@ -88,7 +108,7 @@ void FileClipboard::on_paste(QString destDir)
             QApplication::clipboard()->clear();
         }
         else{
-            QFile::copy(srcFilePath,destFilePath);
+            copyInProces(srcFilePath,destPath);
         }
 
     }

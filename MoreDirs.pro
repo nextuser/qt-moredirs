@@ -11,7 +11,9 @@ RC_ICONS = moredirs.ico
 
 SOURCES += \
     bookmarkMgr.cpp \
+    copyprocessdialog.cpp \
     fileclipboard.cpp \
+    filethread.cpp \
     fileutil.cpp \
     finddialog.cpp \
     searchthread.cpp \
@@ -26,7 +28,9 @@ SOURCES += \
 
 HEADERS += \
     bookmarkMgr.h \
+    copyprocessdialog.h \
     fileclipboard.h \
+    filethread.h \
     fileutil.h \
     finddialog.h \
     searchthread.h \
@@ -38,6 +42,7 @@ HEADERS += \
     tsubwindow.h
 
 FORMS += \
+    copyprocessdialog.ui \
     dirform.ui \
     finddialog.ui \
     mainwindow.ui

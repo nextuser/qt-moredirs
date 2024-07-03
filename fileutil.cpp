@@ -5,6 +5,7 @@
 #include <QDesktopServices>
 #include <QList>
 #include <QUrl>
+#include <QDir>
 #include <QFileInfo>
 #include <QByteArray>
 #include <QImageReader>
@@ -16,6 +17,36 @@ bool FileUtil::isParentOf(QString leftPath,QString rightPath){
     QFileInfo right(rightPath);
     QString rightStr = right.absoluteFilePath() + "/";
     return rightStr.contains(leftStr) ;
+}
+
+quint64 countDirSize(const QDir &dir,int &process){
+    quint64 ret = 0;
+    for(auto& info: dir.entryInfoList()){
+        ++ process;
+        if(info.isDir()){
+            ret += countDirSize(QDir(info.absoluteFilePath()),process);
+        }
+        else{
+            ret += info.size();
+        }
+    }
+    return ret;
+}
+
+quint64 FileUtil::countFileSize(QString path)
+{
+    quint64 fsize = 0;
+    QFileInfo info(path);
+    int process = 0;
+    if(!info.exists()) return 0;
+    if(info.isDir() && !info.isSymbolicLink() && !info.isSymLink()){
+        QString filePath = info.absoluteFilePath();
+        fsize += countDirSize(QDir(filePath),process);
+    }
+    else{
+        fsize += info.size();
+    }
+    return fsize;
 };
 
 
@@ -59,10 +90,6 @@ EncodingFormat FileUtil::FileCharacterEncoding(const QString &fileName)
 
     return code;
 }
-
-
-
-
 
 void FileUtil::readParaFile(QString filePath,AppendInterface *ap)
 {
@@ -136,16 +163,16 @@ QString FileUtil::sizeFormat(qint64 size)
     const qint64 KB = 1 << 10;
     QString ret = "";
     if(size > GB){
-        ret += QString::asprintf("%3.3fGB",size / (float)GB);
+        ret += QString::asprintf("%3.3f GB",size / (float)GB);
     }
     else if(size > MB){
-        ret += QString::asprintf("%3.3fMB",size / (float)MB);
+        ret += QString::asprintf("%3.3f MB",size / (float)MB);
     }
     else if(size > KB){
-        ret += QString::asprintf("%3.3fKB",size / (float)KB);
+        ret += QString::asprintf("%3.3f KB",size / (float)KB);
     }
     else{
-        ret += QString::asprintf("%dB",(int)size );
+        ret += QString::asprintf("%d B",(int)size );
     }
     return ret;
 }
