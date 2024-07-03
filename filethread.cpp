@@ -5,6 +5,7 @@
 #include <QUrl>
 #include <QDir>
 #include <QFileInfo>
+#include "fileutil.h"
 FileThread::FileThread(QObject *parent)
     : QThread{parent}
 {}
@@ -102,7 +103,13 @@ void FileThread::copyDir(const QDir&  srcDir,const QDir& dstDir,int & fileCount,
             copyDir(QDir(srcPath),QDir(targetPath), fileCount,dirCount,processSize);
 
         }
-        else{
+        else if(entry.isSymbolicLink())
+        {
+            FileUtil::copySymbolicLink(srcPath,targetPath);
+            incCopy(srcPath,fileCount,dirCount,processSize);
+        }
+        else
+        {
             QFile::copy(srcPath,targetPath);
 
             incCopy(srcPath,fileCount,dirCount,processSize,entry.size());
@@ -124,6 +131,13 @@ void FileThread::copyFile(QFileInfo  srcInfo,const QFileInfo& dstDirInfo){
         copyDir(QDir(srcPath),QDir(targetPath),count,dirCount,fsize);
 
     }
+
+    else if(srcInfo.isSymbolicLink())
+    {
+        FileUtil::copySymbolicLink(srcPath,targetPath);
+        incCopy(srcPath,count,dirCount,fsize);
+    }
+
     else{
         QFile::copy(srcPath,targetPath);
 
@@ -154,8 +168,7 @@ void FileThread::incCopy(const QString &curPath,int &count,int dirCount,quint64 
 
 void FileThread::run()
 {
-    int process = 0;
-///    quint64 totalSize =
+
     if(m_taskType == Task_CountSize || m_taskType == Task_Copy){
       countFileSize(m_srcPath);
     }

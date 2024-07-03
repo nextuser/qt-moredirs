@@ -51,6 +51,15 @@ quint64 FileUtil::countFileSize(QString path)
 
 
 
+bool FileUtil::copySymbolicLink(const QString &sourceLink, const QString &targetLink) {
+    QFile sourceFile(sourceLink);
+    QFile targetFile(targetLink);
+
+    // 获取源符号链接指向的路径
+    return targetFile.link(targetFile.symLinkTarget());
+
+}
+
 EncodingFormat FileUtil::FileCharacterEncoding(const QString &fileName)
 {
     //假定默认编码utf8
