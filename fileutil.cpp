@@ -246,19 +246,25 @@ QList<NameUrl> FileUtil::generatePathUrls(QString filePath){
     return retList;
 }
 #include <QDir>
+#include <stringutil.h>
 QString FileUtil::generateFileLink(QString filePath){
     static QString linkTemplate = R"(<a href="%1">%2</a>)";
     //QString sep = QDir::separator();
-    QString sep = "&nbsp;&gt;&nbsp;";
+    QString sep = " > ";
     QList<NameUrl>  nameUrls = generatePathUrls(filePath);
     QString ret = "";
     for(NameUrl &nameUrl : nameUrls){
         QString name = nameUrl.first;
+
         QFileInfo info(nameUrl.second);
         if(info.isDir() ){
-            if (info.absolutePath() != info.absoluteFilePath()){
-                name = info.fileName() + sep;
-            }
+
+            name = nameUrl.first + sep;
+
+            name = name.toHtmlEscaped();
+            std::string str = name.toStdString();
+            StringUtil::replaceAll(str,"/","&frasl;");
+            name = QString::fromStdString(str);
             ret += linkTemplate.arg(nameUrl.second).arg(name);
         }
         else{

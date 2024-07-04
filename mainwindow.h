@@ -7,6 +7,7 @@
 #include "fileclipboard.h"
 #include <QAbstractItemView>
 #include <QSettings>
+#include <QLabel>
 #include "tsubwindow.h"
 class TFormDoc;
 QT_BEGIN_NAMESPACE
@@ -38,6 +39,8 @@ private slots:
 
     void on_action_wUpDown_triggered();
 
+    void on_statusChanged(QString filePath,int index);
+
 private:
     Ui::MainWindow *ui;
     BookmarkMgr m_bookmarkMgr;
@@ -47,12 +50,14 @@ private:
     QList<TSubWindow*> subwinList;
     QSettings *m_settings;
     int m_curIndex = 0;
+    int m_statusFormIndex = 0;
     DirForm *getDirForm(int formIndex);
     void loadSettings();
     void saveSettings();
     void setSubWindowFrameLess(bool frameless);
     void showSubWin(int count);
-
+    QLabel statusLabel;
+    void on_statusLinkActivate(const QString& link);
     // QWidget interface
 protected:
     void closeEvent(QCloseEvent *event);

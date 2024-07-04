@@ -7,7 +7,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow),statusLabel(this)
 {
     ui->setupUi(this);
     this->setCentralWidget(ui->mdiArea);
@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     }
     ui->mdiArea->tileSubWindows();
     loadSettings();
+    this->statusBar()->addWidget(&statusLabel);
+    connect(&statusLabel,&QLabel::linkActivated, this, &MainWindow::on_statusLinkActivate);
 }
 
 const QString KEY_COLUMN_HEADERS = "ColumnHeaders_%1";
@@ -84,6 +86,7 @@ DirForm * MainWindow::createForm(QWidget *parent,int index){
     connect(doc,&DirForm::cutUrlsToClip,&m_clip,&FileClipboard::on_cutUrls);
     connect(doc,&DirForm::pasteFromClip,&m_clip,&FileClipboard::on_paste);
     connect(&m_bookmarkMgr,&BookmarkMgr::bookmarkChanged,doc,&DirForm::updateBookmarks);
+    connect(doc,&DirForm::statusChanged,this,&MainWindow::on_statusChanged);
     return doc;
 }
 
@@ -127,6 +130,11 @@ void MainWindow::showSubWin(int count)
     for(int i = count ; i < subwinList.count(); ++ i){
         subwinList[i]->setVisible(false);
     }
+}
+
+void MainWindow::on_statusLinkActivate(const QString &link)
+{
+    this->formList[this->m_statusFormIndex]->loadDir(link,true);
 }
 
 void MainWindow::on_actionTileWindow_triggered()
@@ -187,5 +195,12 @@ void MainWindow::on_action_wUpDown_triggered()
 
     setSubWindowFrameLess(true);
     ui->mdiArea->tileSubWindows();
+}
+
+#include "fileutil.h"
+void MainWindow::on_statusChanged(QString filePath,int index)
+{
+    m_statusFormIndex = index;
+    statusLabel.setText(FileUtil::generateFileLink(filePath));
 }
 

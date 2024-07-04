@@ -34,9 +34,12 @@ Q_SIGNALS:
     void copyUrlsToClip(QList<QUrl> urls,QString text);
     void cutUrlsToClip(QList<QUrl> urls,QString text);
     void pasteFromClip(QString destDir);
+    void statusChanged(QString filePath,int formIndex);
 public slots:
     void updateBookmarks();
     void selectPath(QString filePath);
+
+
 
 protected slots:
 

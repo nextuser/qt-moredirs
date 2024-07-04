@@ -577,7 +577,8 @@ void DirForm::switchViewType(ViewType viewTable)
     }
 
     if(m_curItemView == ui->listView){
-        m_fileModel.setPreviewable(ui->listView->viewMode() == QListView::IconMode,m_iconSize);
+        bool bPreview = true;//ui->listView->viewMode() == QListView::IconMode
+        m_fileModel.setPreviewable(bPreview,m_iconSize);
     }
 
     auto modelIndex = m_fileModel.index(m_curDir);
@@ -591,11 +592,18 @@ void DirForm::on_toolButtonNew_triggered(QAction *arg1)
     Q_UNUSED(arg1);
 }
 
+#include <QMainWindow>
+#include <QStatusBar>
 void DirForm::on_selectedFileChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
     Q_UNUSED(selected);
     Q_UNUSED(deselected);
     updateButtonState();
+    if(!selected.indexes().isEmpty()){
+        QString filePath = m_fileModel.filePath(selected.indexes().at(0));
+        emit statusChanged(filePath,m_index);
+    }
+
 
 }
 
