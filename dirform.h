@@ -26,7 +26,7 @@ public:
     QList<QVariant> getHeaderLens();
     inline int index(){ return m_index;}
     void updateHeaderLens(QList<QVariant> headerLens );
-    inline QString getCurDir(){
+    inline QString curDir(){
         return m_curDir;
     }
 
@@ -120,8 +120,8 @@ private:
     };
 
     void setListView(QListView *listView,int iconSize);
-    void addFileComboItems(QString dirPath);
-    bool isFileComboContains(QString filePath);
+    int addFileComboItems(QString dirPath);
+    int findCombItemIndex(QString filePath);
     void copyToClipboard(bool isCut = false);
     // void refreshView(QString dirPath);
     QString getTargetPath();
@@ -153,6 +153,7 @@ private:
 
 
     QAbstractItemView * m_views[3] ;
+    QList<QString> comboItems;
 
 
 

@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
         addSubWin(i);
     }
     ui->mdiArea->tileSubWindows();
+    connect(ui->mdiArea,&QMdiArea::subWindowActivated,this,&MainWindow::on_subWindowActivated);
     loadSettings();
     this->statusBar()->addWidget(&statusLabel);
     connect(&statusLabel,&QLabel::linkActivated, this, &MainWindow::on_statusLinkActivate);
@@ -44,11 +45,10 @@ void MainWindow::saveSettings(){
     QList<QVariant> list;
 
     for(DirForm * form : formList){
-        QString filePathKey = form->getCurDir();
+        QString filePathKey = form->curDir();
         m_settings->setValue(QString(KEY_COLUMN_HEADERS).arg(form->index()),form->getHeaderLens());
-        m_settings->setValue(QString(KEY_FORM_FILE_PATH).arg(form->index()),form->getCurDir());
+        m_settings->setValue(QString(KEY_FORM_FILE_PATH).arg(form->index()),form->curDir());
     }
-
 
 }
 
@@ -101,6 +101,8 @@ DirForm* MainWindow::addSubWin(int index)
     subWin->setWidget(formDoc);
     ui->mdiArea->addSubWindow(subWin);
     subwinList.append(subWin);
+
+
 
     return formDoc;
 }
@@ -201,6 +203,15 @@ void MainWindow::on_action_wUpDown_triggered()
 void MainWindow::on_statusChanged(QString filePath,int index)
 {
     m_statusFormIndex = index;
-    statusLabel.setText(FileUtil::generateFileLink(filePath));
+    QString text = FileUtil::generateFileLink(filePath);
+    statusLabel.setText(text);
+}
+
+void MainWindow::on_subWindowActivated(QMdiSubWindow * w)
+{
+    QWidget * widget = w->widget();
+    if(widget == nullptr) return;
+    DirForm * form = (DirForm*) widget;
+    this->on_statusChanged(form->curDir(),form->index());
 }
 

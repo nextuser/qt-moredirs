@@ -34,7 +34,7 @@ Q_SIGNALS:
     // QThread interface
 protected:
     void run();
-    static const int COUNT_PROCESS_IN_1MS = 3300;
+    static const int COUNT_PROCESS_IN_1MS = 10000;
     const static int COPY_STEP_COUNT =500;
     const static quint64 COPY_STEP_SIZE = 1 << 23; //(8MB)
 private :

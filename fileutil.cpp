@@ -252,7 +252,7 @@ QString FileUtil::generateFileLink(QString filePath){
     //QString sep = QDir::separator();
     QString sep = " > ";
     QList<NameUrl>  nameUrls = generatePathUrls(filePath);
-    QString ret = "";
+    QString ret = "&nbsp;&nbsp;";
     for(NameUrl &nameUrl : nameUrls){
         QString name = nameUrl.first;
 

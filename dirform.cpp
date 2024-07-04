@@ -278,7 +278,7 @@ DirForm::~DirForm()
 //     return frame;
 // }
 
-void DirForm::addFileComboItems(QString dirPath)
+int DirForm::addFileComboItems(QString dirPath)
 {
     int itemCount = ui->comboBoxDir->count();
     for(int i = itemCount -1 ; i >= 0; --i){
@@ -294,17 +294,19 @@ void DirForm::addFileComboItems(QString dirPath)
 
     //connect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
     m_combModifying = false;
+    return ui->comboBoxDir->count() - 1;
+
 }
 
-bool DirForm::isFileComboContains(QString filePath)
+int DirForm::findCombItemIndex(QString filePath)
 {
     int count = ui->comboBoxDir->count();
     for(int i = 0 ;  i < count ;++ i )
     {
         if(ui->comboBoxDir->itemData(i).toString() == filePath)
-            return true;
+            return i;
     }
-    return false;
+    return -1;
 }
 
 
@@ -332,16 +334,19 @@ bool DirForm::loadDir(QString filePath,bool changeComboItem )
     if(changeComboItem)
     {
         disconnect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
-        if(!isFileComboContains(dirPath)){
-            addFileComboItems(dirPath);
+        int index = findCombItemIndex(dirPath);
+
+        if(index < 0){
+           index = addFileComboItems(dirPath);
         }
-        ui->comboBoxDir->setCurrentText(dir.dirName());
+        if(index >= 0) ui->comboBoxDir->setCurrentIndex(index);
         connect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
     }
 
     m_fileModel.setRootPath(m_curDir);
     auto modelIndex = m_fileModel.index(m_curDir);
     m_curItemView->setRootIndex(modelIndex);
+    /////emit statusChanged(m_curDir,m_index);
 
     return true;
 }
@@ -352,7 +357,7 @@ void DirForm::on_comboDirIndexChange(int index)
     {
         QString filePath = ui->comboBoxDir->itemData(index).toString();
 
-        loadDir(filePath);
+        loadDir(filePath,true);
         m_history.addItem(m_curDir);
     }
 }
@@ -389,8 +394,7 @@ void DirForm::on_fileItemDblClicked(QModelIndex index)
     if(!info.isDir()){
         QDesktopServices::openUrl(QUrl::fromLocalFile(info.absoluteFilePath()));
     }else{
-        bool changeCombo = true;
-        loadDir(info.absoluteFilePath(),changeCombo);
+        loadDir(info.absoluteFilePath(),true);
         m_history.addItem(m_curDir);
     }
 }
@@ -783,8 +787,6 @@ void DirForm::on_actionFind_triggered()
 void DirForm::on_rowsInserted(const QModelIndex &parent, int first, int last)
 {
     if(m_viewModified){
-        int col = parent.column();
-        //////todo m_curItemView->scrollTo(parent);
         m_viewModified = false;
     }
 }
@@ -841,6 +843,18 @@ void DirForm::scrollToPath(QAbstractItemView *itemView,QString newFile ){
     }
 }
 
+QString fileName(const QFileInfo &fileInfo){
+    QString fileName = fileInfo.fileName();
+    if(fileName.isEmpty()){
+        QString path = fileInfo.canonicalFilePath();
+        int len = path.length();
+        int index = path.lastIndexOf("/");
+        if(index >= 0 && len > index + 1)
+            return path.last(path.length() - index - 1);
+    }
+    return fileName;
+}
+
 void DirForm::dropEvent(QDropEvent *event)
 {
     qDebug()<< "widget drop";
@@ -857,7 +871,7 @@ void DirForm::dropEvent(QDropEvent *event)
             qDebug()<< "mimeData url" << url.path();
             if(srcInfo.absolutePath() != targetDir)
             {
-                QString newPath = targetDir + "/" + srcInfo.fileName();
+                QString newPath = targetDir + "/" + fileName(srcInfo);
                 if(QFile::rename(srcInfo.absoluteFilePath(), newPath))
                 {
                     scrollToPath(m_curItemView,newPath);

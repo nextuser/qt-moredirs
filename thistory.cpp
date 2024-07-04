@@ -48,10 +48,6 @@ void THistory::addItem(QString url){
 
     historys.append(url);
     cursor = (int)historys.size() - 1;
-
-
-
-
 }
 void THistory::clear(){
     historys.clear();

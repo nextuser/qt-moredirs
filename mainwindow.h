@@ -40,6 +40,7 @@ private slots:
     void on_action_wUpDown_triggered();
 
     void on_statusChanged(QString filePath,int index);
+    void on_subWindowActivated(QMdiSubWindow *);
 
 private:
     Ui::MainWindow *ui;
