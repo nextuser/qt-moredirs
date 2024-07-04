@@ -27,11 +27,12 @@ public slots:
     void on_paste(QString destDir);
 private :
     QList<QUrl> m_cutUrls;
+    QList<QUrl> m_copyUrls;
     FileThread *m_fileThread = nullptr;
 
     CopyProcessDialog *m_dlg = nullptr;
     void  doCopyUrls(const QList<QUrl> &urls,QString text,bool isCut);
-    void  copyInProces(QString srcPath, QString targetParentDir);
+    void  copyInProces(QStringList srcPaths, QString targetParentDir);
     void  releaseThread();
 };
 

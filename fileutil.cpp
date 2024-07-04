@@ -19,11 +19,11 @@ bool FileUtil::isParentOf(QString leftPath,QString rightPath){
     return rightStr.contains(leftStr) ;
 }
 
-quint64 countDirSize(const QDir &dir,int &process){
+quint64 FileUtil::countDirSize(const QDir &dir,int &process){
     quint64 ret = 0;
-    for(auto& info: dir.entryInfoList()){
+    for(auto& info: dir.entryInfoList(SubFileDirFilter)){
         ++ process;
-        if(info.isDir()){
+        if(FileUtil::isLocalDir(info)){
             ret += countDirSize(QDir(info.absoluteFilePath()),process);
         }
         else{

@@ -19,8 +19,14 @@ void FileClipboard:: doCopyUrls(const QList<QUrl> &urls,QString text,bool isCut)
     mime->setUrls(urls);
     mime->setText(text);
     clip->setMimeData(mime);
-    if(isCut) m_cutUrls = urls;
-    else m_cutUrls.clear();
+    if(isCut) {
+        m_cutUrls = urls;
+        m_copyUrls.clear();
+    }
+    else {
+        m_copyUrls = urls;
+        m_cutUrls.clear();
+    }
 }
 
 void FileClipboard::on_copyUrls(const QList<QUrl> urls,QString text)
@@ -47,18 +53,20 @@ void FileClipboard::releaseThread(){
 
 }
 
-void FileClipboard::copyInProces(QString srcPath, QString targetParentDir){
+void FileClipboard::copyInProces(QStringList srcPaths, QString targetParentDir){
 
     releaseThread();
     m_fileThread = new FileThread(parent());
-    m_fileThread->startCopyFile(srcPath,targetParentDir);
+
     m_dlg = new CopyProcessDialog((QWidget*)parent(),m_fileThread);
+    m_fileThread->startPasteFiles(srcPaths,targetParentDir);
 }
 
 
 void FileClipboard::on_paste(QString destDir)
 {
-    QList<QUrl> urls = QApplication::clipboard()->mimeData()->urls();
+    QList<QUrl> urls = m_copyUrls;
+    if(urls.isEmpty()) urls =   QApplication::clipboard()->mimeData()->urls();
     bool isCut = false;
     bool eq = true;
     if(urls.count() == m_cutUrls.count() ){
@@ -80,7 +88,7 @@ void FileClipboard::on_paste(QString destDir)
         destDir = fileInfo.absolutePath();
     }
     QString destPath = fileInfo.absoluteFilePath();
-
+    QList<QString> copyFiles ;
     for(auto &url : urls){
 
         QString srcUrl = url.toLocalFile();
@@ -108,9 +116,11 @@ void FileClipboard::on_paste(QString destDir)
             QApplication::clipboard()->clear();
         }
         else{
-            copyInProces(srcFilePath,destPath);
+            copyFiles.append(srcFilePath);
         }
 
     }
+
+    copyInProces(copyFiles,destPath);
 }
 

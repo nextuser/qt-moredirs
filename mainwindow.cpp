@@ -209,6 +209,7 @@ void MainWindow::on_statusChanged(QString filePath,int index)
 
 void MainWindow::on_subWindowActivated(QMdiSubWindow * w)
 {
+    if(w == nullptr) return;
     QWidget * widget = w->widget();
     if(widget == nullptr) return;
     DirForm * form = (DirForm*) widget;

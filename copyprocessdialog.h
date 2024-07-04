@@ -30,7 +30,15 @@ private:
     int m_totalCount;
     int m_dirCount ;
     bool m_showed = false;
-    void ensureShow();
+    void ensureShow(int count, quint64 size);
+
+    // QWidget interface
+protected:
+
+
+    // QDialog interface
+public slots:
+    void accept();
 };
 
 #endif // COPYPROCESSDIALOG_H

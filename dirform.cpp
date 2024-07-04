@@ -347,6 +347,7 @@ bool DirForm::loadDir(QString filePath,bool changeComboItem )
     auto modelIndex = m_fileModel.index(m_curDir);
     m_curItemView->setRootIndex(modelIndex);
     /////emit statusChanged(m_curDir,m_index);
+    updateButtonState();
 
     return true;
 }
@@ -752,8 +753,9 @@ void DirForm::on_customContextMenuRequested(const QPoint &pos)
     menu.addAction(ui->actionPasteSelect);
     menu.addAction(ui->actionRenameSelect);
     menu.addAction(ui->actionMoveToTrash);
-
+    updateButtonState();
     menu.exec(QCursor::pos());
+
 }
 
 

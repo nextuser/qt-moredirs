@@ -10,20 +10,17 @@ FileThread::FileThread(QObject *parent)
     : QThread{parent}
 {}
 
-const static QDir::Filters SubFileDirFilter = QDir::NoDotAndDotDot| QDir::Files | QDir::Dirs;
 
-inline static bool isLocalDir(const QFileInfo & info ){
-    return info.isDir() && !info.isSymbolicLink() && !info.isSymLink();
-}
+constexpr static QDir::Filters SubFileDirFilter = QDir::NoDotAndDotDot| QDir::Files | QDir::Dirs;
+
 
 void FileThread::countDirSize(const QDir &dir,int &process,int &dirCount ,quint64 &fsize){
     if(m_stop) return;
     for(auto& info: dir.entryInfoList(SubFileDirFilter)){
         ++ process;
-        if(isLocalDir(info)){
+        if(FileUtil::isLocalDir(info)){
             ++ dirCount;
             countDirSize(QDir(info.absoluteFilePath()),process,dirCount,fsize);
-
         }
         else{
             fsize += info.size();
@@ -36,40 +33,48 @@ void FileThread::countDirSize(const QDir &dir,int &process,int &dirCount ,quint6
     return ;
 }
 
-quint64 FileThread::countFileSize(QString path)
+#include <QMessageBox>
+quint64 FileThread::countFileSize(QStringList paths)
 {
     quint64 fsize = 0;
     int process = 0;
     int dirCount = 0;
-    QFileInfo info(path);
+    for(auto &path :paths)
+    {
+        QFileInfo info(path);
 
-    if(!info.exists()) return 0;
-    if(isLocalDir(info)){
-        QString filePath = info.absoluteFilePath();
-        countDirSize(QDir(filePath),process,dirCount,fsize);
-        ++ dirCount;
+        if(!info.exists()) {
+            QString text = QString("文件[%1]不存在 ").arg(info.absoluteFilePath());
+            QMessageBox::warning((QWidget*)parent(),QString("错误"),text);
+            emit countSizeProcessInd(process,dirCount,fsize,false);
+            continue;
+        }
+        if(FileUtil::isLocalDir(info)){
+            QString filePath = info.absoluteFilePath();
+            countDirSize(QDir(filePath),process,dirCount,fsize);
+            ++ dirCount;
+        }
+        else{
+           fsize += info.size();
+        }
+        ++ process;
     }
-    else{
-       fsize += info.size();
-    }
-    ++ process;
-
     emit countSizeProcessInd(process,dirCount,fsize,true);
 
     return fsize;
 }
 
-void FileThread::startCountFile(QString filePath)
+void FileThread::startCountFile(QStringList filePath)
 {
     this->m_taskType = Task_CountSize;
-    m_srcPath = filePath;
+    m_srcPaths = filePath;
     start();
 }
 
-void FileThread::startCopyFile(QString srcPath,QString dstPath)
+void FileThread::startPasteFiles(QStringList srcPath,QString dstPath)
 {
     this->m_taskType = Task_Copy;
-    m_srcPath = srcPath;
+    m_srcPaths = srcPath;
     m_targetParentPath = dstPath;
     start();
 }
@@ -96,12 +101,11 @@ void FileThread::copyDir(const QDir&  srcDir,const QDir& dstDir,int & fileCount,
         QString fileName = entry.fileName();
         QString targetPath = dstDir.absolutePath() + "/" + fileName;
         QString srcPath = entry.absoluteFilePath();
-        if(isLocalDir(entry)){
+        if(FileUtil::isLocalDir(entry)){
             dstDir.mkdir(fileName);
             ++ dirCount;
             incCopy(srcPath,fileCount,dirCount,processSize);
             copyDir(QDir(srcPath),QDir(targetPath), fileCount,dirCount,processSize);
-
         }
         else if(entry.isSymbolicLink())
         {
@@ -117,33 +121,39 @@ void FileThread::copyDir(const QDir&  srcDir,const QDir& dstDir,int & fileCount,
     }
 }
 
-void FileThread::copyFile(QFileInfo  srcInfo,const QFileInfo& dstDirInfo){
-    QString targetPath = dstDirInfo.absoluteFilePath() + "/" + srcInfo.fileName();
-    QString srcPath = srcInfo.absoluteFilePath();
+void FileThread::copyFile(QStringList  srcPaths,const QFileInfo& dstDirInfo){
     int count = 0;
     int dirCount = 0;
-    quint64 fsize;
-    if(isLocalDir(srcInfo)){
-        QDir(dstDirInfo.absoluteFilePath()).mkdir(srcInfo.fileName());
-        ++ dirCount;
-        incCopy(srcPath,count,dirCount,fsize);
+    quint64 fsize = 0;
 
-        copyDir(QDir(srcPath),QDir(targetPath),count,dirCount,fsize);
-
-    }
-
-    else if(srcInfo.isSymbolicLink())
+    for(auto path :srcPaths)
     {
-        FileUtil::copySymbolicLink(srcPath,targetPath);
-        incCopy(srcPath,count,dirCount,fsize);
-    }
+        QFileInfo srcInfo(path);
+        QString targetPath = dstDirInfo.absoluteFilePath() + "/" + srcInfo.fileName();
 
-    else{
-        QFile::copy(srcPath,targetPath);
 
-        incCopy(srcInfo.absoluteFilePath(),count,dirCount,fsize,srcInfo.size());
+        if(FileUtil::isLocalDir(srcInfo)){
+            QDir(dstDirInfo.absoluteFilePath()).mkdir(srcInfo.fileName());
+            ++ dirCount;
+            incCopy(path,count,dirCount,fsize);
+
+            copyDir(QDir(path),QDir(targetPath),count,dirCount,fsize);
+
+        }
+        else if(srcInfo.isSymbolicLink())
+        {
+            FileUtil::copySymbolicLink(path,targetPath);
+            incCopy(path,count,dirCount,fsize);
+        }
+
+        else{
+            QFile::copy(path,targetPath);
+
+            incCopy(srcInfo.absoluteFilePath(),count,dirCount,fsize,srcInfo.size());
+        }
     }
-    emit  copyProcessInd(count,dirCount,fsize,srcPath);
+    QString lastPath = srcPaths.count() > 0 ? srcPaths.last() : "";
+    emit  copyProcessInd(count,dirCount,fsize,lastPath);
 }
 
 static inline int  getSizeStep(quint64 size){
@@ -170,12 +180,12 @@ void FileThread::run()
 {
 
     if(m_taskType == Task_CountSize || m_taskType == Task_Copy){
-      countFileSize(m_srcPath);
+      countFileSize(m_srcPaths);
     }
 
 
     if(m_taskType == Task_Copy){
-        copyFile(QFileInfo(m_srcPath),QFileInfo(m_targetParentPath));
+        copyFile(m_srcPaths,QFileInfo(m_targetParentPath));
     }
 
 };

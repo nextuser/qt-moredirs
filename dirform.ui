@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dir</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_form">
    <property name="leftMargin">
     <number>2</number>
    </property>
@@ -34,7 +34,7 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0,1,0,0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout_up" stretch="0,0,0,0,0,1,0,0,0">
       <property name="leftMargin">
        <number>0</number>
       </property>
@@ -251,7 +251,7 @@
    </item>
    <item>
     <widget class="QFrame" name="frameContent">
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayoutContent">
       <property name="leftMargin">
        <number>0</number>
       </property>
@@ -267,10 +267,10 @@
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page">
-         <layout class="QVBoxLayout" name="verticalLayout_3">
+         <layout class="QVBoxLayout" name="verticalLayout_table">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -293,7 +293,7 @@
          </layout>
         </widget>
         <widget class="QWidget" name="page_2">
-         <layout class="QVBoxLayout" name="verticalLayout_4">
+         <layout class="QVBoxLayout" name="verticalLayout_list">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -316,7 +316,7 @@
          </layout>
         </widget>
         <widget class="QWidget" name="page_3">
-         <layout class="QVBoxLayout" name="verticalLayout_5">
+         <layout class="QVBoxLayout" name="verticalLayout_tree">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -345,7 +345,7 @@
    </item>
    <item>
     <widget class="QFrame" name="framedown">
-     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0,0,0,0,1,0">
+     <layout class="QHBoxLayout" name="horizontalLayout_down" stretch="0,0,0,0,0,0,1,0">
       <property name="leftMargin">
        <number>0</number>
       </property>

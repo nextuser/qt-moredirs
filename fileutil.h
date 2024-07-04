@@ -2,6 +2,8 @@
 #define FILEUTIL_H
 class QString;
 #include <QDateTime>
+#include <QFileInfo>
+#include <QDir>
 enum class EncodingFormat:int
 {
     ANSI = 0,//GBK
@@ -37,7 +39,12 @@ public:
     static QString generateFileLink(QString filePath);
     static bool isParentOf(QString leftPath,QString rightPath);
     static quint64 countFileSize(QString path);
+    static quint64 countDirSize(const QDir &dir,int &process);
     static bool copySymbolicLink(const QString &sourceLink, const QString &targetLink);
+    constexpr static QDir::Filters SubFileDirFilter = QDir::NoDotAndDotDot| QDir::Files | QDir::Dirs;
+    inline static bool isLocalDir(const QFileInfo & info ){
+        return info.isDir() && !info.isSymbolicLink() && !info.isSymLink();
+    }
 
 };
 

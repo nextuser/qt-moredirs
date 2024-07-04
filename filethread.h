@@ -23,9 +23,9 @@ public:
     void setCountPercent(int percent);
     void doStop();
 
-    void startCountFile(QString filePath);
+    void startCountFile(QStringList filePaths);
 
-    void startCopyFile(QString srcPath,QString dstPath);
+    void startPasteFiles(QStringList srcPaths,QString dstPath);
 
 Q_SIGNALS:
     void countSizeProcessInd(int count,int dirCount,quint64 fileSize, bool bFinished );
@@ -39,20 +39,20 @@ protected:
     const static quint64 COPY_STEP_SIZE = 1 << 23; //(8MB)
 private :
     TaskType m_taskType;
-    QString m_srcPath;
+    QStringList m_srcPaths;
     QString m_targetParentPath;
     int     m_countPercent;
     bool    m_stop;
     int     m_sizeStep = 0;
     void countDirSize(const QDir &dir,int &process,int &dirCount ,quint64& fsize);
-    quint64 countFileSize(QString path);
+    quint64 countFileSize(QStringList paths);
 
 
     void copyDir(const QDir&  srcDir,const QDir& dstDir,int & fileCount,int &dirCount,quint64 &processSize);
     //void copyFile(QFileInfo  srcInfo,const QFileInfo& dstDirInfo,int &fileCount,quint64 &processSize);
     void incCopy(const QString &curPath,int &count,int dirCount,quint64 &processSize, int incSize = -1);
 
-    void copyFile(QFileInfo  srcInfo,const QFileInfo& dstDirInfo);
+    void copyFile(QStringList  srcpaths,const QFileInfo& dstDirInfo);
 
 };
 
