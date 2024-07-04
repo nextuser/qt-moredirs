@@ -806,8 +806,10 @@ QString getDropPath(QAbstractItemView *treeView,const QPointF &globalDropPoint )
     QPointF p = treeView->viewport()->mapFromGlobal(globalDropPoint);
     qDebug() << "event in treeview point:" << p.x() << "," << p.y();
     QModelIndex index = treeView->indexAt(p.toPoint());
-    QString path = ((QFileSystemModel*)treeView->model())->fileInfo(index).absoluteFilePath();
-
+    QString path ;
+    if(treeView->selectionModel()->selectedIndexes().contains(index)){
+        path = ((QFileSystemModel*)treeView->model())->fileInfo(index).absoluteFilePath();
+    }
     if(path.isEmpty()){
         path = ((QFileSystemModel*)treeView->model())->filePath( treeView->rootIndex());
     }
@@ -862,13 +864,13 @@ QString fileName(const QFileInfo &fileInfo){
 void DirForm::dropEvent(QDropEvent *event)
 {
     CopyOptions curOption;
-    bool isCopy = (event->keyboardModifiers()|Qt::ShiftModifier) != 0;
+    bool isCopy = (event->keyboardModifiers() & Qt::ShiftModifier) != 0;
     QPointF globalPoint = this->mapToGlobal(event->position());
     QMap<QString,QString> copyMap;
     if(!eventInWidget(globalPoint,m_curItemView)){
         return;
     }
-    QString target = getDropPath(m_curItemView,globalPoint);
+    QString target = m_curDir;//getDropPath(m_curItemView,globalPoint);
     QFileInfo targetInfo(target);
     QString targetDir = targetInfo.isDir() ? targetInfo.absoluteFilePath() : targetInfo.absolutePath();
     ui->tableView->selectionModel()->clear();
