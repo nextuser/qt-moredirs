@@ -3,7 +3,10 @@
 #include <QFileInfo>
 #include <QMimeData>
 #include <QApplication>
+#include <QMap>
 #include "fileutil.h"
+#include "duplicateddialog.h"
+
 FileClipboard::FileClipboard(QWidget *parent)
     : QObject{parent}
 {
@@ -53,13 +56,13 @@ void FileClipboard::releaseThread(){
 
 }
 
-void FileClipboard::copyInProces(QStringList srcPaths, QString targetParentDir){
+void FileClipboard::copyInProces(const QMap<QString,QString>& copyMap){
 
     releaseThread();
     m_fileThread = new FileThread(parent());
 
     m_dlg = new CopyProcessDialog((QWidget*)parent(),m_fileThread);
-    m_fileThread->startPasteFiles(srcPaths,targetParentDir);
+    m_fileThread->startPasteFiles(copyMap);
 }
 
 
@@ -88,7 +91,9 @@ void FileClipboard::on_paste(QString destDir)
         destDir = fileInfo.absolutePath();
     }
     QString destPath = fileInfo.absoluteFilePath();
-    QList<QString> copyFiles ;
+    QMap<QString,QString> copyFiles ;
+    CopyOptions curOption;
+    QList<CopyOptions> pastePations;
     for(auto &url : urls){
 
         QString srcUrl = url.toLocalFile();
@@ -107,20 +112,39 @@ void FileClipboard::on_paste(QString destDir)
             qDebug() << "src is parent of  dest";
             continue;
         }
-        if(destFile.exists()) {
-            qDebug()<< "file exits!" << destFile.absoluteFilePath();
-            continue;
+        if(destFile.exists() && ! curOption.applyAll ) {
+            DuplicatedDialog dlg((QWidget*)parent(),&curOption);
+            int ret = dlg.exec();
+            if(ret == QDialog::Rejected){
+                break;
+            }
         }
+
+        if(destFile.exists())
+        {
+            if(curOption.dupOption == CopyOptions::Skip){
+                continue;
+            }
+            else if(curOption.dupOption == CopyOptions::Replace)
+            {
+                QFile::moveToTrash(destFilePath);
+            }
+            else if(curOption.dupOption == CopyOptions::Rename){
+                destFilePath = FileUtil::getNewFile(destPath,srcFile.fileName());
+            }
+        }
+
         if(isCut){
             QFile::rename(srcFilePath,destFilePath);
             QApplication::clipboard()->clear();
         }
         else{
-            copyFiles.append(srcFilePath);
+            copyFiles[srcFilePath] = destFilePath;
+
         }
 
     }
 
-    copyInProces(copyFiles,destPath);
+    copyInProces(copyFiles);
 }
 

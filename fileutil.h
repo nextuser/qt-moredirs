@@ -41,6 +41,8 @@ public:
     static quint64 countFileSize(QString path);
     static quint64 countDirSize(const QDir &dir,int &process);
     static bool copySymbolicLink(const QString &sourceLink, const QString &targetLink);
+    static QString getNewFile(QString path, QString fileName);
+
     constexpr static QDir::Filters SubFileDirFilter = QDir::NoDotAndDotDot| QDir::Files | QDir::Dirs;
     inline static bool isLocalDir(const QFileInfo & info ){
         return info.isDir() && !info.isSymbolicLink() && !info.isSymLink();

@@ -5,6 +5,8 @@
 #include <QUrl>
 #include <QDir>
 #include <QFileInfo>
+#include <QMessageBox>
+#include "copyoptions.h"
 #include "fileutil.h"
 FileThread::FileThread(QObject *parent)
     : QThread{parent}
@@ -33,7 +35,7 @@ void FileThread::countDirSize(const QDir &dir,int &process,int &dirCount ,quint6
     return ;
 }
 
-#include <QMessageBox>
+
 quint64 FileThread::countFileSize(QStringList paths)
 {
     quint64 fsize = 0;
@@ -64,18 +66,20 @@ quint64 FileThread::countFileSize(QStringList paths)
     return fsize;
 }
 
-void FileThread::startCountFile(QStringList filePath)
+void FileThread::startCountFile(QStringList filePaths)
 {
     this->m_taskType = Task_CountSize;
-    m_srcPaths = filePath;
+    m_countList = filePaths;
+
     start();
 }
 
-void FileThread::startPasteFiles(QStringList srcPath,QString dstPath)
+void FileThread::startPasteFiles(const QMap<QString,QString>& copyMap)
 {
     this->m_taskType = Task_Copy;
-    m_srcPaths = srcPath;
-    m_targetParentPath = dstPath;
+    m_copyMap = copyMap;
+    m_countList = copyMap.keys();
+
     start();
 }
 
@@ -121,39 +125,42 @@ void FileThread::copyDir(const QDir&  srcDir,const QDir& dstDir,int & fileCount,
     }
 }
 
-void FileThread::copyFile(QStringList  srcPaths,const QFileInfo& dstDirInfo){
+void FileThread::copyFile(const QMap<QString,QString> &copyMap){
     int count = 0;
     int dirCount = 0;
     quint64 fsize = 0;
-
-    for(auto path :srcPaths)
+    QString path ;
+    for(auto &srcPath : copyMap.keys())
     {
-        QFileInfo srcInfo(path);
-        QString targetPath = dstDirInfo.absoluteFilePath() + "/" + srcInfo.fileName();
+        path = srcPath;
+        QFileInfo srcInfo(srcPath);
+        QString   targetPath = copyMap[srcPath];
+        QFileInfo dstInfo(targetPath);
+
 
 
         if(FileUtil::isLocalDir(srcInfo)){
-            QDir(dstDirInfo.absoluteFilePath()).mkdir(srcInfo.fileName());
+            QDir(dstInfo.absolutePath()).mkdir(dstInfo.fileName());
             ++ dirCount;
-            incCopy(path,count,dirCount,fsize);
+            incCopy(srcPath,count,dirCount,fsize);
 
-            copyDir(QDir(path),QDir(targetPath),count,dirCount,fsize);
+            copyDir(QDir(srcPath),QDir(targetPath),count,dirCount,fsize);
 
         }
         else if(srcInfo.isSymbolicLink())
         {
-            FileUtil::copySymbolicLink(path,targetPath);
-            incCopy(path,count,dirCount,fsize);
+            FileUtil::copySymbolicLink(srcPath,targetPath);
+            incCopy(srcPath,count,dirCount,fsize);
         }
 
         else{
-            QFile::copy(path,targetPath);
+            QFile::copy(srcPath,targetPath);
 
             incCopy(srcInfo.absoluteFilePath(),count,dirCount,fsize,srcInfo.size());
         }
     }
-    QString lastPath = srcPaths.count() > 0 ? srcPaths.last() : "";
-    emit  copyProcessInd(count,dirCount,fsize,lastPath);
+
+    emit  copyProcessInd(count,dirCount,fsize,path);
 }
 
 static inline int  getSizeStep(quint64 size){
@@ -180,12 +187,12 @@ void FileThread::run()
 {
 
     if(m_taskType == Task_CountSize || m_taskType == Task_Copy){
-      countFileSize(m_srcPaths);
+      countFileSize(m_copyMap.keys());
     }
 
 
     if(m_taskType == Task_Copy){
-        copyFile(m_srcPaths,QFileInfo(m_targetParentPath));
+        copyFile(m_copyMap);
     }
 
 };

@@ -32,7 +32,7 @@ private :
 
     CopyProcessDialog *m_dlg = nullptr;
     void  doCopyUrls(const QList<QUrl> &urls,QString text,bool isCut);
-    void  copyInProces(QStringList srcPaths, QString targetParentDir);
+    void  copyInProces(const QMap<QString,QString>& copyMap);
     void  releaseThread();
 };
 

@@ -7,7 +7,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow),statusLabel(this)
+    , ui(new Ui::MainWindow),m_clip(this),statusLabel(this)
 {
     ui->setupUi(this);
     this->setCentralWidget(ui->mdiArea);
@@ -101,8 +101,6 @@ DirForm* MainWindow::addSubWin(int index)
     subWin->setWidget(formDoc);
     ui->mdiArea->addSubWindow(subWin);
     subwinList.append(subWin);
-
-
 
     return formDoc;
 }

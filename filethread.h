@@ -7,8 +7,10 @@
 #include <QUrl>
 #include <QDir>
 #include <QFileInfo>
-
+#include "copyoptions.h"
+#include <QMap>
 class QDir;
+
 class FileThread : public QThread
 {
     Q_OBJECT
@@ -25,7 +27,7 @@ public:
 
     void startCountFile(QStringList filePaths);
 
-    void startPasteFiles(QStringList srcPaths,QString dstPath);
+    void startPasteFiles(const QMap<QString,QString>& copyMap);
 
 Q_SIGNALS:
     void countSizeProcessInd(int count,int dirCount,quint64 fileSize, bool bFinished );
@@ -39,8 +41,9 @@ protected:
     const static quint64 COPY_STEP_SIZE = 1 << 23; //(8MB)
 private :
     TaskType m_taskType;
-    QStringList m_srcPaths;
+    QMap<QString,QString> m_copyMap;
     QString m_targetParentPath;
+    QList<QString>    m_countList;
     int     m_countPercent;
     bool    m_stop;
     int     m_sizeStep = 0;
@@ -52,7 +55,7 @@ private :
     //void copyFile(QFileInfo  srcInfo,const QFileInfo& dstDirInfo,int &fileCount,quint64 &processSize);
     void incCopy(const QString &curPath,int &count,int dirCount,quint64 &processSize, int incSize = -1);
 
-    void copyFile(QStringList  srcpaths,const QFileInfo& dstDirInfo);
+    void copyFile(const QMap<QString,QString>& copyMap);
 
 };
 

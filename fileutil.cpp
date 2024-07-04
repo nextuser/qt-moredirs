@@ -272,3 +272,27 @@ QString FileUtil::generateFileLink(QString filePath){
     }
     return ret;
 }
+
+QString FileUtil::getNewFile(QString path, QString fileName)
+{
+    QString newPath = path + "/" + fileName;
+    QFile* currFile = new QFile(newPath);
+    int i = 0;
+    while(currFile->exists()){
+        delete currFile;
+        int index = (int)fileName.lastIndexOf(".");
+        QString baseName = fileName;
+        QString extName = "";
+        if(index >= 0 ){
+
+            baseName = fileName.left(index);
+            extName = fileName.right(fileName.size() - index - 1);
+        }
+        newPath = path + "/" + baseName + QString::number(i++) ;
+        if(!extName.isEmpty()) newPath += "." +  extName;
+        currFile = new QFile(newPath);
+    }
+
+    delete currFile;
+    return newPath;
+}
