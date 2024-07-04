@@ -260,7 +260,6 @@ QString FileUtil::generateFileLink(QString filePath){
         if(info.isDir() ){
 
             name = nameUrl.first + sep;
-
             name = name.toHtmlEscaped();
             std::string str = name.toStdString();
             StringUtil::replaceAll(str,"/","&frasl;");
