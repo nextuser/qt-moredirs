@@ -6,7 +6,7 @@ DuplicatedDialog::DuplicatedDialog(QWidget *parent,CopyOptions *options)
     , ui(new Ui::DuplicatedDialog),copyOptions(options)
 {
     ui->setupUi(this);
-    ui->checkBoxApplyAll->setChecked(options->applyAll);
+    ui->checkBoxApplyAll->setChecked(true);
     if(options->dupOption == CopyOptions::Rename){
         ui->radioButtonRename->setChecked(true);
     }

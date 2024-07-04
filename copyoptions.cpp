@@ -1,3 +1,3 @@
 #include "copyoptions.h"
 
-CopyOptions::CopyOptions() :dupOption(Replace),applyAll(false){}
+CopyOptions::CopyOptions() :dupOption(Skip),applyAll(false){}
