@@ -113,6 +113,7 @@ void MainWindow::on_actionCascade_triggered()
     showSubWin(4);
     setSubWindowFrameLess(false);
     ui->mdiArea->cascadeSubWindows();
+    ///ui->mdiArea->update(ui->mdiArea->geometry());
 
 }
 
@@ -127,6 +128,7 @@ void MainWindow::showSubWin(int count)
 
     for(int i = 0 ; i < count && i < subwinList.count(); ++ i ){
         subwinList[i]->setVisible(true);
+        subwinList[i]->update(subwinList[i]->geometry());/// to fix the bug border not shown propertly
     }
     for(int i = count ; i < subwinList.count(); ++ i){
         subwinList[i]->setVisible(false);
@@ -146,6 +148,7 @@ void MainWindow::on_actionTileWindow_triggered()
 
     setSubWindowFrameLess(true);
     ui->mdiArea->tileSubWindows();
+
 }
 
 
