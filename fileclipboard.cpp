@@ -56,7 +56,7 @@ void FileClipboard::releaseThread(){
 
 }
 
-void FileClipboard::copyInProces(const QMap<QString,QString>& copyMap){
+void FileClipboard::copyInProces(QMap<QString,QString> copyMap){
 
     releaseThread();
     m_fileThread = new FileThread(parent());

@@ -23,6 +23,8 @@
 #include "finddialog.h"
 #include "fileutil.h"
 #include "tsubwindow.h"
+#include "copyoptions.h"
+#include "duplicateddialog.h"
 
 
 DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr,int index)
@@ -859,30 +861,56 @@ QString fileName(const QFileInfo &fileInfo){
 
 void DirForm::dropEvent(QDropEvent *event)
 {
-    qDebug()<< "widget drop";
-
+    CopyOptions curOption;
+    bool isCopy = (event->keyboardModifiers()|Qt::ShiftModifier) != 0;
     QPointF globalPoint = this->mapToGlobal(event->position());
-    if(eventInWidget(globalPoint,m_curItemView)){
-
-        QString target = getDropPath(m_curItemView,globalPoint);
-        QFileInfo targetInfo(target);
-        QString targetDir = targetInfo.isDir() ? targetInfo.absoluteFilePath() : targetInfo.absolutePath();
-        ui->tableView->selectionModel()->clear();
-        for(auto & url : event->mimeData()->urls()){
-            QFileInfo srcInfo(url.path());
-            qDebug()<< "mimeData url" << url.path();
-            if(srcInfo.absolutePath() != targetDir)
-            {
-                QString newPath = targetDir + "/" + fileName(srcInfo);
-                if(QFile::rename(srcInfo.absoluteFilePath(), newPath))
-                {
-                    scrollToPath(m_curItemView,newPath);
-                }
-                qDebug()<<"rename:" << srcInfo.absoluteFilePath() << "=>" << newPath;
-            }
-        }
-        qDebug() << "left drop,target=" << target;
+    QMap<QString,QString> copyMap;
+    if(!eventInWidget(globalPoint,m_curItemView)){
+        return;
     }
+    QString target = getDropPath(m_curItemView,globalPoint);
+    QFileInfo targetInfo(target);
+    QString targetDir = targetInfo.isDir() ? targetInfo.absoluteFilePath() : targetInfo.absolutePath();
+    ui->tableView->selectionModel()->clear();
+    for(auto & url : event->mimeData()->urls()){
+        QFileInfo srcInfo(url.path());
+        QString srcPath = srcInfo.absoluteFilePath();
+
+        qDebug()<< "mimeData url" << url.path();
+        QString targetName = fileName(srcInfo);
+        QString newPath = targetDir + "/" + targetName;
+        if(QFileInfo(newPath).exists()){
+            if(!curOption.applyAll){
+                DuplicatedDialog dlg(this,&curOption) ;
+                int ret = dlg.exec();
+                if(ret == QDialog::Rejected) break;
+            }
+            if(curOption.dupOption == CopyOptions::Rename){
+                newPath = FileUtil::getNewFile(targetDir,targetName);
+            }
+            else if(curOption.dupOption == CopyOptions::Replace){
+                QFile::moveToTrash(newPath);
+            }
+            else{
+                continue;
+            }
+
+        }
+        if(isCopy){
+            copyMap[srcPath] = newPath;
+        }
+        else if(QFile::rename(srcPath, newPath))
+        {
+            scrollToPath(m_curItemView,newPath);
+        }
+        qDebug()<<"rename:" << srcInfo.absoluteFilePath() << "=>" << newPath;
+
+    }
+
+    if(isCopy){
+        emit pasteFiles(copyMap);
+    }
+
     m_viewModified = true;
     event->accept();
 

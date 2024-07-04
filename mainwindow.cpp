@@ -85,6 +85,7 @@ DirForm * MainWindow::createForm(QWidget *parent,int index){
     connect(doc,&DirForm::copyUrlsToClip,&m_clip,&FileClipboard::on_copyUrls);
     connect(doc,&DirForm::cutUrlsToClip,&m_clip,&FileClipboard::on_cutUrls);
     connect(doc,&DirForm::pasteFromClip,&m_clip,&FileClipboard::on_paste);
+    connect(doc,&DirForm::pasteFiles,&m_clip,&FileClipboard::copyInProces);
     connect(&m_bookmarkMgr,&BookmarkMgr::bookmarkChanged,doc,&DirForm::updateBookmarks);
     connect(doc,&DirForm::statusChanged,this,&MainWindow::on_statusChanged);
     return doc;
@@ -170,11 +171,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
     saveSettings();
     QMainWindow::closeEvent(event);
 }
-
-
-
-
-
 
 void MainWindow::on_action_wLeftRight_triggered()
 {

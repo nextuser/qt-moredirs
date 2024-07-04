@@ -9,6 +9,7 @@
 #include <QUrl>
 #include <QFileSystemWatcher>
 #include <QImageReader>
+#include <QMap>
 #include "tfilesystemmodel.h"
 
 namespace Ui {
@@ -34,6 +35,8 @@ Q_SIGNALS:
     void copyUrlsToClip(QList<QUrl> urls,QString text);
     void cutUrlsToClip(QList<QUrl> urls,QString text);
     void pasteFromClip(QString destDir);
+    void pasteFiles(QMap<QString,QString> copyMap);
+
     void statusChanged(QString filePath,int formIndex);
 public slots:
     void updateBookmarks();

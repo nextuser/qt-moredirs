@@ -25,6 +25,9 @@ public slots:
     void on_cutUrls(QList<QUrl> urls,QString text);
 
     void on_paste(QString destDir);
+
+    void  copyInProces(const QMap<QString,QString> copyMap);
+
 private :
     QList<QUrl> m_cutUrls;
     QList<QUrl> m_copyUrls;
@@ -32,7 +35,7 @@ private :
 
     CopyProcessDialog *m_dlg = nullptr;
     void  doCopyUrls(const QList<QUrl> &urls,QString text,bool isCut);
-    void  copyInProces(const QMap<QString,QString>& copyMap);
+
     void  releaseThread();
 };
 
