@@ -47,6 +47,24 @@ DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr,int index)
 
 }
 
+void DirForm::initViewMenuAction(QMenu *menu){
+    m_viewMenuActions[ViewType_DetailList] = ui->actionViewDetailTable;
+    m_viewMenuActions[ViewType_LargIcon] = ui->actionViewLargeIcon;
+    m_viewMenuActions[ViewType_MiddleIcon] = ui->actionViewMiddleIcon;
+    m_viewMenuActions[ViewType_SmallIcon] = ui->actionViewSmallIcon;
+    m_viewMenuActions[ViewType_SuperLargeIcon] = ui->actionViewSuperLargeIcon;
+    for(int i = 0; i < ViewType_Count; ++ i){
+        menu->addAction(m_viewMenuActions[i]);
+    }
+}
+
+void DirForm::toggleMenu(ViewType type)
+{
+    for(int i = 0; i < ViewType_Count; ++ i){
+        m_viewMenuActions[i]->setChecked(type == i);
+    }
+}
+
 void DirForm::initViewMenu(){
     m_fileModel.setRootPath(m_curDir);
     m_views[ViewIndexList] = ui->listView;
@@ -84,10 +102,8 @@ void DirForm::initViewMenu(){
 
 
     QMenu *menu = new QMenu(this);
-    menu->addAction(ui->actionViewLargeIcon);
-    menu->addAction(ui->actionViewMiddleIcon);
-    menu->addAction(ui->actionViewSmallIcon);
-    menu->addAction(ui->actionViewDetailTable);
+    initViewMenuAction(menu);
+
 
     ui->toolButtonSwitchView->setPopupMode(QToolButton::MenuButtonPopup);
     ui->toolButtonSwitchView->setMenu(menu);
@@ -542,11 +558,15 @@ void DirForm::setListView(QListView *listView,int iconSize){
     listView->setGridSize(QSize(gridSize,gridSize));
 
 }
-void DirForm::switchViewType(ViewType viewTable)
+
+
+
+void DirForm::switchViewType(ViewType viewType)
 {
     ViewIndex index;
+    toggleMenu(viewType);
 
-    switch(viewTable){
+    switch(viewType){
         case ViewType_SmallIcon:
             index = ViewIndexList;
             m_iconSize = 16;
@@ -567,6 +587,12 @@ void DirForm::switchViewType(ViewType viewTable)
             setListView(ui->listView,m_iconSize);
             ui->listView->setViewMode(QListView::IconMode);
             break;
+        case ViewType_SuperLargeIcon:
+            index = ViewIndexList;
+            m_iconSize = 200;
+            setListView(ui->listView,m_iconSize);
+            ui->listView->setViewMode(QListView::IconMode);
+            break;
         case ViewType_DetailList:
 
         default:
@@ -577,16 +603,14 @@ void DirForm::switchViewType(ViewType viewTable)
 
     QAbstractItemView *newView = m_views[index];
     if(newView != m_curItemView ){
+
         m_curItemView = newView;
-        m_curItemView->setIconSize(QSize(m_iconSize,m_iconSize));
         ui->stackedWidget->setCurrentIndex(index);
-
     }
 
-    if(m_curItemView == ui->listView){
-        bool bPreview = true;//ui->listView->viewMode() == QListView::IconMode
-        m_fileModel.setPreviewable(bPreview,m_iconSize);
-    }
+    m_curItemView->setIconSize(QSize(m_iconSize,m_iconSize));
+
+    m_fileModel.setPreviewable(m_curItemView == ui->listView,m_iconSize);
 
     auto modelIndex = m_fileModel.index(m_curDir);
     m_curItemView->setRootIndex(modelIndex);
@@ -864,7 +888,7 @@ QString fileName(const QFileInfo &fileInfo){
 void DirForm::dropEvent(QDropEvent *event)
 {
     CopyOptions curOption;
-    bool isCopy = (event->keyboardModifiers() & Qt::ShiftModifier) != 0;
+    bool isCopy = (event->modifiers() & Qt::ShiftModifier) != 0;
     QPointF globalPoint = this->mapToGlobal(event->position());
     QMap<QString,QString> copyMap;
     if(!eventInWidget(globalPoint,m_curItemView)){
@@ -928,9 +952,8 @@ void DirForm::dragEnterEvent(QDragEnterEvent *event)
     }
 }
 
-
-
-
-
-
+void DirForm::on_actionViewSuperLargeIcon_triggered()
+{
+    switchViewType(ViewType_SuperLargeIcon);
+}
 

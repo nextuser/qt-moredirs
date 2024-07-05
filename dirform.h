@@ -105,6 +105,8 @@ private slots:
 
     void on_rowsInserted(const QModelIndex &parent, int first, int last);
 
+    void on_actionViewSuperLargeIcon_triggered();
+
 private:
     enum ViewIndex{
         ViewIndexTable = 0,
@@ -114,14 +116,15 @@ private:
     };
 
     enum ViewType{
-        ViewType_SmallIcon = 0,
+        ViewType_DetailList,
+        ViewType_SmallIcon ,
         ViewType_MiddleIcon,
         ViewType_LargIcon,
-        ViewType_DetailList,
-        ViewType_List,
+        ViewType_SuperLargeIcon,
+
         ViewType_Count
     };
-
+    QAction *m_viewMenuActions[ViewType_Count];
     void setListView(QListView *listView,int iconSize);
     int addFileComboItems(QString dirPath);
     int findCombItemIndex(QString filePath);
@@ -130,7 +133,8 @@ private:
     QString getTargetPath();
     void updatePasteAction();
     void initToolButtons();
-
+    void initViewMenuAction(QMenu *men);
+    void toggleMenu(ViewType type);
 
     QAbstractItemView * createTableView(QString dirPath,bool replaceView);
 

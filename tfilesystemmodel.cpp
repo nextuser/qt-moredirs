@@ -19,7 +19,12 @@ QVariant TFileSystemModel::data(const QModelIndex &index, int role) const
 
         if(FileUtil::isImage(fileInfo.absoluteFilePath())){
             auto image  = QImage(fileInfo.absoluteFilePath());
-            image = image.scaled(QSize(m_iconSize,m_iconSize));
+            if(image.size().width()> image.size().height())
+            {
+                image = image.scaledToWidth(m_iconSize);
+            }else{
+                image = image.scaledToHeight(m_iconSize);
+            }
             return image;
         }
         else{
