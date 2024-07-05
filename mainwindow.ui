@@ -57,7 +57,8 @@
    <addaction name="actionSwitch_View"/>
    <addaction name="actionCascade"/>
    <addaction name="actionTileWindow"/>
-   <addaction name="action_wLeftRight"/>
+   <addaction name="actionTile2Window"/>
+   <addaction name="separator"/>
   </widget>
   <action name="actionCloseTab">
    <property name="text">
@@ -108,6 +109,9 @@
    </property>
   </action>
   <action name="actionCascade">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/new/icons/icons/400.bmp</normaloff>
@@ -124,6 +128,9 @@
    </property>
   </action>
   <action name="actionTileWindow">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/new/icons/icons/406.bmp</normaloff>
@@ -136,27 +143,20 @@
     <enum>QAction::NoRole</enum>
    </property>
   </action>
-  <action name="action_wLeftRight">
+  <action name="actionTile2Window">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/new/icons/icons/404.bmp</normaloff>
      <disabledoff>:/new/icons/icons/405.bmp</disabledoff>:/new/icons/icons/404.bmp</iconset>
    </property>
    <property name="text">
-    <string>上下分割</string>
+    <string>Tile2Window</string>
    </property>
-   <property name="menuRole">
-    <enum>QAction::NoRole</enum>
-   </property>
-  </action>
-  <action name="action_wUpDown">
-   <property name="icon">
-    <iconset resource="res.qrc">
-     <normaloff>:/new/icons/icons/402.bmp</normaloff>
-     <disabledoff>:/new/icons/icons/403.bmp</disabledoff>:/new/icons/icons/402.bmp</iconset>
-   </property>
-   <property name="text">
-    <string>上下分隔</string>
+   <property name="toolTip">
+    <string>Tile 2 Windows</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>

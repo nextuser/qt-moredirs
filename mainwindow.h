@@ -27,7 +27,7 @@ public:
 
 
 private slots:
-    void on_actionSwitch_View_triggered(bool bTab);
+
     DirForm* addSubWin(int index);
     DirForm * createForm(QWidget* form,int index);
     void on_actionCascade_triggered();
@@ -35,12 +35,12 @@ private slots:
     void on_actionTileWindow_triggered();
 
     void on_actionSwitch_View_triggered();
-    void on_action_wLeftRight_triggered();
 
-    void on_action_wUpDown_triggered();
 
     void on_statusChanged(QString filePath,int index);
     void on_subWindowActivated(QMdiSubWindow *);
+
+    void on_actionTile2Window_triggered();
 
 private:
     Ui::MainWindow *ui;

@@ -4,6 +4,7 @@
 #include "dirform.h"
 #include <QClipboard>
 #include <QMimeData>
+#include <QActionGroup>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -19,6 +20,12 @@ MainWindow::MainWindow(QWidget *parent)
     for(int i = 0; i < subCount ; ++ i){
         addSubWin(i);
     }
+    QActionGroup *group = new QActionGroup(this);
+    group->addAction(ui->actionTile2Window);
+    group->addAction(ui->actionTileWindow);
+    group->addAction(ui->actionCascade);
+    group->addAction(ui->actionSwitch_View);
+
     ui->mdiArea->tileSubWindows();
     connect(ui->mdiArea,&QMdiArea::subWindowActivated,this,&MainWindow::on_subWindowActivated);
     loadSettings();
@@ -68,16 +75,16 @@ QMenu *MainWindow::createTitleMenu(QWidget *target)
 
 
 
-void MainWindow::on_actionSwitch_View_triggered(bool isTabbed)
+void MainWindow::on_actionSwitch_View_triggered()
 {
-    if (isTabbed) {//Tab多页显示模式
-        ui->mdiArea->setViewMode(QMdiArea::TabbedView); //Tab多页显示模式
-        ui->mdiArea->setTabsClosable(true);
-        ui->mdiArea->setTabsMovable(true);
-    }
-    else{ //子窗口模式
-        ui->mdiArea->setViewMode(QMdiArea::SubWindowView); //子窗口模式
-    }
+    ((QAction*)sender())->setChecked(true);
+
+    ui->mdiArea->setViewMode(QMdiArea::TabbedView); //Tab多页显示模式
+    ui->mdiArea->setTabsClosable(true);
+    ui->mdiArea->setTabsMovable(true);
+
+
+
 }
 
 DirForm * MainWindow::createForm(QWidget *parent,int index){
@@ -109,6 +116,7 @@ DirForm* MainWindow::addSubWin(int index)
 
 void MainWindow::on_actionCascade_triggered()
 {
+    ((QAction*)sender())->setChecked(true);
     ui->mdiArea->setViewMode(QMdiArea::SubWindowView);
     showSubWin(4);
     setSubWindowFrameLess(false);
@@ -142,6 +150,7 @@ void MainWindow::on_statusLinkActivate(const QString &link)
 
 void MainWindow::on_actionTileWindow_triggered()
 {
+    ((QAction*)sender())->setChecked(true);
     ui->mdiArea->setViewMode(QMdiArea::SubWindowView);
 
     showSubWin(4);
@@ -151,11 +160,6 @@ void MainWindow::on_actionTileWindow_triggered()
 
 }
 
-
-void MainWindow::on_actionSwitch_View_triggered()
-{
-
-}
 
 DirForm *MainWindow::getDirForm(int formIndex)
 {
@@ -175,27 +179,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
     QMainWindow::closeEvent(event);
 }
 
-void MainWindow::on_action_wLeftRight_triggered()
-{
-    ui->mdiArea->setViewMode(QMdiArea::SubWindowView);
-
-     showSubWin(2);
-
-    setSubWindowFrameLess(true);
-    ui->mdiArea->tileSubWindows();
-}
-
-
-void MainWindow::on_action_wUpDown_triggered()
-{
-    ui->mdiArea->setViewMode(QMdiArea::SubWindowView);
-    ui->mdiArea->tileSubWindows();
-    showSubWin(2);
-
-    setSubWindowFrameLess(true);
-    ui->mdiArea->tileSubWindows();
-}
-
 #include "fileutil.h"
 void MainWindow::on_statusChanged(QString filePath,int index)
 {
@@ -211,5 +194,16 @@ void MainWindow::on_subWindowActivated(QMdiSubWindow * w)
     if(widget == nullptr) return;
     DirForm * form = (DirForm*) widget;
     this->on_statusChanged(form->curDir(),form->index());
+}
+
+
+void MainWindow::on_actionTile2Window_triggered()
+{
+    ui->mdiArea->setViewMode(QMdiArea::SubWindowView);
+
+    showSubWin(2);
+
+    setSubWindowFrameLess(true);
+    ui->mdiArea->tileSubWindows();
 }
 

@@ -705,7 +705,7 @@
      <disabledoff>:/new/icons/icons/411.bmp</disabledoff>:/new/icons/icons/410.bmp</iconset>
    </property>
    <property name="text">
-    <string>切换试图</string>
+    <string>切换视图</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
