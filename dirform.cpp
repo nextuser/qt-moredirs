@@ -691,7 +691,6 @@ void DirForm::on_actionOpenDir_triggered()
         loadDir(filePath);
         m_history.addItem(filePath);
     }
-
 }
 
 
@@ -792,8 +791,13 @@ void DirForm::on_comboBoxFilter_currentTextChanged(const QString &text)
 {
     QDir dir(m_curDir);
     QString filter = text.trimmed();
-    if(filter.isEmpty()) return;
-    m_curItemView->selectionModel()->clear();
+    if(filter.isEmpty()) {
+        m_fileModel.setNameFilterDisables(true);
+        return;
+    }
+    m_fileModel.setNameFilters(filter.split(";"));
+    m_fileModel.setNameFilterDisables(false);
+    /**m_curItemView->selectionModel()->clear();
     bool notScrolled = true;
     for(auto file : dir.entryInfoList()){
         if(StringUtil::matchWildcard(filter,file.fileName())){
@@ -804,7 +808,7 @@ void DirForm::on_comboBoxFilter_currentTextChanged(const QString &text)
                 notScrolled = false;
             }
         }
-    }
+    }**/
 }
 
 
