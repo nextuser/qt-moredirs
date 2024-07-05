@@ -109,6 +109,9 @@ void DirForm::initViewMenu(){
     ui->toolButtonSwitchView->setMenu(menu);
     ui->tableView->viewport()->setAcceptDrops(false);
     ui->tableView->setDragEnabled(true);
+
+
+
     this->setAcceptDrops(true);
 
     switchViewType(ViewType_DetailList);
