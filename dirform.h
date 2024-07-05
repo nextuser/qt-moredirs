@@ -23,7 +23,7 @@ class DirForm : public QWidget
 public:
     explicit DirForm(QWidget *parent ,BookmarkMgr * bookmarkMgr,int index);
     ~DirForm();
-    bool loadDir(QString filePath,bool changeCombItem=false);
+    bool loadDir(QString filePath,bool fromHist = false);
     QList<QVariant> getHeaderLens();
     inline int index(){ return m_index;}
     void updateHeaderLens(QList<QVariant> headerLens );

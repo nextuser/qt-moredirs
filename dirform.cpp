@@ -34,8 +34,8 @@ DirForm::DirForm(QWidget *parent,BookmarkMgr * bookMgr,int index)
     ui->setupUi(this);
     initToolButtons();
     initViewMenu();
-    bool comboItemChanged = true;
-    loadDir(QDir::homePath(),comboItemChanged);
+
+    loadDir(QDir::homePath());
     m_history.addItem(m_curDir);
     connect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
     connect(&m_fileWatcher, &QFileSystemWatcher::directoryChanged,this, &DirForm::on_dirChanged);
@@ -331,7 +331,7 @@ int DirForm::findCombItemIndex(QString filePath)
 }
 
 
-bool DirForm::loadDir(QString filePath,bool changeComboItem )
+bool DirForm::loadDir(QString filePath,bool fromHist )
 {
 
     QFileInfo fileInfo(filePath);
@@ -352,22 +352,23 @@ bool DirForm::loadDir(QString filePath,bool changeComboItem )
     // }
     ((TSubWindow*)parent())->setWindowTitle(QFileInfo(dirPath).fileName());
 
-    if(changeComboItem)
-    {
-        disconnect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
-        int index = findCombItemIndex(dirPath);
 
-        if(index < 0){
-           index = addFileComboItems(dirPath);
-        }
-        if(index >= 0) ui->comboBoxDir->setCurrentIndex(index);
-        connect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
+    disconnect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
+    int index = findCombItemIndex(dirPath);
+
+    if(index < 0){
+       index = addFileComboItems(dirPath);
+    }
+    if(index >= 0) ui->comboBoxDir->setCurrentIndex(index);
+    connect(ui->comboBoxDir, &QComboBox::currentIndexChanged, this,&DirForm::on_comboDirIndexChange);
+
+    if(!fromHist){
+        m_history.addItem(m_curDir);
     }
 
     m_fileModel.setRootPath(m_curDir);
     auto modelIndex = m_fileModel.index(m_curDir);
     m_curItemView->setRootIndex(modelIndex);
-    /////emit statusChanged(m_curDir,m_index);
     updateButtonState();
 
     return true;
@@ -379,7 +380,7 @@ void DirForm::on_comboDirIndexChange(int index)
     {
         QString filePath = ui->comboBoxDir->itemData(index).toString();
 
-        loadDir(filePath,true);
+        loadDir(filePath);
         m_history.addItem(m_curDir);
     }
 }
@@ -388,8 +389,8 @@ void DirForm::on_comboDirIndexChange(int index)
 void DirForm::on_bookmarkSelected()
 {
     QString path = ((QAction *)sender())->data().toString();
-    bool  changeCombo = true;
-    loadDir(path,changeCombo);
+
+    loadDir(path);
     m_history.addItem(m_curDir);
 }
 
@@ -401,8 +402,7 @@ void DirForm::on_fileItemOpen(QListWidgetItem *item)
     if(!info.isDir()){
         QDesktopServices::openUrl(QUrl::fromLocalFile(item->data(Qt::UserRole).toString()));
     }else{
-        bool  changeCombo = true;
-        loadDir(info.absoluteFilePath(),changeCombo);
+        loadDir(info.absoluteFilePath());
         m_history.addItem(m_curDir);
     }
 }
@@ -416,7 +416,7 @@ void DirForm::on_fileItemDblClicked(QModelIndex index)
     if(!info.isDir()){
         QDesktopServices::openUrl(QUrl::fromLocalFile(info.absoluteFilePath()));
     }else{
-        loadDir(info.absoluteFilePath(),true);
+        loadDir(info.absoluteFilePath());
         m_history.addItem(m_curDir);
     }
 }
@@ -518,7 +518,8 @@ void DirForm::on_actionMoveToTrash_triggered()
 void DirForm::on_actionPrev_triggered()
 {
     QString file = m_history.prev();
-    loadDir(file);
+    loadDir(file,true);
+
 }
 
 
@@ -526,7 +527,7 @@ void DirForm::on_actionPrev_triggered()
 void DirForm::on_actionNext_triggered()
 {
     QString file = m_history.next();
-    loadDir(file);
+    loadDir(file,true);
 }
 
 
@@ -687,8 +688,7 @@ void DirForm::on_actionOpenDir_triggered()
 {
     QString filePath = QFileDialog::getExistingDirectory(this,"打开目录","选择目录打开");
     if(!filePath.isEmpty()){
-        bool comboChanged = true;
-        loadDir(filePath,comboChanged);
+        loadDir(filePath);
         m_history.addItem(filePath);
     }
 
@@ -817,6 +817,9 @@ void DirForm::on_actionFind_triggered()
 
 void DirForm::on_rowsInserted(const QModelIndex &parent, int first, int last)
 {
+    Q_UNUSED(parent);
+    Q_UNUSED(first);
+    Q_UNUSED(last);
     if(m_viewModified){
         m_viewModified = false;
     }
