@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     group->addAction(ui->actionTile2Window);
     group->addAction(ui->actionTileWindow);
     group->addAction(ui->actionCascade);
-    group->addAction(ui->actionSwitch_View);
+    group->addAction(ui->actionSwitchTab);
 
     ui->mdiArea->tileSubWindows();
     connect(ui->mdiArea,&QMdiArea::subWindowActivated,this,&MainWindow::on_subWindowActivated);
@@ -73,19 +73,6 @@ QMenu *MainWindow::createTitleMenu(QWidget *target)
     return menu;
 }
 
-
-
-void MainWindow::on_actionSwitch_View_triggered()
-{
-    ((QAction*)sender())->setChecked(true);
-
-    ui->mdiArea->setViewMode(QMdiArea::TabbedView); //Tab多页显示模式
-    ui->mdiArea->setTabsClosable(true);
-    ui->mdiArea->setTabsMovable(true);
-
-
-
-}
 
 DirForm * MainWindow::createForm(QWidget *parent,int index){
     DirForm *doc = new DirForm(parent,&this->m_bookmarkMgr,index);   //指定父窗口，必须在父窗口为Widget窗口提供一个显示区域;
@@ -206,4 +193,15 @@ void MainWindow::on_actionTile2Window_triggered()
     setSubWindowFrameLess(true);
     ui->mdiArea->tileSubWindows();
 }
+
+
+void MainWindow::on_actionSwitchTab_triggered()
+{
+    ((QAction*)sender())->setChecked(true);
+
+    ui->mdiArea->setViewMode(QMdiArea::TabbedView); //Tab多页显示模式
+    ui->mdiArea->setTabsClosable(true);
+    ui->mdiArea->setTabsMovable(true);
+}
+
 

@@ -34,13 +34,13 @@ private slots:
 
     void on_actionTileWindow_triggered();
 
-    void on_actionSwitch_View_triggered();
-
-
     void on_statusChanged(QString filePath,int index);
     void on_subWindowActivated(QMdiSubWindow *);
 
     void on_actionTile2Window_triggered();
+
+    void on_actionSwitchTab_triggered();
+
 
 private:
     Ui::MainWindow *ui;

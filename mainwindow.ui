@@ -29,18 +29,15 @@
      <height>24</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-   </widget>
    <widget class="QMenu" name="menuWindow">
     <property name="title">
-     <string>Window</string>
+     <string>窗口</string>
     </property>
-    <addaction name="actionSwitch_View"/>
+    <addaction name="actionSwitchTab"/>
+    <addaction name="actionCascade"/>
+    <addaction name="actionTileWindow"/>
+    <addaction name="actionTile2Window"/>
    </widget>
-   <addaction name="menuFile"/>
    <addaction name="menuWindow"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -54,18 +51,20 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionSwitch_View"/>
+   <addaction name="actionSwitchTab"/>
    <addaction name="actionCascade"/>
    <addaction name="actionTileWindow"/>
    <addaction name="actionTile2Window"/>
    <addaction name="separator"/>
+   <addaction name="actionExit"/>
+   <addaction name="separator"/>
   </widget>
   <action name="actionCloseTab">
    <property name="text">
-    <string>Close Tab Page</string>
+    <string>关闭标签页</string>
    </property>
    <property name="toolTip">
-    <string>Close tab</string>
+    <string>关闭标签页</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -73,10 +72,10 @@
   </action>
   <action name="actionCloseOtherTab">
    <property name="text">
-    <string>Close Other Tab</string>
+    <string>关闭其他标签页</string>
    </property>
    <property name="toolTip">
-    <string>Close Other Tab</string>
+    <string>关闭其他标签页</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -84,16 +83,16 @@
   </action>
   <action name="actionCloseAllTab">
    <property name="text">
-    <string>Close All Pages</string>
+    <string>关闭所有标签页</string>
    </property>
    <property name="toolTip">
-    <string>Close All Pages</string>
+    <string>关闭所有标签页</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
   </action>
-  <action name="actionSwitch_View">
+  <action name="actionSwitchTab">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -102,7 +101,10 @@
      <normaloff>:/icons/icons8-tab-24.png</normaloff>:/icons/icons8-tab-24.png</iconset>
    </property>
    <property name="text">
-    <string>ShowTab</string>
+    <string>显示标签页</string>
+   </property>
+   <property name="toolTip">
+    <string>显示标签页</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -118,10 +120,10 @@
      <disabledoff>:/new/icons/icons/401.bmp</disabledoff>:/new/icons/icons/400.bmp</iconset>
    </property>
    <property name="text">
-    <string>Cascade</string>
+    <string>级联</string>
    </property>
    <property name="toolTip">
-    <string>Cascade windows</string>
+    <string>显示级联窗口</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -137,7 +139,7 @@
      <disabledoff>:/new/icons/icons/407.bmp</disabledoff>:/new/icons/icons/406.bmp</iconset>
    </property>
    <property name="text">
-    <string>TileWindow</string>
+    <string>平铺窗口</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -153,10 +155,25 @@
      <disabledoff>:/new/icons/icons/405.bmp</disabledoff>:/new/icons/icons/404.bmp</iconset>
    </property>
    <property name="text">
-    <string>Tile2Window</string>
+    <string>左右平铺</string>
    </property>
    <property name="toolTip">
-    <string>Tile 2 Windows</string>
+    <string>左右平铺</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/new/icons/icons/icons8-exit-24.png</normaloff>:/new/icons/icons/icons8-exit-24.png</iconset>
+   </property>
+   <property name="text">
+    <string>退出</string>
+   </property>
+   <property name="shortcut">
+    <string>Esc</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -166,5 +183,22 @@
  <resources>
   <include location="res.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>399</x>
+     <y>320</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

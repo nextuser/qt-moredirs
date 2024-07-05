@@ -21,8 +21,7 @@
     <message>
         <location filename="copyprocessdialog.ui" line="86"/>
         <source>拷贝进度</source>
-        <translation>Copy Status
-</translation>
+        <translation>Copying</translation>
     </message>
     <message>
         <location filename="copyprocessdialog.ui" line="93"/>
@@ -372,70 +371,82 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="34"/>
-        <source>File</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="39"/>
-        <source>Window</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="49"/>
-        <source>toolBar</source>
-        <translation></translation>
+        <source>窗口</source>
+        <translation>Window</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="64"/>
-        <source>Close Tab Page</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="mainwindow.ui" line="67"/>
-        <source>Close tab</source>
-        <translation></translation>
+        <source>关闭标签页</source>
+        <translation type="unfinished">Close This</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="75"/>
         <location filename="mainwindow.ui" line="78"/>
-        <source>Close Other Tab</source>
-        <translation></translation>
+        <source>关闭其他标签页</source>
+        <translation>Close Others</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="86"/>
         <location filename="mainwindow.ui" line="89"/>
-        <source>Close All Pages</source>
-        <translation></translation>
+        <source>关闭所有标签页</source>
+        <translation>Close All</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="104"/>
-        <source>ShowTab</source>
+        <location filename="mainwindow.ui" line="107"/>
+        <source>显示标签页</source>
+        <translation>Show Tabs</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="123"/>
+        <source>级联</source>
+        <translation>Cascade</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="126"/>
+        <source>显示级联窗口</source>
+        <translation>Cascade windows</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="142"/>
+        <source>平铺窗口</source>
+        <translation>Tile All windows</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="158"/>
+        <location filename="mainwindow.ui" line="161"/>
+        <source>左右平铺</source>
+        <translation>Tiling side to side</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="173"/>
+        <source>退出</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="117"/>
-        <source>Cascade</source>
+        <location filename="mainwindow.ui" line="176"/>
+        <source>Esc</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="120"/>
-        <source>Cascade windows</source>
+        <location filename="mainwindow.ui" line="46"/>
+        <source>toolBar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="133"/>
         <source>TileWindow</source>
-        <translation></translation>
+        <translatorcomment>Tile 4 Windows</translatorcomment>
+        <translation type="vanished">Tile 4 Windows</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="146"/>
-        <source>上下分割</source>
-        <translation></translation>
+        <source>Tile2Window</source>
+        <translatorcomment>Tile 2 Windows</translatorcomment>
+        <translation type="vanished">Tile 2 Windows</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="159"/>
-        <source>上下分隔</source>
-        <translation></translation>
+        <source>Tile 2 Windows</source>
+        <translation type="vanished">Tile 2 Windows</translation>
     </message>
 </context>
 </TS>
