@@ -19,6 +19,7 @@
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QItemSelectionRange>
+#include <QActionGroup>
 #include "stringutil.h"
 #include "finddialog.h"
 #include "fileutil.h"
@@ -53,17 +54,20 @@ void DirForm::initViewMenuAction(QMenu *menu){
     m_viewMenuActions[ViewType_MiddleIcon] = ui->actionViewMiddleIcon;
     m_viewMenuActions[ViewType_SmallIcon] = ui->actionViewSmallIcon;
     m_viewMenuActions[ViewType_SuperLargeIcon] = ui->actionViewSuperLargeIcon;
+    QActionGroup * group = new QActionGroup(this);
     for(int i = 0; i < ViewType_Count; ++ i){
         menu->addAction(m_viewMenuActions[i]);
+        group->addAction(m_viewMenuActions[i]);
     }
+    group->setExclusive(true);
 }
 
-void DirForm::toggleMenu(ViewType type)
-{
-    for(int i = 0; i < ViewType_Count; ++ i){
-        m_viewMenuActions[i]->setChecked(type == i);
-    }
-}
+// void DirForm::toggleMenu(ViewType type)
+// {
+//     for(int i = 0; i < ViewType_Count; ++ i){
+//         m_viewMenuActions[i]->setChecked(type == i);
+//     }
+// }
 
 void DirForm::initViewMenu(){
     m_fileModel.setRootPath(m_curDir);
@@ -99,6 +103,7 @@ void DirForm::initViewMenu(){
     font.setPointSize(11);
     ///qDebug()<< "fontsize=" << font.pointSize() << " pixel size" << font.pixelSize();
     ui->tableView->setFont(font);
+
 
 
     QMenu *menu = new QMenu(this);
@@ -425,15 +430,21 @@ void DirForm::on_fileItemDblClicked(QModelIndex index)
 
 void DirForm:: updateBookmarks(){
     QMenu *menu = new QMenu(this);
+    QActionGroup *group = new QActionGroup(this);
     for(auto c : m_bookmarkMgr->bookmarkList()){
 
         QFileInfo file(c.toString());
 
         QAction *action = new QAction(file.fileName());
         action->setData(c);
+        action->setCheckable(true);
+        action->setChecked(c == m_curDir);
+        group->addAction(action);
+
         connect(action,&QAction::triggered,this,&DirForm::on_bookmarkSelected);
         menu->addAction(action);
     }
+    group->setExclusive(true);
     ui->toolButtonBookMarkList->setMenu(menu);
 }
 
@@ -568,7 +579,7 @@ void DirForm::setListView(QListView *listView,int iconSize){
 void DirForm::switchViewType(ViewType viewType)
 {
     ViewIndex index;
-    toggleMenu(viewType);
+    ////toggleMenu(viewType);
 
     switch(viewType){
         case ViewType_SmallIcon:

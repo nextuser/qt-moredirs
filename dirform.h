@@ -134,7 +134,7 @@ private:
     void updatePasteAction();
     void initToolButtons();
     void initViewMenuAction(QMenu *men);
-    void toggleMenu(ViewType type);
+    ///void toggleMenu(ViewType type);
 
     QAbstractItemView * createTableView(QString dirPath,bool replaceView);
 
