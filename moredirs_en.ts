@@ -5,6 +5,7 @@
     <name>CopyProcessDialog</name>
     <message>
         <location filename="copyprocessdialog.ui" line="20"/>
+        <location filename="copyprocessdialog.cpp" line="29"/>
         <source>拷贝中...</source>
         <translation>Copying</translation>
     </message>
@@ -14,19 +15,23 @@
         <translation>Counting </translation>
     </message>
     <message>
-        <location filename="copyprocessdialog.ui" line="59"/>
-        <source>....</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="copyprocessdialog.ui" line="86"/>
         <source>拷贝进度</source>
         <translation>Copying</translation>
     </message>
     <message>
-        <location filename="copyprocessdialog.ui" line="93"/>
         <source>尚未拷贝</source>
-        <translation>Not started</translation>
+        <translation type="vanished">Not started</translation>
+    </message>
+    <message>
+        <location filename="copyprocessdialog.ui" line="59"/>
+        <source>文件数%1 目录数%2  文件占用%3</source>
+        <translation>File Count %1 Directory Count %1 File Space %3</translation>
+    </message>
+    <message>
+        <location filename="copyprocessdialog.ui" line="93"/>
+        <source>拷贝...:文件数%1 目录数%2  文件占用%3</source>
+        <translation>Copy... File Count %1 Directory Count %1 File Space %3</translation>
     </message>
     <message>
         <location filename="copyprocessdialog.ui" line="141"/>
@@ -43,6 +48,102 @@
         <source>关闭</source>
         <translation>Close</translation>
     </message>
+    <message>
+        <source>统计完成:文件数%1 目录数%2  文件占用%3</source>
+        <translation type="vanished">Counted:File Count %1,Directory Count %2 , File Space %3</translation>
+    </message>
+    <message>
+        <source>统计完成 文件数：</source>
+        <oldsource>统计完成:文件数：</oldsource>
+        <translation type="vanished">Count Complete File Count:</translation>
+    </message>
+    <message>
+        <source> 目录数：</source>
+        <translation type="vanished">Directory Count:</translation>
+    </message>
+    <message>
+        <source> 文件占用：</source>
+        <translation type="vanished">File Space:</translation>
+    </message>
+    <message>
+        <source>正在统计... 文件数：</source>
+        <oldsource>正在统计...:文件数：</oldsource>
+        <translation type="vanished">Counting:File Count %1,Directory Count %2 , File Space %3</translation>
+    </message>
+    <message>
+        <source>正在拷贝... 文件数：</source>
+        <oldsource>正在拷贝...:文件数：</oldsource>
+        <translation type="vanished">Copying... File Count:</translation>
+    </message>
+    <message>
+        <source>拷贝文件：</source>
+        <translation type="vanished">Copying：</translation>
+    </message>
+    <message>
+        <source>拷贝完成... 文件数：</source>
+        <oldsource>拷贝完成...:文件数：</oldsource>
+        <translation type="vanished">Copy Complete... File Count:</translation>
+    </message>
+    <message>
+        <source>正在拷贝...:文件数%1 目录数%2  文件占用%3</source>
+        <translation type="vanished">Copying:File Count %1,Directory Count %2 , File Space %3</translation>
+    </message>
+    <message>
+        <source>完成拷贝%1</source>
+        <translation type="vanished">Copying : %1</translation>
+    </message>
+    <message>
+        <source>拷贝完成:文件数%1 目录数%2  文件占用%3</source>
+        <translation type="vanished">Copy finished:File Count %1,Directory Count %2 , File Space %3</translation>
+    </message>
+    <message>
+        <source>Counted_FileCount</source>
+        <translation type="obsolete">Count Complete! File Count: </translation>
+    </message>
+    <message>
+        <source>countedArg3</source>
+        <oldsource>Directory_Count</oldsource>
+        <translation type="vanished">Count complete: File Count &amp;#37; Directory Count &amp;#37;  File Space &amp;#37;</translation>
+    </message>
+    <message>
+        <location filename="copyprocessdialog.cpp" line="27"/>
+        <source>countingArg3</source>
+        <translation>Counting : File Count&amp;#37; 1 Directory Count &amp;#37; 2  File Space &amp;#37; 3</translation>
+    </message>
+    <message>
+        <source>CopyingArg3</source>
+        <translation type="vanished">Copying...:File Count%1 Directory Count %2  File Space %3</translation>
+    </message>
+    <message>
+        <location filename="copyprocessdialog.cpp" line="28"/>
+        <location filename="copyprocessdialog.cpp" line="103"/>
+        <source>拷贝文件:</source>
+        <translation>Copy File:</translation>
+    </message>
+    <message>
+        <source>CopyedArg3</source>
+        <translation type="vanished">Copy complete:File Count%1 Directory Count %2  File Space %3</translation>
+    </message>
+    <message>
+        <source>File_Space</source>
+        <translation type="obsolete"> File Space: </translation>
+    </message>
+    <message>
+        <source>Counting_FileCount</source>
+        <translation type="obsolete">Counting... File Count: </translation>
+    </message>
+    <message>
+        <source>Copying_FileCount</source>
+        <translation type="obsolete">Copying...File Count: </translation>
+    </message>
+    <message>
+        <source>CopyFilePath</source>
+        <translation type="vanished">File Path:</translation>
+    </message>
+    <message>
+        <source>Copyed_FileCount</source>
+        <translation type="obsolete">Copy complete！ File Count: </translation>
+    </message>
 </context>
 <context>
     <name>DirForm</name>
@@ -58,7 +159,6 @@
     </message>
     <message>
         <location filename="dirform.ui" line="83"/>
-        <location filename="dirform.ui" line="582"/>
         <source>Next</source>
         <translation>Next</translation>
     </message>
@@ -110,133 +210,199 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="569"/>
         <source>Prev</source>
-        <translation>Prev</translation>
+        <translation type="vanished">Prev</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="595"/>
-        <source>UP</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="dirform.ui" line="607"/>
-        <source>Add Bookmark</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="dirform.ui" line="619"/>
         <source>BookmarkList</source>
-        <translation>Bookmarks</translation>
+        <translation type="vanished">Bookmarks</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="632"/>
+        <location filename="dirform.ui" line="650"/>
         <source>拷贝</source>
         <translation>Copy</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="645"/>
+        <location filename="dirform.ui" line="666"/>
         <source>剪切</source>
         <translation>Cut</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="648"/>
+        <location filename="dirform.ui" line="669"/>
         <source>Ctrl+X</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="661"/>
+        <location filename="dirform.ui" line="682"/>
         <source>粘贴</source>
         <translation>Paste</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="664"/>
+        <location filename="dirform.ui" line="685"/>
         <source>Ctrl+V</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="676"/>
+        <location filename="dirform.ui" line="697"/>
         <source>删除</source>
         <translation>Remove</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="679"/>
+        <location filename="dirform.ui" line="700"/>
         <source>移动到回收站</source>
         <translation>Move To Trash</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="692"/>
+        <location filename="dirform.ui" line="716"/>
         <source>打开</source>
         <translation>Open</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="695"/>
+        <location filename="dirform.ui" line="719"/>
         <source>打开目录</source>
         <translation>Open Directory</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="708"/>
         <source>切换视图</source>
         <oldsource>切换试图</oldsource>
-        <translation>Switch View Mode</translation>
+        <translation type="vanished">Switch View Mode</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="719"/>
+        <location filename="dirform.ui" line="733"/>
         <source>大图标</source>
         <translation>Big Icon</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="722"/>
+        <location filename="dirform.ui" line="736"/>
         <source>显示大图标</source>
         <translation>Show Big Icons</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="733"/>
+        <location filename="dirform.ui" line="747"/>
         <source>中图标</source>
         <translation>Standard Icon</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="736"/>
+        <location filename="dirform.ui" line="750"/>
         <source>显示中图标</source>
         <translation>Show Standard Icons</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="747"/>
-        <source>显示小图标</source>
-        <translation>Small Icon</translation>
+        <location filename="dirform.ui" line="569"/>
+        <location filename="dirform.ui" line="572"/>
+        <source>向后</source>
+        <translation>Prev</translation>
+    </message>
+    <message>
+        <location filename="dirform.ui" line="585"/>
+        <location filename="dirform.ui" line="588"/>
+        <source>向前</source>
+        <translation>Next</translation>
+    </message>
+    <message>
+        <location filename="dirform.ui" line="601"/>
+        <location filename="dirform.ui" line="604"/>
+        <source>向上</source>
+        <translation>Up</translation>
+    </message>
+    <message>
+        <location filename="dirform.ui" line="607"/>
+        <location filename="dirform.ui" line="653"/>
+        <source>Ctrl+C</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="dirform.ui" line="619"/>
+        <source>收藏</source>
+        <translation>Add bookmark</translation>
+    </message>
+    <message>
+        <location filename="dirform.ui" line="622"/>
+        <source>添加到收藏夹</source>
+        <translation>Add to bookmark list</translation>
+    </message>
+    <message>
+        <location filename="dirform.ui" line="634"/>
+        <source>收藏夹</source>
+        <translation>Bookmark List</translation>
+    </message>
+    <message>
+        <location filename="dirform.ui" line="637"/>
+        <source>收藏夹列表</source>
+        <translation>bookmark list</translation>
+    </message>
+    <message>
+        <location filename="dirform.ui" line="703"/>
+        <source>Backspace</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="dirform.ui" line="722"/>
+        <source>Ctrl+O</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="dirform.ui" line="761"/>
+        <source>小图标</source>
+        <translation>Small Icon</translation>
+    </message>
+    <message>
+        <location filename="dirform.ui" line="775"/>
         <source>详细信息</source>
         <translation>Details</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="764"/>
+        <location filename="dirform.ui" line="778"/>
         <source>显示详细信息列表</source>
         <translation>Show Detail Informations</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="776"/>
+        <location filename="dirform.ui" line="790"/>
         <source>重命名</source>
         <translation>Rename</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="779"/>
+        <location filename="dirform.ui" line="793"/>
+        <source>变更文件名</source>
+        <translation>rename file</translation>
+    </message>
+    <message>
+        <location filename="dirform.ui" line="796"/>
         <source>F2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="791"/>
-        <source>New Folder</source>
+        <location filename="dirform.ui" line="808"/>
+        <source>新建</source>
+        <translation>New</translation>
+    </message>
+    <message>
+        <location filename="dirform.ui" line="811"/>
+        <source>新建文件夹</source>
+        <translation>New Folder</translation>
+    </message>
+    <message>
+        <location filename="dirform.ui" line="824"/>
+        <source>查找</source>
+        <translation>Find</translation>
+    </message>
+    <message>
+        <location filename="dirform.ui" line="827"/>
+        <source>查找文件</source>
+        <translation>Find File</translation>
+    </message>
+    <message>
+        <location filename="dirform.ui" line="830"/>
+        <source>F3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="804"/>
-        <source>Find</source>
-        <translation></translation>
+        <location filename="dirform.ui" line="844"/>
+        <source>显示超大图标</source>
+        <translation>Show super large icons</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="815"/>
+        <location filename="dirform.ui" line="841"/>
         <source>超大图标</source>
         <translation>Super Large Icon</translation>
     </message>
@@ -246,7 +412,7 @@
     <message>
         <location filename="duplicateddialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Copy Dialog</translation>
+        <translation>Paste files with the same name</translation>
     </message>
     <message>
         <location filename="duplicateddialog.ui" line="20"/>
@@ -282,6 +448,32 @@
         <location filename="duplicateddialog.ui" line="110"/>
         <source>确定</source>
         <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>FileThread</name>
+    <message>
+        <location filename="filethread.cpp" line="49"/>
+        <source>文件[%1]不存在 </source>
+        <translation>File [%1] does not exist</translation>
+    </message>
+</context>
+<context>
+    <name>FileUtil</name>
+    <message>
+        <location filename="fileutil.cpp" line="184"/>
+        <source>%1 字节</source>
+        <translation>%1 Bytes</translation>
+    </message>
+    <message>
+        <location filename="fileutil.cpp" line="195"/>
+        <source>目录</source>
+        <translation>Directory</translation>
+    </message>
+    <message>
+        <location filename="fileutil.cpp" line="198"/>
+        <source>图片</source>
+        <translation>Image</translation>
     </message>
 </context>
 <context>
@@ -378,7 +570,7 @@
         <location filename="mainwindow.ui" line="64"/>
         <location filename="mainwindow.ui" line="67"/>
         <source>关闭标签页</source>
-        <translation type="unfinished">Close This</translation>
+        <translation>Close This</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="75"/>

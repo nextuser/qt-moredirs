@@ -978,3 +978,4 @@ void DirForm::on_actionViewSuperLargeIcon_triggered()
     switchViewType(ViewType_SuperLargeIcon);
 }
 
+

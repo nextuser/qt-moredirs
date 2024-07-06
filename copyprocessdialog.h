@@ -3,14 +3,19 @@
 
 #include <QDialog>
 #include "filethread.h"
+#include "QCoreApplication"
 namespace Ui {
 class CopyProcessDialog;
 }
 
 class CopyProcessDialog : public QDialog
 {
+
     Q_OBJECT
 
+    /*inline static QString tr2(const char *msg){
+        return QCoreApplication::translate("CopyProcessDialog",msg,nullptr);
+    }*/
 public:
     explicit CopyProcessDialog(QWidget *parent ,FileThread *thread);
     ~CopyProcessDialog();
@@ -31,6 +36,8 @@ private:
     int m_dirCount ;
     bool m_showed = false;
     void ensureShow(int count, quint64 size);
+    QString countTpl;
+    QString copyTpl;
 
     // QWidget interface
 protected:

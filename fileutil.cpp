@@ -181,7 +181,7 @@ QString FileUtil::sizeFormat(qint64 size)
         ret += QString::asprintf("%3.3f KB",size / (float)KB);
     }
     else{
-        ret += QString::asprintf("%d B",(int)size );
+        ret += tr("%1 字节").arg(size);
     }
     return ret;
 }
@@ -192,10 +192,10 @@ QString FileUtil::fileType(QString filePath)
     QString suffix =  info.suffix();
 
     if(info.isDir()){
-        return "目录";
+        return FileUtil::tr("目录");
     }
     else if(isImage(filePath)){
-        return "图片";
+        return FileUtil::tr("图片");
     }
     else{
         return suffix;

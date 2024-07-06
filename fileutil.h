@@ -4,6 +4,7 @@ class QString;
 #include <QDateTime>
 #include <QFileInfo>
 #include <QDir>
+#include <QCoreApplication>
 enum class EncodingFormat:int
 {
     ANSI = 0,//GBK
@@ -46,6 +47,10 @@ public:
     constexpr static QDir::Filters SubFileDirFilter = QDir::NoDotAndDotDot| QDir::Files | QDir::Dirs;
     inline static bool isLocalDir(const QFileInfo & info ){
         return info.isDir() && !info.isSymbolicLink() && !info.isSymLink();
+    }
+
+    static inline QString tr(const QString& str){
+        return  QCoreApplication::translate("FileUtil", str.toUtf8());
     }
 
 };

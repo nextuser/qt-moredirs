@@ -107,6 +107,8 @@ private slots:
 
     void on_actionViewSuperLargeIcon_triggered();
 
+
+
 private:
     enum ViewIndex{
         ViewIndexTable = 0,

@@ -18,18 +18,31 @@ void SearchThread::findFile(QString location, QString filter)
     start();
 }
 
+void SearchThread::incFound(int &processCount,QStringList& results, QString newFile,bool finished){
+    ++ processCount;
+    if(newFile.isEmpty()){
 
+    }
+    else{
+        results.append(newFile);
+    }
+    if(processCount % 10000 == 0 || results.length() > 500 ){
+        emit file_found(results,finished);
+        results.clear();
+    }
+}
 
-void SearchThread::findInDir(const QDir &dir, const QList<std::regex>& regs){
+#include "fileutil.h"
+void SearchThread::findInDir(const QDir &dir, const QList<std::regex>& regs, int &processCount ,QStringList& results ){
     if(m_stop) return;
 
     for(auto &fileInfo: dir.entryInfoList(QDir::NoDotAndDotDot|QDir::Files|QDir::Dirs)){
         if(StringUtil::match(regs,fileInfo.fileName())){
-            emit file_found(fileInfo.absoluteFilePath());
+            incFound(processCount,results,fileInfo.absoluteFilePath());
         }
 
-        if(fileInfo.isDir() && !fileInfo.isSymbolicLink()){
-            findInDir(QDir(fileInfo.absoluteFilePath()),regs);
+        if(FileUtil::isLocalDir(fileInfo)){
+            findInDir(QDir(fileInfo.absoluteFilePath()),regs,processCount,results);
         }
 
     }
@@ -42,10 +55,8 @@ void SearchThread::run()
     for(QString filter: filters){
         regList.append(StringUtil::wildchardRex(filter.toStdString()));
     }
-
-    findInDir(QDir(m_location),regList);
-
-    emit find_finished();
-
-
+    int processCount = 0;
+    QStringList results;
+    findInDir(QDir(m_location),regList,processCount, results);
+    emit file_found(results,true);
 }

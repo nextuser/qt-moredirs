@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "searchthread.h"
+#include <QStandardItemModel>
 namespace Ui {
 class FindDialog;
 }
@@ -14,21 +15,31 @@ class FindDialog : public QDialog
 public:
     explicit FindDialog(QWidget *parent ,QString location);
     ~FindDialog();
+    enum FindState{
+        State_NotStart,
+        State_Finding
 
+    };
 private:
     Ui::FindDialog *ui;
     SearchThread * m_thread;
+    QStandardItemModel *m_model;
+    int m_count = 0;
+    void initColumns();
+    void appendRows(const QStringList& files);
+    FindState m_state;
+    void changeState(FindState state);
 private slots:
 
 
-    void on_fileFounded(QString file);
+    void on_fileFounded(QStringList file,bool bFinished);
     void on_pushButtonFind_clicked();
-    void on_findFinished();
-
 
     // QWidget interface
     void on_pushButtonBrowse_clicked();
-    void on_tableCellDoubleClicked(int row,int col);
+    void on_tableCellDoubleClicked(const QModelIndex &index);
+
+    void on_pushButtonStop_clicked();
 
 protected:
     void closeEvent(QCloseEvent *event);

@@ -20,6 +20,13 @@ CopyProcessDialog::CopyProcessDialog(QWidget *parent,FileThread * thread)
     QSettings settings;
     bool checked = settings.value(KEY_SAVE_AUTO).toBool();
     ui->checkBoxAutoClose->setChecked(checked);
+    copyTpl = ui->labelCopyStat->text();
+    countTpl = ui->labelCountStat->text();
+    ui->labelCopyStat->setText("");
+    ui->labelCountStat->setText("");
+    qDebug()<< "tr:" << tr("countingArg3");
+    qDebug()<< "tr copy " << tr("拷贝文件:");
+    qDebug() << "tr : copying" << tr("拷贝中...");
 }
 
 CopyProcessDialog::~CopyProcessDialog()
@@ -61,8 +68,8 @@ void CopyProcessDialog::on_countSizeProcessInd(int count, int dirCount ,quint64 
         m_totalCount = count;
         m_dirCount = dirCount;
         ui->progressBar->setValue(PERCENT_COUNT_SIZE);
-
-        ui->labelCountStat->setText(QString("统计完成:文件数%1 目录数%2  文件占用%3").arg(count-dirCount).arg(dirCount).arg(sizeStr));
+        //统计完成: 文件数%1 目录数%2  文件占用%3
+        ui->labelCountStat->setText(countTpl.arg(count-dirCount).arg(dirCount).arg(sizeStr));
 
     }
     else{
@@ -72,28 +79,30 @@ void CopyProcessDialog::on_countSizeProcessInd(int count, int dirCount ,quint64 
             ui->progressBar->setValue(val);
         }
         //ui->labelStatus->setText("正在统计");
-        ui->labelCountStat->setText(QString("正在统计:文件数%1 目录数%2  文件占用%3").arg(count-dirCount).arg(dirCount).arg(sizeStr));
+        //"正在统计: 文件数%1 目录数%2  文件占用%3"
+
+        ui->labelCountStat->setText(countTpl.arg(count-dirCount).arg(dirCount).arg(sizeStr));
     }
 }
 
 const static int SIZE_LIMIT = 1 << 23;//8MB
 void CopyProcessDialog::on_copyProcessInd(int copyCount,int dirCount,quint64 fileSize, QString curPath, bool stopped)
 {
+    Q_UNUSED(stopped);
     ensureShow(copyCount,fileSize);
     QString sizeStr = FileUtil::sizeFormat(fileSize);
     if(m_totalSize > SIZE_LIMIT && m_totalCount > copyCount){
         int percent = PERCENT_COUNT_SIZE +  ((float)fileSize / m_totalSize) * (100 - PERCENT_COUNT_SIZE);
         ui->progressBar->setValue(percent);
         ui->labelFileName->setText(curPath);
-        QString msg = tr("Copying_FileCount") + QString::number(copyCount-dirCount)
-                      + tr("Directory_Count") + QString::number(dirCount) + tr("File_Space") + sizeStr;
-        ui->labelCopyStat->setText(msg);
+        //正在拷贝...:文件数%1 目录数%2  文件占用%3
+        ui->labelCopyStat->setText((copyTpl).arg(copyCount-dirCount).arg(dirCount).arg(sizeStr));
     }
     else{
         int percent = PERCENT_COUNT_SIZE +  ((float)copyCount / m_totalCount) * (100 - PERCENT_COUNT_SIZE);
-        ui->labelFileName->setText(QString("完成拷贝%1").arg(curPath));
-
-        ui->labelCopyStat->setText(QString("拷贝完成:文件数%1 目录数%2  文件占用%3").arg(copyCount-dirCount).arg(dirCount).arg(sizeStr));
+        ui->labelFileName->setText(tr("拷贝文件:") + (curPath));
+        //拷贝完成:文件数%1 目录数%2  文件占用%3
+        ui->labelCopyStat->setText((copyTpl).arg(copyCount-dirCount).arg(dirCount).arg(sizeStr));
         ui->progressBar->setValue(percent);
         if(ui->checkBoxAutoClose->isChecked()){
             accept();

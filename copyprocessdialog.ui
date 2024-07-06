@@ -56,7 +56,7 @@
      <item>
       <widget class="QLabel" name="labelCountStat">
        <property name="text">
-        <string>....</string>
+        <string>文件数%1 目录数%2  文件占用%3</string>
        </property>
       </widget>
      </item>
@@ -90,7 +90,7 @@
       <item>
        <widget class="QLabel" name="labelCopyStat">
         <property name="text">
-         <string>尚未拷贝</string>
+         <string>拷贝...:文件数%1 目录数%2  文件占用%3</string>
         </property>
        </widget>
       </item>

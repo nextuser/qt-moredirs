@@ -5,15 +5,28 @@
 #include <QTableWidgetItem>
 #include <QFile>
 #include "dirform.h"
+void FindDialog::initColumns(){
+
+    m_model->setHorizontalHeaderItem(0,new QStandardItem("文件"));
+    m_model->setHorizontalHeaderItem(1,new QStandardItem("大小"));
+    m_model->setHorizontalHeaderItem(2,new QStandardItem("类型"));
+    m_model->setHorizontalHeaderItem(3,new QStandardItem("修改时间"));
+
+}
+
 FindDialog::FindDialog(QWidget *parent,QString location)
     : QDialog(parent)
-    , ui(new Ui::FindDialog)
+    , ui(new Ui::FindDialog),m_thread(nullptr)
 {
     ui->setupUi(this);
-    ui->tableWidgetResult->setSelectionBehavior(QAbstractItemView::SelectRows);
+    m_model = new QStandardItemModel(this);
+    ui->tableViewResult->setModel(m_model);
+    initColumns();
+    ui->tableViewResult->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->comboBoxDir->addItem(location);
     ui->comboBoxDir->setCurrentText(location);
-    connect(ui->tableWidgetResult,&QTableWidget::cellDoubleClicked,
+    changeState(State_NotStart);
+    connect(ui->tableViewResult,&QTableView::doubleClicked,
             this, &FindDialog::on_tableCellDoubleClicked);
 
 }
@@ -32,23 +45,59 @@ enum Column{
     Col_Count
 };
 
+QStandardItem * createItem(QString text, QVariant& data){
+    QStandardItem *item  = new QStandardItem(text);
+    item->setData(data);
+    return item;
+}
 
-void FindDialog::on_fileFounded(QString file)
+void FindDialog::appendRows(const QStringList& files){
+
+    for(auto & file : files)
+    {
+        QFileInfo info(file);
+        QList<QStandardItem*> tableRow;
+        QVariant data(file);
+        tableRow.append(createItem(file,data));
+        tableRow.append(createItem(FileUtil::sizeFormat(info.size()),data));
+        tableRow.append(createItem(FileUtil::timeStr(info.lastModified()),data));
+        tableRow.append(createItem(FileUtil::fileType(file),data));
+        m_model->appendRow(tableRow);
+
+    }
+    m_count += files.size();
+    qDebug()<< m_count;
+}
+
+void FindDialog::changeState(FindState state)
 {
-    QFileInfo info(file);
-    int newRow = ui->tableWidgetResult->rowCount();
-    ui->tableWidgetResult->insertRow(newRow);
-    ui->tableWidgetResult->setItem(newRow,Col_Name, new QTableWidgetItem(file));
-    ui->tableWidgetResult->setItem(newRow,Col_Size,new QTableWidgetItem(FileUtil::sizeFormat(info.size())));
-    ui->tableWidgetResult->setItem(newRow,Col_Date,new QTableWidgetItem(FileUtil::timeStr(info.lastModified())));
-    ui->tableWidgetResult->setItem(newRow,Col_Type,new QTableWidgetItem(FileUtil::fileType(file)));
+    switch(state){
+    case State_NotStart:
+        ui->pushButtonFind->setEnabled(true);
+        ui->pushButtonStop->setEnabled(false);
+        releaseThread();
+        break;
+    case State_Finding:
+        ui->pushButtonFind->setEnabled(false);
+        ui->pushButtonStop->setEnabled(true);
+        break;
+    }
+}
+#include <QTimer>
+void FindDialog::on_fileFounded(QStringList files , bool finished)
+{
+    //QTimer::singleShot(0, this, [&]() {
+        // 处理大量数据的代码
+        appendRows(files);
+    //});
 
+    if(finished) changeState(State_NotStart);
 }
 
 void FindDialog::releaseThread(){
     if(m_thread != nullptr){
         m_thread->stop();
-
+        m_thread->terminate();
         delete m_thread;
         m_thread = nullptr;
     }
@@ -56,31 +105,23 @@ void FindDialog::releaseThread(){
 
 void FindDialog::on_pushButtonFind_clicked()
 {
-    ui->pushButtonFind->setEnabled(false);
-    releaseThread();
-    ui->tableWidgetResult->clearContents();
-    ui->tableWidgetResult->setRowCount(0);
+
+    changeState(State_Finding);
+    m_model->clear();
+    initColumns();
+    m_count = 0;
     ui->comboBoxDir->addItem(ui->comboBoxDir->currentText());
     m_thread = new SearchThread();
     connect(m_thread,&SearchThread::file_found,this,&FindDialog::on_fileFounded);
-    connect(m_thread,&SearchThread::find_finished,this, &FindDialog::on_findFinished);
     m_thread->findFile(ui->comboBoxDir->currentText(),ui->comboBoxNameFilter->currentText());
 }
 
-void FindDialog::on_findFinished()
-{
-    ui->pushButtonFind->setEnabled(true);
-}
+
 
 void FindDialog::closeEvent(QCloseEvent *event)
 {
     Q_UNUSED(event);
-    if(m_thread != nullptr){
-        m_thread->stop();
-
-        delete m_thread;
-        m_thread = nullptr;
-    }
+    releaseThread();
 }
 
 #include <QFileDialog>
@@ -95,11 +136,11 @@ void FindDialog::on_pushButtonBrowse_clicked()
 
 #include <QDesktopServices>
 #include <QUrl>
-void FindDialog::on_tableCellDoubleClicked(int row, int col)
+void FindDialog::on_tableCellDoubleClicked(const QModelIndex &index)
 {
-    Q_UNUSED(col);
-    QTableWidgetItem * item = ui->tableWidgetResult->itemAt(row,0);;
-    QString filePath = item->text();
+
+    QString filePath =m_model->data(index).toString();
+
     QFileInfo info(filePath);
     if(info.isDir()){
         ((DirForm*)parent())->loadDir(filePath);
@@ -107,5 +148,11 @@ void FindDialog::on_tableCellDoubleClicked(int row, int col)
     else{
         QDesktopServices::openUrl(QUrl::fromLocalFile(filePath));
     }
+}
+
+
+void FindDialog::on_pushButtonStop_clicked()
+{
+    changeState(State_NotStart);
 }
 

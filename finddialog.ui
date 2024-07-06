@@ -28,35 +28,6 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="6">
-    <widget class="QTableWidget" name="tableWidgetResult">
-     <column>
-      <property name="text">
-       <string>文件名</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>大小</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>修改时间</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>类型</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>新建列</string>
-      </property>
-     </column>
-    </widget>
-   </item>
    <item row="3" column="4">
     <widget class="QPushButton" name="pushButtonOk">
      <property name="text">
@@ -128,6 +99,16 @@
        <string>*.png;*.bmp;*.jpeg;*.jpg</string>
       </property>
      </item>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="6">
+    <widget class="QTableView" name="tableViewResult"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="QPushButton" name="pushButtonStop">
+     <property name="text">
+      <string>停止</string>
+     </property>
     </widget>
    </item>
   </layout>

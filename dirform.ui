@@ -566,7 +566,10 @@
      <disabledoff>:/new/icons/icons/311.bmp</disabledoff>:/new/icons/icons/310.bmp</iconset>
    </property>
    <property name="text">
-    <string>Prev</string>
+    <string>向后</string>
+   </property>
+   <property name="toolTip">
+    <string>向后</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -579,7 +582,10 @@
      <disabledoff>:/new/icons/icons/313.bmp</disabledoff>:/new/icons/icons/312.bmp</iconset>
    </property>
    <property name="text">
-    <string>Next</string>
+    <string>向前</string>
+   </property>
+   <property name="toolTip">
+    <string>向前</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -592,7 +598,10 @@
      <disabledon>:/new/icons/icons/321.bmp</disabledon>:/new/icons/icons/320.bmp</iconset>
    </property>
    <property name="text">
-    <string>UP</string>
+    <string>向上</string>
+   </property>
+   <property name="toolTip">
+    <string>向上</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -604,7 +613,10 @@
      <normaloff>:/new/icons/icons/icons-add-fav24.png</normaloff>:/new/icons/icons/icons-add-fav24.png</iconset>
    </property>
    <property name="text">
-    <string>Add Bookmark</string>
+    <string>收藏</string>
+   </property>
+   <property name="toolTip">
+    <string>添加到收藏夹</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -616,7 +628,10 @@
      <normaloff>:/new/icons/icons/favourlist.png</normaloff>:/new/icons/icons/favourlist.png</iconset>
    </property>
    <property name="text">
-    <string>BookmarkList</string>
+    <string>收藏夹</string>
+   </property>
+   <property name="toolTip">
+    <string>收藏夹列表</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -630,6 +645,9 @@
    </property>
    <property name="text">
     <string>拷贝</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -678,6 +696,9 @@
    <property name="toolTip">
     <string>移动到回收站</string>
    </property>
+   <property name="shortcut">
+    <string>Backspace</string>
+   </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
@@ -694,18 +715,8 @@
    <property name="toolTip">
     <string>打开目录</string>
    </property>
-   <property name="menuRole">
-    <enum>QAction::NoRole</enum>
-   </property>
-  </action>
-  <action name="actionSwitchView">
-   <property name="icon">
-    <iconset resource="res.qrc">
-     <normaloff>:/new/icons/icons/410.bmp</normaloff>
-     <disabledoff>:/new/icons/icons/411.bmp</disabledoff>:/new/icons/icons/410.bmp</iconset>
-   </property>
-   <property name="text">
-    <string>切换视图</string>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -744,7 +755,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>显示小图标</string>
+    <string>小图标</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -775,6 +786,9 @@
    <property name="text">
     <string>重命名</string>
    </property>
+   <property name="toolTip">
+    <string>变更文件名</string>
+   </property>
    <property name="shortcut">
     <string>F2</string>
    </property>
@@ -788,7 +802,10 @@
      <normaloff>:/new/icons/icons/addfolder2.png</normaloff>:/new/icons/icons/addfolder2.png</iconset>
    </property>
    <property name="text">
-    <string>New Folder</string>
+    <string>新建</string>
+   </property>
+   <property name="toolTip">
+    <string>新建文件夹</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -801,7 +818,13 @@
      <disabledoff>:/new/icons/icons/415.bmp</disabledoff>:/new/icons/icons/414.bmp</iconset>
    </property>
    <property name="text">
-    <string>Find</string>
+    <string>查找</string>
+   </property>
+   <property name="toolTip">
+    <string>查找文件</string>
+   </property>
+   <property name="shortcut">
+    <string>F3</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
@@ -813,6 +836,9 @@
    </property>
    <property name="text">
     <string>超大图标</string>
+   </property>
+   <property name="toolTip">
+    <string>显示超大图标</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>

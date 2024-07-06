@@ -46,7 +46,7 @@ quint64 FileThread::countFileSize(QStringList paths)
         QFileInfo info(path);
 
         if(!info.exists()) {
-            QString text = QString("文件[%1]不存在 ").arg(info.absoluteFilePath());
+            QString text = tr("文件[%1]不存在 ").arg(info.absoluteFilePath());
             QMessageBox::warning((QWidget*)parent(),QString("错误"),text);
             emit countSizeProcessInd(process,dirCount,fsize,false);
             continue;
