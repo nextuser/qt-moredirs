@@ -5,7 +5,6 @@
     <name>CopyProcessDialog</name>
     <message>
         <location filename="copyprocessdialog.ui" line="20"/>
-        <location filename="copyprocessdialog.cpp" line="29"/>
         <source>拷贝中...</source>
         <translation></translation>
     </message>
@@ -58,17 +57,15 @@
         <translation type="vanished">统计完成: 文件数 &amp;#37; 目录数 &amp;#37; 文件占用 &amp;#37;</translation>
     </message>
     <message>
-        <location filename="copyprocessdialog.cpp" line="27"/>
         <source>countingArg3</source>
-        <translation>正在统计: 文件数&amp;#37; 1 目录数&amp;#37; 2  文件占用&amp;#37; 3</translation>
+        <translation type="vanished">正在统计: 文件数&amp;#37; 1 目录数&amp;#37; 2  文件占用&amp;#37; 3</translation>
     </message>
     <message>
         <source>CopyingArg3</source>
         <translation type="vanished">正在拷贝...:文件数 %1 目录数 %2  文件占用 %3</translation>
     </message>
     <message>
-        <location filename="copyprocessdialog.cpp" line="28"/>
-        <location filename="copyprocessdialog.cpp" line="103"/>
+        <location filename="copyprocessdialog.cpp" line="101"/>
         <source>拷贝文件:</source>
         <translation>拷贝文件:</translation>
     </message>
@@ -178,67 +175,68 @@
         <translation type="vanished">收藏夹</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="650"/>
+        <location filename="dirform.ui" line="647"/>
         <source>拷贝</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="666"/>
+        <location filename="dirform.ui" line="663"/>
         <source>剪切</source>
         <translation>剪切</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="669"/>
+        <location filename="dirform.ui" line="666"/>
         <source>Ctrl+X</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="682"/>
+        <location filename="dirform.ui" line="679"/>
         <source>粘贴</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="685"/>
+        <location filename="dirform.ui" line="682"/>
         <source>Ctrl+V</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="697"/>
+        <location filename="dirform.ui" line="694"/>
         <source>删除</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="700"/>
+        <location filename="dirform.ui" line="697"/>
         <source>移动到回收站</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="716"/>
+        <location filename="dirform.ui" line="713"/>
         <source>打开</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="719"/>
+        <location filename="dirform.ui" line="716"/>
+        <location filename="dirform.cpp" line="700"/>
         <source>打开目录</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="733"/>
+        <location filename="dirform.ui" line="730"/>
         <source>大图标</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="736"/>
+        <location filename="dirform.ui" line="733"/>
         <source>显示大图标</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="747"/>
+        <location filename="dirform.ui" line="744"/>
         <source>中图标</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="750"/>
+        <location filename="dirform.ui" line="747"/>
         <source>显示中图标</source>
         <translation></translation>
     </message>
@@ -261,98 +259,98 @@
         <translation>向上</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="607"/>
-        <location filename="dirform.ui" line="653"/>
+        <location filename="dirform.ui" line="650"/>
         <source>Ctrl+C</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="619"/>
+        <location filename="dirform.ui" line="616"/>
         <source>收藏</source>
         <translation>收藏</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="622"/>
+        <location filename="dirform.ui" line="619"/>
         <source>添加到收藏夹</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="634"/>
+        <location filename="dirform.ui" line="631"/>
         <source>收藏夹</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="637"/>
+        <location filename="dirform.ui" line="634"/>
         <source>收藏夹列表</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="703"/>
+        <location filename="dirform.ui" line="700"/>
         <source>Backspace</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="722"/>
+        <location filename="dirform.ui" line="719"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="761"/>
+        <location filename="dirform.ui" line="758"/>
         <source>小图标</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="775"/>
+        <location filename="dirform.ui" line="772"/>
         <source>详细信息</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="778"/>
+        <location filename="dirform.ui" line="775"/>
         <source>显示详细信息列表</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="790"/>
+        <location filename="dirform.ui" line="787"/>
         <source>重命名</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="793"/>
+        <location filename="dirform.ui" line="790"/>
         <source>变更文件名</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="796"/>
+        <location filename="dirform.ui" line="793"/>
         <source>F2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="808"/>
+        <location filename="dirform.ui" line="805"/>
         <source>新建</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="811"/>
+        <location filename="dirform.ui" line="808"/>
+        <location filename="dirform.cpp" line="741"/>
         <source>新建文件夹</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="824"/>
+        <location filename="dirform.ui" line="821"/>
         <source>查找</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="827"/>
+        <location filename="dirform.ui" line="824"/>
         <source>查找文件</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="830"/>
+        <location filename="dirform.ui" line="827"/>
         <source>F3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="844"/>
+        <location filename="dirform.ui" line="841"/>
         <source>显示超大图标</source>
         <translation></translation>
     </message>
@@ -365,9 +363,54 @@
         <translation type="vanished">查找</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="841"/>
+        <location filename="dirform.ui" line="838"/>
         <source>超大图标</source>
         <translation></translation>
+    </message>
+    <message>
+        <location filename="dirform.cpp" line="700"/>
+        <source>选择目录打开</source>
+        <translatorcomment>选择想要打开的目录</translatorcomment>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="dirform.cpp" line="741"/>
+        <source>请输入文件夹名</source>
+        <translation>请输入需要新建的文件夹名</translation>
+    </message>
+    <message>
+        <location filename="dirform.cpp" line="741"/>
+        <source>新文件夹</source>
+        <translation>新目录</translation>
+    </message>
+    <message>
+        <location filename="dirform.cpp" line="745"/>
+        <location filename="dirform.cpp" line="749"/>
+        <location filename="dirform.cpp" line="775"/>
+        <source>错误</source>
+        <translation>错误！</translation>
+    </message>
+    <message>
+        <location filename="dirform.cpp" line="745"/>
+        <location filename="dirform.cpp" line="775"/>
+        <source>文件已存在</source>
+        <translation>已经存在同名文件夹！</translation>
+    </message>
+    <message>
+        <location filename="dirform.cpp" line="749"/>
+        <source>重建文件夹失败</source>
+        <translatorcomment>Failed to create a directory</translatorcomment>
+        <translation>新建目录失败</translation>
+    </message>
+    <message>
+        <location filename="dirform.cpp" line="771"/>
+        <source>变更名称</source>
+        <translation>变更名称</translation>
+    </message>
+    <message>
+        <location filename="dirform.cpp" line="771"/>
+        <source>输入新名字</source>
+        <translation>输入新的名称</translation>
     </message>
 </context>
 <context>
@@ -420,6 +463,11 @@
         <source>文件[%1]不存在 </source>
         <translation></translation>
     </message>
+    <message>
+        <location filename="filethread.cpp" line="50"/>
+        <source>错误</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>FileUtil</name>
@@ -457,64 +505,69 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="finddialog.ui" line="35"/>
-        <source>文件名</source>
+        <location filename="finddialog.cpp" line="10"/>
+        <source>文件</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="finddialog.ui" line="40"/>
+        <location filename="finddialog.cpp" line="11"/>
         <source>大小</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="finddialog.ui" line="45"/>
+        <location filename="finddialog.cpp" line="13"/>
         <source>修改时间</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="finddialog.ui" line="50"/>
+        <location filename="finddialog.cpp" line="131"/>
+        <source>选择查询目录位置</source>
+        <translation>选择查询的目录</translation>
+    </message>
+    <message>
+        <location filename="finddialog.cpp" line="12"/>
         <source>类型</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="finddialog.ui" line="55"/>
-        <source>新建列</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="finddialog.ui" line="63"/>
+        <location filename="finddialog.ui" line="34"/>
         <source>确定</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="finddialog.ui" line="73"/>
+        <location filename="finddialog.ui" line="44"/>
         <source>关闭</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="finddialog.ui" line="83"/>
+        <location filename="finddialog.ui" line="54"/>
         <source>Find</source>
         <translation>查找</translation>
     </message>
     <message>
-        <location filename="finddialog.ui" line="100"/>
+        <location filename="finddialog.ui" line="71"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="finddialog.ui" line="118"/>
+        <location filename="finddialog.ui" line="89"/>
         <source>*.*</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="finddialog.ui" line="123"/>
+        <location filename="finddialog.ui" line="94"/>
         <source>*.cpp;*.c;*.cc</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="finddialog.ui" line="128"/>
+        <location filename="finddialog.ui" line="99"/>
         <source>*.png;*.bmp;*.jpeg;*.jpg</source>
         <translation></translation>
+    </message>
+    <message>
+        <location filename="finddialog.ui" line="110"/>
+        <source>停止</source>
+        <translation>停止</translation>
     </message>
 </context>
 <context>
@@ -556,12 +609,12 @@
     <message>
         <location filename="mainwindow.ui" line="123"/>
         <source>级联</source>
-        <translation></translation>
+        <translation>级联</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="126"/>
         <source>显示级联窗口</source>
-        <translation></translation>
+        <translation>级联显示窗口</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="142"/>
@@ -572,17 +625,17 @@
         <location filename="mainwindow.ui" line="158"/>
         <location filename="mainwindow.ui" line="161"/>
         <source>左右平铺</source>
-        <translation></translation>
+        <translation>左右平铺</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="173"/>
         <source>退出</source>
-        <translation></translation>
+        <translation>退出</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="176"/>
         <source>Esc</source>
-        <translation></translation>
+        <translation>Esc</translation>
     </message>
     <message>
         <source>File</source>
@@ -636,6 +689,30 @@
     <message>
         <source>Tile 2 Windows</source>
         <translation type="vanished">平铺两个窗口</translation>
+    </message>
+</context>
+<context>
+    <name>TFileSystemModel</name>
+    <message>
+        <location filename="tfilesystemmodel.cpp" line="74"/>
+        <source>文件名</source>
+        <translation>名称</translation>
+    </message>
+    <message>
+        <location filename="tfilesystemmodel.cpp" line="77"/>
+        <source>修改时间</source>
+        <oldsource>修改日期</oldsource>
+        <translation>修改时间</translation>
+    </message>
+    <message>
+        <location filename="tfilesystemmodel.cpp" line="80"/>
+        <source>大小</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="tfilesystemmodel.cpp" line="83"/>
+        <source>文件类型</source>
+        <translation></translation>
     </message>
 </context>
 </TS>

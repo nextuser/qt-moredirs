@@ -24,9 +24,7 @@ CopyProcessDialog::CopyProcessDialog(QWidget *parent,FileThread * thread)
     countTpl = ui->labelCountStat->text();
     ui->labelCopyStat->setText("");
     ui->labelCountStat->setText("");
-    qDebug()<< "tr:" << tr("countingArg3");
-    qDebug()<< "tr copy " << tr("拷贝文件:");
-    qDebug() << "tr : copying" << tr("拷贝中...");
+
 }
 
 CopyProcessDialog::~CopyProcessDialog()

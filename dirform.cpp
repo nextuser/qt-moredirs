@@ -697,7 +697,7 @@ void DirForm::on_clipDataChanged()
 
 void DirForm::on_actionOpenDir_triggered()
 {
-    QString filePath = QFileDialog::getExistingDirectory(this,"打开目录","选择目录打开");
+    QString filePath = QFileDialog::getExistingDirectory(this,tr("打开目录"),tr("选择目录打开"));
     if(!filePath.isEmpty()){
         loadDir(filePath);
         m_history.addItem(filePath);
@@ -738,15 +738,15 @@ void DirForm::on_actionViewDetailTable_triggered()
 
 void DirForm::on_actionNew_Folder_triggered()
 {
-    QString fileName = QInputDialog::getText(this,"新建文件夹","请输入文件夹名",QLineEdit::EchoMode::Normal,"新文件夹");
+    QString fileName = QInputDialog::getText(this,tr("新建文件夹"),tr("请输入文件夹名"),QLineEdit::EchoMode::Normal,tr("新文件夹"));
     QString path = getTargetPath();
     QString newName = path + "/" + fileName;
     if(QFileInfo(newName).exists()){
-        QMessageBox::information(this,"错误","文件已存在");
+        QMessageBox::information(this,tr("错误"),tr("文件已存在"));
         return;
     }
     if(!QDir(path).mkdir(newName)){
-        QMessageBox::information(this,"错误","重建文件夹失败");
+        QMessageBox::information(this,tr("错误"),tr("重建文件夹失败"));
             return;
     }
     else{
@@ -768,11 +768,11 @@ void DirForm::on_actionRenameSelect_triggered()
 
     QString filePath = m_fileModel.filePath(rows.at(0));
     QFileInfo srcInfo(filePath);
-    QString newName = QInputDialog::getText(this,"变更名称","输入新名字",QLineEdit::EchoMode::Normal,srcInfo.fileName());
+    QString newName = QInputDialog::getText(this,tr("变更名称"),tr("输入新名字"),QLineEdit::EchoMode::Normal,srcInfo.fileName());
     if(!newName.isEmpty() && newName != srcInfo.fileName()){
         QString destPath = srcInfo.absolutePath() + "/" + newName;
         if(QFileInfo(destPath).exists()){
-            QMessageBox::information(this,"错误","文件已存在");
+            QMessageBox::information(this,tr("错误"),tr("文件已存在"));
         }
         else{
             QFile::rename(srcInfo.absoluteFilePath(),destPath);

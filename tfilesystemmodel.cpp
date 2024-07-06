@@ -71,16 +71,16 @@ QVariant TFileSystemModel::headerData(int section, Qt::Orientation orientation, 
     if(role == Qt::DisplayRole && orientation == Qt::Horizontal){
         switch(section){
             case ColName:
-            return "文件名";
+            return tr("文件名");
             break;
             case ColModifiedTime:
-                return "修改日期";
+                return tr("修改时间");
                 break;
             case ColSize:
-                return "大小";
+                return tr("大小");
                 break;
             case ColType:
-                return "文件类型";
+                return tr("文件类型");
                 break;
         }
     }

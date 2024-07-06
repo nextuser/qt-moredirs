@@ -7,10 +7,10 @@
 #include "dirform.h"
 void FindDialog::initColumns(){
 
-    m_model->setHorizontalHeaderItem(0,new QStandardItem("文件"));
-    m_model->setHorizontalHeaderItem(1,new QStandardItem("大小"));
-    m_model->setHorizontalHeaderItem(2,new QStandardItem("类型"));
-    m_model->setHorizontalHeaderItem(3,new QStandardItem("修改时间"));
+    m_model->setHorizontalHeaderItem(0,new QStandardItem(tr("文件")));
+    m_model->setHorizontalHeaderItem(1,new QStandardItem(tr("大小")));
+    m_model->setHorizontalHeaderItem(2,new QStandardItem(tr("类型")));
+    m_model->setHorizontalHeaderItem(3,new QStandardItem(tr("修改时间")));
 
 }
 
@@ -60,8 +60,9 @@ void FindDialog::appendRows(const QStringList& files){
         QVariant data(file);
         tableRow.append(createItem(file,data));
         tableRow.append(createItem(FileUtil::sizeFormat(info.size()),data));
-        tableRow.append(createItem(FileUtil::timeStr(info.lastModified()),data));
         tableRow.append(createItem(FileUtil::fileType(file),data));
+        tableRow.append(createItem(FileUtil::timeStr(info.lastModified()),data));
+
         m_model->appendRow(tableRow);
 
     }
@@ -127,7 +128,7 @@ void FindDialog::closeEvent(QCloseEvent *event)
 #include <QFileDialog>
 void FindDialog::on_pushButtonBrowse_clicked()
 {
-    QString path = QFileDialog::getExistingDirectory(this,"选择查询的父目录",ui->comboBoxDir->currentText());
+    QString path = QFileDialog::getExistingDirectory(this,tr("选择查询目录位置"),ui->comboBoxDir->currentText());
     if(path.isEmpty()) return;
 
     ui->comboBoxDir->addItem(path);
