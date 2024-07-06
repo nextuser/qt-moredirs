@@ -6,10 +6,10 @@ TFileSystemModel::TFileSystemModel(QObject *parent)
 {}
 enum ColumnIndex{
     ColName,
-    ColModifiedTime,
 
-    ColType,
     ColSize,
+    ColType,
+    ColModifiedTime,
     ColCount
 };
 

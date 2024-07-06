@@ -85,8 +85,9 @@ void CopyProcessDialog::on_copyProcessInd(int copyCount,int dirCount,quint64 fil
         int percent = PERCENT_COUNT_SIZE +  ((float)fileSize / m_totalSize) * (100 - PERCENT_COUNT_SIZE);
         ui->progressBar->setValue(percent);
         ui->labelFileName->setText(curPath);
-
-        ui->labelCopyStat->setText(QString("正在拷贝...:文件数%1 目录数%2  文件占用%3").arg(copyCount-dirCount).arg(dirCount).arg(sizeStr));
+        QString msg = tr("Copying_FileCount") + QString::number(copyCount-dirCount)
+                      + tr("Directory_Count") + QString::number(dirCount) + tr("File_Space") + sizeStr;
+        ui->labelCopyStat->setText(msg);
     }
     else{
         int percent = PERCENT_COUNT_SIZE +  ((float)copyCount / m_totalCount) * (100 - PERCENT_COUNT_SIZE);
