@@ -27,6 +27,7 @@ public:
     QList<QVariant> getHeaderLens();
     inline int index(){ return m_index;}
     void updateHeaderLens(QList<QVariant> headerLens );
+    void translateUi();
     inline QString curDir(){
         return m_curDir;
     }

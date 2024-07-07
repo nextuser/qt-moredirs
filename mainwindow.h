@@ -42,6 +42,10 @@ private slots:
     void on_actionSwitchTab_triggered();
 
 
+    void on_actionTranslateEng_triggered();
+
+    void on_actionTranslateSimpleCn_triggered();
+
 private:
     Ui::MainWindow *ui;
     BookmarkMgr m_bookmarkMgr;
@@ -59,9 +63,14 @@ private:
     void showSubWin(int count);
     QLabel statusLabel;
     void on_statusLinkActivate(const QString& link);
+    void translateUi();
+    void switchUi(QString qmFile);
     // QWidget interface
 protected:
     void closeEvent(QCloseEvent *event);
 
 };
+
+const static QString QM_FILE_EN = "moredirs_en.qm";
+const static QString QM_FILE_CN = "moredirs_cn.qm";
 #endif // MAINWINDOW_H

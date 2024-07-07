@@ -158,6 +158,11 @@ void DirForm::updateHeaderLens(QList<QVariant> headerLens)
     }
 }
 
+void DirForm::translateUi()
+{
+    ui->retranslateUi(this);
+}
+
 
 DirForm::~DirForm()
 {

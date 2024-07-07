@@ -175,6 +175,9 @@
         <file>icons/moredirs-48.png</file>
         <file>icons/icons8-add-to-favorites-24.png</file>
         <file>icons/icons-add-fav24.png</file>
+        <file>icons/CN.jpg</file>
+        <file>icons/CN2.jpg</file>
+        <file>icons/eng.jpg</file>
     </qresource>
     <qresource prefix="/">
         <file>icons/icons8-filter-24.png</file>

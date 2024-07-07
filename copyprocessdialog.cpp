@@ -68,7 +68,6 @@ void CopyProcessDialog::on_countSizeProcessInd(int count, int dirCount ,quint64 
         ui->progressBar->setValue(PERCENT_COUNT_SIZE);
         //统计完成: 文件数%1 目录数%2  文件占用%3
         ui->labelCountStat->setText(countTpl.arg(count-dirCount).arg(dirCount).arg(sizeStr));
-
     }
     else{
         int val = ui->progressBar->value();

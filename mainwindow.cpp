@@ -26,6 +26,11 @@ MainWindow::MainWindow(QWidget *parent)
     group->addAction(ui->actionCascade);
     group->addAction(ui->actionSwitchTab);
 
+    QActionGroup *langGroup = new QActionGroup(this);
+    langGroup->addAction(ui->actionTranslateEng);
+    langGroup->addAction(ui->actionTranslateSimpleCn);
+    langGroup->addAction(ui->actionTranslateTraditionalCn);
+
     ui->mdiArea->tileSubWindows();
     connect(ui->mdiArea,&QMdiArea::subWindowActivated,this,&MainWindow::on_subWindowActivated);
     loadSettings();
@@ -135,6 +140,24 @@ void MainWindow::on_statusLinkActivate(const QString &link)
     this->formList[this->m_statusFormIndex]->loadDir(link,true);
 }
 
+void MainWindow::translateUi()
+{
+    for(auto & form :this->formList){
+        form->translateUi();
+    }
+    ui->retranslateUi(this);
+}
+#include <QTranslator>
+extern QTranslator translator;
+void MainWindow::switchUi(QString qmFile)
+{
+    bool succ = translator.load(qmFile);
+    if(succ) {
+        QCoreApplication::instance()->installTranslator(&translator);
+    }
+    translateUi();
+}
+
 void MainWindow::on_actionTileWindow_triggered()
 {
     ((QAction*)sender())->setChecked(true);
@@ -204,4 +227,16 @@ void MainWindow::on_actionSwitchTab_triggered()
     ui->mdiArea->setTabsMovable(true);
 }
 
+
+
+void MainWindow::on_actionTranslateEng_triggered()
+{
+    switchUi(QM_FILE_EN);
+}
+
+
+void MainWindow::on_actionTranslateSimpleCn_triggered()
+{
+    switchUi(QM_FILE_CN);
+}
 

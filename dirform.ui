@@ -824,7 +824,7 @@
     <string>查找文件</string>
    </property>
    <property name="shortcut">
-    <string>F3</string>
+    <string>Ctrl+F</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
