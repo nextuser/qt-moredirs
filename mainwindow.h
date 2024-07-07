@@ -21,7 +21,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget *parent);
     ~MainWindow();
     QMenu *createTitleMenu(QWidget *target);
 
@@ -56,15 +56,18 @@ private:
     QSettings *m_settings;
     int m_curIndex = 0;
     int m_statusFormIndex = 0;
+    QLabel statusLabel;
+    QString m_qmFile ;
     DirForm *getDirForm(int formIndex);
     void loadSettings();
     void saveSettings();
     void setSubWindowFrameLess(bool frameless);
     void showSubWin(int count);
-    QLabel statusLabel;
     void on_statusLinkActivate(const QString& link);
     void translateUi();
     void switchUi(QString qmFile);
+    void updateQmActionState();
+    void initLocale(const QSettings *settings);
     // QWidget interface
 protected:
     void closeEvent(QCloseEvent *event);

@@ -5,11 +5,36 @@
 #include <QClipboard>
 #include <QMimeData>
 #include <QActionGroup>
+#include <QTranslator>
+QTranslator translator;
+const static QString KEY_LOCAL_QM_FILE = "locale/qmfile";
+void MainWindow::initLocale(const QSettings *settings){
+    QString qmFile = settings->value(KEY_LOCAL_QM_FILE).toString();
+    if(qmFile.isEmpty()){
+        const QLocale locale = QLocale::system();
+
+        if(locale.language() == QLocale::Chinese){
+            qmFile = QM_FILE_CN;
+        }
+        else{
+            qmFile = QM_FILE_EN;
+        }
+    }
+    bool succ = translator.load(qmFile);
+    if(succ) {
+        QCoreApplication::instance()->installTranslator(&translator);
+        m_qmFile = qmFile;
+    }
+
+}
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow),m_clip(this),statusLabel(this)
 {
+    m_settings = new QSettings(QSettings::Format::IniFormat,QSettings::Scope::UserScope,"ljlhome","moredirs",this);
+
+    initLocale(m_settings);
     ui->setupUi(this);
     this->setCentralWidget(ui->mdiArea);
     ui->mdiArea->setViewMode(QMdiArea::ViewMode::SubWindowView);
@@ -35,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->mdiArea,&QMdiArea::subWindowActivated,this,&MainWindow::on_subWindowActivated);
     loadSettings();
     this->statusBar()->addWidget(&statusLabel);
+    updateQmActionState();
     connect(&statusLabel,&QLabel::linkActivated, this, &MainWindow::on_statusLinkActivate);
 }
 
@@ -61,6 +87,8 @@ void MainWindow::saveSettings(){
         m_settings->setValue(QString(KEY_COLUMN_HEADERS).arg(form->index()),form->getHeaderLens());
         m_settings->setValue(QString(KEY_FORM_FILE_PATH).arg(form->index()),form->curDir());
     }
+
+    m_settings->setValue(KEY_LOCAL_QM_FILE,QVariant(m_qmFile));
 
 }
 
@@ -154,8 +182,19 @@ void MainWindow::switchUi(QString qmFile)
     bool succ = translator.load(qmFile);
     if(succ) {
         QCoreApplication::instance()->installTranslator(&translator);
+        m_qmFile = qmFile;
     }
+    updateQmActionState();
     translateUi();
+}
+
+void MainWindow::updateQmActionState(){
+    if(m_qmFile == QM_FILE_CN){
+        ui->actionTranslateSimpleCn->setChecked(true);
+    }
+    else if(m_qmFile == QM_FILE_EN){
+        ui->actionTranslateEng->setChecked(true);
+    }
 }
 
 void MainWindow::on_actionTileWindow_triggered()
