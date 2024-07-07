@@ -11,7 +11,7 @@
     <message>
         <location filename="copyprocessdialog.ui" line="52"/>
         <source>统计进度</source>
-        <translation>Counting </translation>
+        <translation>Counting...</translation>
     </message>
     <message>
         <location filename="copyprocessdialog.ui" line="86"/>
@@ -92,8 +92,24 @@
         <translation type="vanished">Copying : %1</translation>
     </message>
     <message>
+        <location filename="copyprocessdialog.cpp" line="70"/>
+        <source>统计完成: 文件数%1 目录数%2  文件占用%3</source>
+        <translation>Counted:File Count %1,Directory Count %2 , File Space %3</translation>
+    </message>
+    <message>
+        <location filename="copyprocessdialog.cpp" line="81"/>
+        <source>正在统计: 文件数%1 目录数%2  文件占用%3</source>
+        <translation>Counting:File Count %1,Directory Count %2 , File Space %3</translation>
+    </message>
+    <message>
+        <location filename="copyprocessdialog.cpp" line="96"/>
+        <source>正在拷贝...:文件数 %1 目录数 %2  文件占用 %3</source>
+        <translation>Copying:File Count %1,Directory Count %2 , File Space %3</translation>
+    </message>
+    <message>
+        <location filename="copyprocessdialog.cpp" line="102"/>
         <source>拷贝完成:文件数%1 目录数%2  文件占用%3</source>
-        <translation type="vanished">Copy finished:File Count %1,Directory Count %2 , File Space %3</translation>
+        <translation>Copy Complete:File Count %1,Directory Count %2 , File Space %3</translation>
     </message>
     <message>
         <source>Counted_FileCount</source>
@@ -113,7 +129,7 @@
         <translation type="vanished">Copying...:File Count%1 Directory Count %2  File Space %3</translation>
     </message>
     <message>
-        <location filename="copyprocessdialog.cpp" line="101"/>
+        <location filename="copyprocessdialog.cpp" line="100"/>
         <source>拷贝文件:</source>
         <translation>Copy File:</translation>
     </message>
@@ -256,7 +272,7 @@
     </message>
     <message>
         <location filename="dirform.ui" line="716"/>
-        <location filename="dirform.cpp" line="700"/>
+        <location filename="dirform.cpp" line="705"/>
         <source>打开目录</source>
         <translation>Open Directory</translation>
     </message>
@@ -375,7 +391,7 @@
     </message>
     <message>
         <location filename="dirform.ui" line="808"/>
-        <location filename="dirform.cpp" line="741"/>
+        <location filename="dirform.cpp" line="746"/>
         <source>新建文件夹</source>
         <translation>New Folder</translation>
     </message>
@@ -391,7 +407,7 @@
     </message>
     <message>
         <location filename="dirform.ui" line="827"/>
-        <source>F3</source>
+        <source>Ctrl+F</source>
         <translation></translation>
     </message>
     <message>
@@ -405,45 +421,45 @@
         <translation>Super Large Icon</translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="700"/>
+        <location filename="dirform.cpp" line="705"/>
         <source>选择目录打开</source>
         <translation>Select the directory you want to open</translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="741"/>
+        <location filename="dirform.cpp" line="746"/>
         <source>请输入文件夹名</source>
         <translation>Please enter the name of the new folder</translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="741"/>
+        <location filename="dirform.cpp" line="746"/>
         <source>新文件夹</source>
         <translation>NewFolder</translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="745"/>
-        <location filename="dirform.cpp" line="749"/>
-        <location filename="dirform.cpp" line="775"/>
+        <location filename="dirform.cpp" line="750"/>
+        <location filename="dirform.cpp" line="754"/>
+        <location filename="dirform.cpp" line="780"/>
         <source>错误</source>
         <translation>Error！</translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="745"/>
-        <location filename="dirform.cpp" line="775"/>
+        <location filename="dirform.cpp" line="750"/>
+        <location filename="dirform.cpp" line="780"/>
         <source>文件已存在</source>
         <translation>A folder with the same name already exists!</translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="749"/>
+        <location filename="dirform.cpp" line="754"/>
         <source>重建文件夹失败</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="771"/>
+        <location filename="dirform.cpp" line="776"/>
         <source>变更名称</source>
         <translation>Rename</translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="771"/>
+        <location filename="dirform.cpp" line="776"/>
         <source>输入新名字</source>
         <translation>Enter a new name</translation>
     </message>
@@ -622,59 +638,79 @@
         <translation>Window</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="64"/>
-        <location filename="mainwindow.ui" line="67"/>
+        <location filename="mainwindow.ui" line="73"/>
+        <location filename="mainwindow.ui" line="76"/>
         <source>关闭标签页</source>
         <translation>Close This</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="75"/>
-        <location filename="mainwindow.ui" line="78"/>
+        <location filename="mainwindow.ui" line="84"/>
+        <location filename="mainwindow.ui" line="87"/>
         <source>关闭其他标签页</source>
         <translation>Close Others</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="86"/>
-        <location filename="mainwindow.ui" line="89"/>
+        <location filename="mainwindow.ui" line="95"/>
+        <location filename="mainwindow.ui" line="98"/>
         <source>关闭所有标签页</source>
         <translation>Close All</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="104"/>
-        <location filename="mainwindow.ui" line="107"/>
+        <location filename="mainwindow.ui" line="113"/>
+        <location filename="mainwindow.ui" line="116"/>
         <source>显示标签页</source>
         <translation>Show Tabs</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="123"/>
+        <location filename="mainwindow.ui" line="132"/>
         <source>级联</source>
         <translation>Cascade</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="126"/>
+        <location filename="mainwindow.ui" line="135"/>
         <source>显示级联窗口</source>
         <translation>Cascade windows</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="142"/>
+        <location filename="mainwindow.ui" line="151"/>
         <source>平铺窗口</source>
         <translation>Tile All windows</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="158"/>
-        <location filename="mainwindow.ui" line="161"/>
+        <location filename="mainwindow.ui" line="167"/>
+        <location filename="mainwindow.ui" line="170"/>
         <source>左右平铺</source>
         <translation>Tiling side to side</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="173"/>
+        <location filename="mainwindow.ui" line="182"/>
         <source>退出</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="176"/>
+        <location filename="mainwindow.ui" line="185"/>
         <source>Esc</source>
         <translation>Esc</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="200"/>
+        <source>英文</source>
+        <translation>English</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="203"/>
+        <source>Ctrl+C</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="218"/>
+        <source>简体中文</source>
+        <translation>Simplified Chines</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="233"/>
+        <source>繁体中文</source>
+        <translation>Tranditional Chines</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="46"/>

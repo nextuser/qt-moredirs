@@ -67,7 +67,7 @@ void CopyProcessDialog::on_countSizeProcessInd(int count, int dirCount ,quint64 
         m_dirCount = dirCount;
         ui->progressBar->setValue(PERCENT_COUNT_SIZE);
         //统计完成: 文件数%1 目录数%2  文件占用%3
-        ui->labelCountStat->setText(countTpl.arg(count-dirCount).arg(dirCount).arg(sizeStr));
+        ui->labelCountStat->setText(tr("统计完成: 文件数%1 目录数%2  文件占用%3").arg(count-dirCount).arg(dirCount).arg(sizeStr));
     }
     else{
         int val = ui->progressBar->value();
@@ -78,7 +78,7 @@ void CopyProcessDialog::on_countSizeProcessInd(int count, int dirCount ,quint64 
         //ui->labelStatus->setText("正在统计");
         //"正在统计: 文件数%1 目录数%2  文件占用%3"
 
-        ui->labelCountStat->setText(countTpl.arg(count-dirCount).arg(dirCount).arg(sizeStr));
+        ui->labelCountStat->setText(tr("正在统计: 文件数%1 目录数%2  文件占用%3").arg(count-dirCount).arg(dirCount).arg(sizeStr));
     }
 }
 
@@ -93,13 +93,13 @@ void CopyProcessDialog::on_copyProcessInd(int copyCount,int dirCount,quint64 fil
         ui->progressBar->setValue(percent);
         ui->labelFileName->setText(curPath);
         //正在拷贝...:文件数%1 目录数%2  文件占用%3
-        ui->labelCopyStat->setText((copyTpl).arg(copyCount-dirCount).arg(dirCount).arg(sizeStr));
+        ui->labelCopyStat->setText(tr("正在拷贝...:文件数 %1 目录数 %2  文件占用 %3").arg(copyCount-dirCount).arg(dirCount).arg(sizeStr));
     }
     else{
         int percent = PERCENT_COUNT_SIZE +  ((float)copyCount / m_totalCount) * (100 - PERCENT_COUNT_SIZE);
         ui->labelFileName->setText(tr("拷贝文件:") + (curPath));
         //拷贝完成:文件数%1 目录数%2  文件占用%3
-        ui->labelCopyStat->setText((copyTpl).arg(copyCount-dirCount).arg(dirCount).arg(sizeStr));
+        ui->labelCopyStat->setText(tr("拷贝完成:文件数%1 目录数%2  文件占用%3").arg(copyCount-dirCount).arg(dirCount).arg(sizeStr));
         ui->progressBar->setValue(percent);
         if(ui->checkBoxAutoClose->isChecked()){
             accept();
