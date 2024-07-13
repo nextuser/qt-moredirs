@@ -7,10 +7,10 @@
 #include "dirform.h"
 void FindDialog::initColumns(){
 
-    m_model->setHorizontalHeaderItem(0,new QStandardItem(tr("文件")));
-    m_model->setHorizontalHeaderItem(1,new QStandardItem(tr("大小")));
-    m_model->setHorizontalHeaderItem(2,new QStandardItem(tr("类型")));
-    m_model->setHorizontalHeaderItem(3,new QStandardItem(tr("修改时间")));
+    // m_model->setHorizontalHeaderItem(0,new QStandardItem(tr("文件")));
+    // m_model->setHorizontalHeaderItem(1,new QStandardItem(tr("大小")));
+    // m_model->setHorizontalHeaderItem(2,new QStandardItem(tr("类型")));
+    // m_model->setHorizontalHeaderItem(3,new QStandardItem(tr("修改时间")));
 
 }
 
@@ -19,7 +19,7 @@ FindDialog::FindDialog(QWidget *parent,QString location)
     , ui(new Ui::FindDialog),m_thread(nullptr)
 {
     ui->setupUi(this);
-    m_model = new QStandardItemModel(this);
+    m_model = new TResultItemModel(this);
     ui->tableViewResult->setModel(m_model);
     initColumns();
     ui->tableViewResult->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -53,7 +53,7 @@ QStandardItem * createItem(QString text, QVariant& data){
 
 void FindDialog::appendRows(const QStringList& files){
 
-    for(auto & file : files)
+    /**for(auto & file : files)
     {
         QFileInfo info(file);
         QList<QStandardItem*> tableRow;
@@ -66,7 +66,8 @@ void FindDialog::appendRows(const QStringList& files){
         m_model->appendRow(tableRow);
 
     }
-    m_count += files.size();
+    m_count += files.size();**/
+    m_model->addFiles(files);
     qDebug()<< m_count;
 }
 
@@ -87,10 +88,8 @@ void FindDialog::changeState(FindState state)
 #include <QTimer>
 void FindDialog::on_fileFounded(QStringList files , bool finished)
 {
-    //QTimer::singleShot(0, this, [&]() {
-        // 处理大量数据的代码
-        appendRows(files);
-    //});
+    appendRows(files);
+
 
     if(finished) changeState(State_NotStart);
 }
@@ -109,7 +108,7 @@ void FindDialog::on_pushButtonFind_clicked()
 
     changeState(State_Finding);
     m_model->clear();
-    initColumns();
+    // initColumns();
     m_count = 0;
     ui->comboBoxDir->addItem(ui->comboBoxDir->currentText());
     m_thread = new SearchThread();
@@ -140,7 +139,7 @@ void FindDialog::on_pushButtonBrowse_clicked()
 void FindDialog::on_tableCellDoubleClicked(const QModelIndex &index)
 {
 
-    QString filePath =m_model->data(index).toString();
+    QString filePath = m_model->filePath(index);
 
     QFileInfo info(filePath);
     if(info.isDir()){

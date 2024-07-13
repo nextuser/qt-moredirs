@@ -66,6 +66,8 @@ void TFileSystemModel::setPreviewable(bool bPreView, int iconSize)
     m_iconSize = iconSize;
 }
 
+
+
 QVariant TFileSystemModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if(role == Qt::DisplayRole && orientation == Qt::Horizontal){

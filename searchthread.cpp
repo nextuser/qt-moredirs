@@ -26,10 +26,14 @@ void SearchThread::incFound(int &processCount,QStringList& results, QString newF
     else{
         results.append(newFile);
     }
-    if(processCount % 10000 == 0 || results.length() > 500 ){
+    quint64 cost = m_elapsedTimer.elapsed();
+    if(cost >= 100){
+
         emit file_found(results,finished);
         results.clear();
+        m_elapsedTimer.restart();
     }
+
 }
 
 #include "fileutil.h"
@@ -52,6 +56,7 @@ void SearchThread::run()
 {
     QList<std::regex> regList;
     QList<QString> filters = m_filter.split(";");
+    m_elapsedTimer.start();
     for(QString filter: filters){
         regList.append(StringUtil::wildchardRex(filter.toStdString()));
     }

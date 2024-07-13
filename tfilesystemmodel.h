@@ -16,6 +16,7 @@ public:
     QVariant data(const QModelIndex &index, int role) const;
     void setPreviewable(bool bPreView, int iconSize);
 
+
 private :
 
     QImageReader imageReader;

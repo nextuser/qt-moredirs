@@ -179,46 +179,47 @@
         <location filename="dirform.ui" line="107"/>
         <location filename="dirform.ui" line="131"/>
         <location filename="dirform.ui" line="154"/>
-        <location filename="dirform.ui" line="188"/>
-        <location filename="dirform.ui" line="212"/>
-        <location filename="dirform.ui" line="235"/>
-        <location filename="dirform.ui" line="370"/>
-        <location filename="dirform.ui" line="394"/>
-        <location filename="dirform.ui" line="419"/>
-        <location filename="dirform.ui" line="444"/>
-        <location filename="dirform.ui" line="468"/>
-        <location filename="dirform.ui" line="486"/>
+        <location filename="dirform.ui" line="171"/>
+        <location filename="dirform.ui" line="205"/>
+        <location filename="dirform.ui" line="229"/>
+        <location filename="dirform.ui" line="252"/>
+        <location filename="dirform.ui" line="387"/>
+        <location filename="dirform.ui" line="411"/>
+        <location filename="dirform.ui" line="436"/>
+        <location filename="dirform.ui" line="461"/>
+        <location filename="dirform.ui" line="485"/>
+        <location filename="dirform.ui" line="503"/>
         <source>...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="506"/>
-        <location filename="dirform.ui" line="510"/>
+        <location filename="dirform.ui" line="523"/>
+        <location filename="dirform.ui" line="527"/>
         <source>*.*</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="515"/>
+        <location filename="dirform.ui" line="532"/>
         <source>*.txt</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="520"/>
+        <location filename="dirform.ui" line="537"/>
         <source>*.c;*.cc;*.cpp;*.h;*.hpp</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="525"/>
+        <location filename="dirform.ui" line="542"/>
         <source>*.bmp;*.png;*.jpeg;*.jpg;*.gif;*.ico;*.icns</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="530"/>
+        <location filename="dirform.ui" line="547"/>
         <source>*.xml;*.xsd;*.xslt</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="535"/>
+        <location filename="dirform.ui" line="552"/>
         <source>*.doc;*.docx;*.xls;*.xslx</source>
         <translation></translation>
     </message>
@@ -231,48 +232,48 @@
         <translation type="vanished">Bookmarks</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="647"/>
+        <location filename="dirform.ui" line="664"/>
         <source>拷贝</source>
         <translation>Copy</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="663"/>
+        <location filename="dirform.ui" line="677"/>
         <source>剪切</source>
         <translation>Cut</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="666"/>
+        <location filename="dirform.ui" line="680"/>
         <source>Ctrl+X</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="679"/>
+        <location filename="dirform.ui" line="693"/>
         <source>粘贴</source>
         <translation>Paste</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="682"/>
+        <location filename="dirform.ui" line="696"/>
         <source>Ctrl+V</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="694"/>
+        <location filename="dirform.ui" line="708"/>
         <source>删除</source>
         <translation>Remove</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="697"/>
+        <location filename="dirform.ui" line="711"/>
         <source>移动到回收站</source>
         <translation>Move To Trash</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="713"/>
+        <location filename="dirform.ui" line="727"/>
         <source>打开</source>
         <translation>Open</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="716"/>
-        <location filename="dirform.cpp" line="705"/>
+        <location filename="dirform.ui" line="730"/>
+        <location filename="dirform.cpp" line="735"/>
         <source>打开目录</source>
         <translation>Open Directory</translation>
     </message>
@@ -282,184 +283,197 @@
         <translation type="vanished">Switch View Mode</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="730"/>
+        <location filename="dirform.ui" line="744"/>
         <source>大图标</source>
         <translation>Big Icon</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="733"/>
+        <location filename="dirform.ui" line="747"/>
         <source>显示大图标</source>
         <translation>Show Big Icons</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="744"/>
+        <location filename="dirform.ui" line="758"/>
         <source>中图标</source>
         <translation>Standard Icon</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="747"/>
+        <location filename="dirform.ui" line="761"/>
         <source>显示中图标</source>
         <translation>Show Standard Icons</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="569"/>
-        <location filename="dirform.ui" line="572"/>
+        <location filename="dirform.ui" line="586"/>
+        <location filename="dirform.ui" line="589"/>
         <source>向后</source>
         <translation>Prev</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="585"/>
-        <location filename="dirform.ui" line="588"/>
+        <location filename="dirform.ui" line="602"/>
+        <location filename="dirform.ui" line="605"/>
         <source>向前</source>
         <translation>Next</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="601"/>
-        <location filename="dirform.ui" line="604"/>
+        <location filename="dirform.ui" line="618"/>
+        <location filename="dirform.ui" line="621"/>
         <source>向上</source>
         <translation>Up</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="650"/>
-        <source>Ctrl+C</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="dirform.ui" line="616"/>
+        <location filename="dirform.ui" line="633"/>
         <source>收藏</source>
         <translation>Add bookmark</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="619"/>
+        <location filename="dirform.ui" line="636"/>
         <source>添加到收藏夹</source>
         <translation>Add to bookmark list</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="631"/>
+        <location filename="dirform.ui" line="648"/>
         <source>收藏夹</source>
         <translation>Bookmark List</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="634"/>
+        <location filename="dirform.ui" line="651"/>
         <source>收藏夹列表</source>
         <translation>bookmark list</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="700"/>
+        <location filename="dirform.ui" line="714"/>
         <source>Backspace</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="719"/>
+        <location filename="dirform.ui" line="733"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="758"/>
+        <location filename="dirform.ui" line="772"/>
         <source>小图标</source>
         <translation>Small Icon</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="772"/>
+        <location filename="dirform.ui" line="786"/>
         <source>详细信息</source>
         <translation>Details</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="775"/>
+        <location filename="dirform.ui" line="789"/>
         <source>显示详细信息列表</source>
         <translation>Show Detail Informations</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="787"/>
+        <location filename="dirform.ui" line="801"/>
         <source>重命名</source>
         <translation>Rename</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="790"/>
+        <location filename="dirform.ui" line="804"/>
         <source>变更文件名</source>
         <translation>rename file</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="793"/>
+        <location filename="dirform.ui" line="807"/>
         <source>F2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="805"/>
+        <location filename="dirform.ui" line="819"/>
         <source>新建</source>
         <translation>New</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="808"/>
-        <location filename="dirform.cpp" line="746"/>
+        <location filename="dirform.ui" line="822"/>
+        <location filename="dirform.cpp" line="777"/>
         <source>新建文件夹</source>
         <translation>New Folder</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="821"/>
+        <location filename="dirform.ui" line="835"/>
         <source>查找</source>
         <translation>Find</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="824"/>
+        <location filename="dirform.ui" line="838"/>
         <source>查找文件</source>
         <translation>Find File</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="827"/>
-        <source>Ctrl+F</source>
-        <translation></translation>
+        <location filename="dirform.ui" line="864"/>
+        <source>新建文件</source>
+        <translation>New File</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="841"/>
+        <location filename="dirform.ui" line="852"/>
         <source>显示超大图标</source>
         <translation>Show super large icons</translation>
     </message>
     <message>
-        <location filename="dirform.ui" line="838"/>
+        <location filename="dirform.ui" line="849"/>
         <source>超大图标</source>
         <translation>Super Large Icon</translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="705"/>
+        <location filename="dirform.cpp" line="735"/>
         <source>选择目录打开</source>
         <translation>Select the directory you want to open</translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="746"/>
+        <location filename="dirform.cpp" line="777"/>
         <source>请输入文件夹名</source>
         <translation>Please enter the name of the new folder</translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="746"/>
+        <location filename="dirform.cpp" line="776"/>
         <source>新文件夹</source>
         <translation>NewFolder</translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="750"/>
-        <location filename="dirform.cpp" line="754"/>
-        <location filename="dirform.cpp" line="780"/>
+        <location filename="dirform.cpp" line="782"/>
+        <location filename="dirform.cpp" line="786"/>
+        <location filename="dirform.cpp" line="809"/>
+        <location filename="dirform.cpp" line="1039"/>
+        <location filename="dirform.cpp" line="1051"/>
         <source>错误</source>
         <translation>Error！</translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="750"/>
-        <location filename="dirform.cpp" line="780"/>
+        <location filename="dirform.cpp" line="782"/>
+        <location filename="dirform.cpp" line="809"/>
+        <location filename="dirform.cpp" line="1039"/>
         <source>文件已存在</source>
         <translation>A folder with the same name already exists!</translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="754"/>
-        <source>重建文件夹失败</source>
+        <location filename="dirform.cpp" line="786"/>
+        <source>新建文件夹失败</source>
+        <translation>Failed to create folder</translation>
+    </message>
+    <message>
+        <location filename="dirform.cpp" line="1032"/>
+        <source>新建文本文件</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="776"/>
+        <location filename="dirform.cpp" line="1032"/>
+        <source>请输入新文件名称</source>
+        <translation>请输入新文件名称</translation>
+    </message>
+    <message>
+        <location filename="dirform.cpp" line="1051"/>
+        <source>新建文件失败</source>
+        <translation>Failed to create file</translation>
+    </message>
+    <message>
+        <location filename="dirform.cpp" line="805"/>
         <source>变更名称</source>
         <translation>Rename</translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="776"/>
+        <location filename="dirform.cpp" line="805"/>
         <source>输入新名字</source>
         <translation>Enter a new name</translation>
     </message>
@@ -698,17 +712,12 @@
         <translation>English</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="203"/>
-        <source>Ctrl+C</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="218"/>
+        <location filename="mainwindow.ui" line="215"/>
         <source>简体中文</source>
         <translation>Simplified Chines</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="233"/>
+        <location filename="mainwindow.ui" line="230"/>
         <source>繁体中文</source>
         <translation>Tranditional Chines</translation>
     </message>

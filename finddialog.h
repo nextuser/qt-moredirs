@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "searchthread.h"
 #include <QStandardItemModel>
+#include "tresultitemmodel.h"
 namespace Ui {
 class FindDialog;
 }
@@ -23,7 +24,7 @@ public:
 private:
     Ui::FindDialog *ui;
     SearchThread * m_thread;
-    QStandardItemModel *m_model;
+    TResultItemModel *m_model;
     int m_count = 0;
     void initColumns();
     void appendRows(const QStringList& files);

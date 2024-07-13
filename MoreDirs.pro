@@ -26,6 +26,7 @@ SOURCES += \
     dirform.cpp \
     main.cpp \
     mainwindow.cpp \
+    tresultitemmodel.cpp \
     tsubwindow.cpp
 
 
@@ -44,6 +45,7 @@ HEADERS += \
     thistory.h \
     dirform.h \
     mainwindow.h \
+    tresultitemmodel.h \
     tsubwindow.h
 
 FORMS += \
