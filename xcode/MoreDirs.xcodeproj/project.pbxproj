@@ -1,0 +1,1374 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+		5E618435888B9D49F8540165 = {
+			buildActionMask = 2147483647;
+			files = (
+				);
+			isa = PBXShellScriptBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+			name = "Qt Qmake";
+			shellPath = "/bin/sh";
+			shellScript = "make -C /Users/jinglinli/github/qt-moredirs/xcode -f MoreDirs.xcodeproj/qt_makeqmake.mak";
+			showEnvVarsInLog = "0";
+		};
+		5B02C76A8CB6E53D66A5E21A = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/bookmarkMgr.cpp";
+			name = "bookmarkMgr.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		370596739EF92BF9438F057C = {
+			fileRef = "5B02C76A8CB6E53D66A5E21A";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		6951D17CBE438E54A8323791 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/copyoptions.cpp";
+			name = "copyoptions.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		BD0BFC0836AA0EB3A0A13534 = {
+			fileRef = "6951D17CBE438E54A8323791";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		AEE566BB82DAC1DD8A2D0281 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/copyprocessdialog.cpp";
+			name = "copyprocessdialog.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		DC4C6FB24B426049CF5CE046 = {
+			fileRef = "AEE566BB82DAC1DD8A2D0281";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		6223F85F6950A18CED00971D = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/duplicateddialog.cpp";
+			name = "duplicateddialog.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		F9BB596D9A3783EFC0530B9D = {
+			fileRef = "6223F85F6950A18CED00971D";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		54FB30564211AFB585DBC9D9 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/fileclipboard.cpp";
+			name = "fileclipboard.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		B0185ACDCFC8702FB2783FC5 = {
+			fileRef = "54FB30564211AFB585DBC9D9";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		9D58833CBADD62AE5996F41E = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/filethread.cpp";
+			name = "filethread.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		9CE23D8BF8D8D45345B822B0 = {
+			fileRef = "9D58833CBADD62AE5996F41E";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		D3B391D19C4CF83ACCBF8518 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/fileutil.cpp";
+			name = "fileutil.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		7C0FA55F0B7C85FF6E02DD20 = {
+			fileRef = "D3B391D19C4CF83ACCBF8518";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		68626762B3852BC2579D91C7 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/finddialog.cpp";
+			name = "finddialog.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		8F654B655B89CBE49223E9F3 = {
+			fileRef = "68626762B3852BC2579D91C7";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		D37D0FB53212D2251C12876A = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/searchthread.cpp";
+			name = "searchthread.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		D3994188AA51C4EC6EC1AA8F = {
+			fileRef = "D37D0FB53212D2251C12876A";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		395B9197E12758CD8C1E10CD = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/stringutil.cpp";
+			name = "stringutil.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		BC60EDBB527878A98BB500BC = {
+			fileRef = "395B9197E12758CD8C1E10CD";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		E30A123AAF4B0C30731B5E64 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/tfilesystemmodel.cpp";
+			name = "tfilesystemmodel.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		04FB07FDA730863C9D99B348 = {
+			fileRef = "E30A123AAF4B0C30731B5E64";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		1368EAF8C8539F113F9F8679 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/thistory.cpp";
+			name = "thistory.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		83D1E2C59DBC306EB428263A = {
+			fileRef = "1368EAF8C8539F113F9F8679";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		E919DDAB64D3CD572111F80C = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/dirform.cpp";
+			name = "dirform.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		41F649C0893D13A7B15A99ED = {
+			fileRef = "E919DDAB64D3CD572111F80C";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		C8C9526F1BD6DF371F84DF20 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/main.cpp";
+			name = "main.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		1CDD2FF645F7181F30C4E082 = {
+			fileRef = "C8C9526F1BD6DF371F84DF20";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		D154828205DD74CC8FAE017D = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/mainwindow.cpp";
+			name = "mainwindow.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		D2479759C0A01575DF9EA7C5 = {
+			fileRef = "D154828205DD74CC8FAE017D";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		21DD8BFE9732622EDC31AF06 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/tsubwindow.cpp";
+			name = "tsubwindow.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		BBF8423F416EA12288854441 = {
+			fileRef = "21DD8BFE9732622EDC31AF06";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		ACCD1FCCD381E8E8E5EA32D9 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/moredirs.icns";
+			name = "moredirs.icns";
+			sourceTree = "<absolute>";
+		};
+		C2CC889A8D0DC68A965D22EB = {
+			fileRef = "ACCD1FCCD381E8E8E5EA32D9";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		D7B7D9B89EB6AC57D62B3598 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/qrc_res.cpp";
+			name = "qrc_res.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		DE543A8784AB3C8A90077BA8 = {
+			fileRef = "D7B7D9B89EB6AC57D62B3598";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		3D8D0D1401AB28C49AB2C6B5 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/moc_bookmarkMgr.cpp";
+			name = "moc_bookmarkMgr.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		E9D8B9E3FB6FA9A80A7F9D1E = {
+			fileRef = "3D8D0D1401AB28C49AB2C6B5";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		F4D4B9C1D551E297924C57D7 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/moc_copyprocessdialog.cpp";
+			name = "moc_copyprocessdialog.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		8CE39A051C75B969D0A5CC70 = {
+			fileRef = "F4D4B9C1D551E297924C57D7";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		B417044DC03F9FA84DC94A87 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/moc_duplicateddialog.cpp";
+			name = "moc_duplicateddialog.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		FCEB800971FDC2D9C80755E1 = {
+			fileRef = "B417044DC03F9FA84DC94A87";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		7E6F12F85E787B41CA63CB8E = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/moc_fileclipboard.cpp";
+			name = "moc_fileclipboard.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		547C598662C89A80647AC225 = {
+			fileRef = "7E6F12F85E787B41CA63CB8E";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		473B68E2D7971A6086339CFE = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/moc_filethread.cpp";
+			name = "moc_filethread.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		0D63BAA888EFF4159066A024 = {
+			fileRef = "473B68E2D7971A6086339CFE";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		43272A14221CD952198C7C66 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/moc_finddialog.cpp";
+			name = "moc_finddialog.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		87A7363BC579D05247B8799B = {
+			fileRef = "43272A14221CD952198C7C66";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		CEA40A844EEF7639505C842B = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/moc_searchthread.cpp";
+			name = "moc_searchthread.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		3EAF5A71023C7E82FE956C8B = {
+			fileRef = "CEA40A844EEF7639505C842B";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		69FAA6F7CE3E56CD7E20107A = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/moc_tfilesystemmodel.cpp";
+			name = "moc_tfilesystemmodel.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		463891177ACE9FE3EAFFEABB = {
+			fileRef = "69FAA6F7CE3E56CD7E20107A";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		C0AF54C285B572A3765E6D0E = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/moc_dirform.cpp";
+			name = "moc_dirform.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		9695135FE3BE8BA9E177D8EA = {
+			fileRef = "C0AF54C285B572A3765E6D0E";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		1E7B7076C901836EA25E8B0E = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/moc_mainwindow.cpp";
+			name = "moc_mainwindow.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		D9052A9D52F733F3E0890BE7 = {
+			fileRef = "1E7B7076C901836EA25E8B0E";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		BF9D926DA904E46E8249EDCF = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/moc_tsubwindow.cpp";
+			name = "moc_tsubwindow.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		8CE4D7D91848466503359B5C = {
+			fileRef = "BF9D926DA904E46E8249EDCF";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		D633FA453C0CFC68F19D6F67 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/ui_copyprocessdialog.h";
+			name = "ui_copyprocessdialog.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		48A1CAEF116149A482F74B8C = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/ui_dirform.h";
+			name = "ui_dirform.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		254A13A57FED824144832588 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/ui_duplicateddialog.h";
+			name = "ui_duplicateddialog.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		ABE2F12D6E80791F6B8BB7F4 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/ui_finddialog.h";
+			name = "ui_finddialog.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		8D38AC21C947ACC15ACC6D68 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/ui_mainwindow.h";
+			name = "ui_mainwindow.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		E0132E5A1195D93D9AF35E06 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/bookmarkMgr.h";
+			name = "bookmarkMgr.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		B5356CD2641D76BC4592B1D4 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/copyoptions.h";
+			name = "copyoptions.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		6666529E4113A88697A2DD0C = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/copyprocessdialog.h";
+			name = "copyprocessdialog.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		9DC48021C5FF74D2E369FDCB = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/duplicateddialog.h";
+			name = "duplicateddialog.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		BD3FDF327D8AD1E321146223 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/fileclipboard.h";
+			name = "fileclipboard.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		6089B6269919B8B069619874 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/filethread.h";
+			name = "filethread.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		D8ED7456AC762CE676C73643 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/fileutil.h";
+			name = "fileutil.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		B8B67388B1F68D26A1DAC8C9 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/finddialog.h";
+			name = "finddialog.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		5FC2D0D6E2329E1D901DDA80 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/searchthread.h";
+			name = "searchthread.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		A56CF455248671CE9FD4CA30 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/stringutil.h";
+			name = "stringutil.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		124B3F8613550D55E60C81D4 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/tfilesystemmodel.h";
+			name = "tfilesystemmodel.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		B0AB465A81A4FD72339253C9 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/thistory.h";
+			name = "thistory.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		18C7640133FC00EBBC8DCC0A = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/dirform.h";
+			name = "dirform.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		24A35DE37E74DE41419885CC = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/mainwindow.h";
+			name = "mainwindow.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		AA4344B7BE6CFAA929BFE803 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/tsubwindow.h";
+			name = "tsubwindow.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		62BFA0B58FDF43E10721D9E3 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/res.qrc";
+			name = "res.qrc";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "text";
+		};
+		B8ECB8B76B5057493F0E22C5 = {
+			fileRef = "62BFA0B58FDF43E10721D9E3";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		A60986398AB9F53EBCAA4FFE = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/copyprocessdialog.ui";
+			name = "copyprocessdialog.ui";
+			sourceTree = "<absolute>";
+		};
+		B8076423B5D9ED2D31D9ED81 = {
+			fileRef = "A60986398AB9F53EBCAA4FFE";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		454727888921C42B3D0313C5 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/dirform.ui";
+			name = "dirform.ui";
+			sourceTree = "<absolute>";
+		};
+		E16CD40306E4FEF00A74C8E6 = {
+			fileRef = "454727888921C42B3D0313C5";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		C852A653EBBC8E2770B38521 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/duplicateddialog.ui";
+			name = "duplicateddialog.ui";
+			sourceTree = "<absolute>";
+		};
+		14306FD875EBF720DD7EB5F4 = {
+			fileRef = "C852A653EBBC8E2770B38521";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		1A8D5FFCE5B684CC5FFF363D = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/finddialog.ui";
+			name = "finddialog.ui";
+			sourceTree = "<absolute>";
+		};
+		8BC0E45453104DD754222F32 = {
+			fileRef = "1A8D5FFCE5B684CC5FFF363D";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		81B494CC6A968F1A901C2BD9 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/mainwindow.ui";
+			name = "mainwindow.ui";
+			sourceTree = "<absolute>";
+		};
+		95C61B574CC971257DFF541C = {
+			fileRef = "81B494CC6A968F1A901C2BD9";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		5CEAF9D2127D5A378FB11AF2 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/xcode/MoreDirs.pro";
+			name = "MoreDirs.pro";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "text";
+		};
+		F9E9A85665E5BED88C811CF2 = {
+			isa = PBXFileReference;
+			path = "/Users/jinglinli/github/qt-moredirs/MoreDirs.pro";
+			name = "MoreDirs.pro";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "text";
+		};
+		25B08E2869634E9BCBA333A2 = {
+			isa = PBXGroup;
+			children = (
+				"B2533707CE6EC41A80600D40");
+			name = "Generated Sources";
+			sourceTree = "<group>";
+		};
+		B2533707CE6EC41A80600D40 = {
+			isa = PBXGroup;
+			children = (
+				"D7B7D9B89EB6AC57D62B3598",
+				"3D8D0D1401AB28C49AB2C6B5",
+				"F4D4B9C1D551E297924C57D7",
+				"B417044DC03F9FA84DC94A87",
+				"7E6F12F85E787B41CA63CB8E",
+				"473B68E2D7971A6086339CFE",
+				"43272A14221CD952198C7C66",
+				"CEA40A844EEF7639505C842B",
+				"69FAA6F7CE3E56CD7E20107A",
+				"C0AF54C285B572A3765E6D0E",
+				"1E7B7076C901836EA25E8B0E",
+				"BF9D926DA904E46E8249EDCF",
+				"D633FA453C0CFC68F19D6F67",
+				"48A1CAEF116149A482F74B8C",
+				"254A13A57FED824144832588",
+				"ABE2F12D6E80791F6B8BB7F4",
+				"8D38AC21C947ACC15ACC6D68");
+			name = "xcode";
+			sourceTree = "<group>";
+		};
+		62CE9B04F6DF0AABE360B25C = {
+			isa = PBXGroup;
+			children = (
+				"ACCD1FCCD381E8E8E5EA32D9");
+			name = "xcode";
+			sourceTree = "<group>";
+		};
+		1E787E9E7DB10CDCD7826E5F = {
+			isa = PBXGroup;
+			children = (
+				"5CEAF9D2127D5A378FB11AF2");
+			name = "xcode";
+			sourceTree = "<group>";
+		};
+		87DF60DE337FB58864343E39 = {
+			isa = PBXGroup;
+			children = (
+				"62BFA0B58FDF43E10721D9E3");
+			name = "Resources";
+			sourceTree = "<group>";
+		};
+		2EB56BE3C2D93CDAB0C52E67 = {
+			isa = PBXGroup;
+			children = (
+				"5B02C76A8CB6E53D66A5E21A",
+				"6951D17CBE438E54A8323791",
+				"AEE566BB82DAC1DD8A2D0281",
+				"6223F85F6950A18CED00971D",
+				"54FB30564211AFB585DBC9D9",
+				"9D58833CBADD62AE5996F41E",
+				"D3B391D19C4CF83ACCBF8518",
+				"68626762B3852BC2579D91C7",
+				"D37D0FB53212D2251C12876A",
+				"395B9197E12758CD8C1E10CD",
+				"E30A123AAF4B0C30731B5E64",
+				"1368EAF8C8539F113F9F8679",
+				"E919DDAB64D3CD572111F80C",
+				"C8C9526F1BD6DF371F84DF20",
+				"D154828205DD74CC8FAE017D",
+				"21DD8BFE9732622EDC31AF06",
+				"62CE9B04F6DF0AABE360B25C",
+				"E0132E5A1195D93D9AF35E06",
+				"B5356CD2641D76BC4592B1D4",
+				"6666529E4113A88697A2DD0C",
+				"9DC48021C5FF74D2E369FDCB",
+				"BD3FDF327D8AD1E321146223",
+				"6089B6269919B8B069619874",
+				"D8ED7456AC762CE676C73643",
+				"B8B67388B1F68D26A1DAC8C9",
+				"5FC2D0D6E2329E1D901DDA80",
+				"A56CF455248671CE9FD4CA30",
+				"124B3F8613550D55E60C81D4",
+				"B0AB465A81A4FD72339253C9",
+				"18C7640133FC00EBBC8DCC0A",
+				"24A35DE37E74DE41419885CC",
+				"AA4344B7BE6CFAA929BFE803");
+			name = "Sources";
+			sourceTree = "<group>";
+		};
+		12E908B8A1C3C07C115504F5 = {
+			isa = PBXGroup;
+			children = (
+				"A60986398AB9F53EBCAA4FFE",
+				"454727888921C42B3D0313C5",
+				"C852A653EBBC8E2770B38521",
+				"1A8D5FFCE5B684CC5FFF363D",
+				"81B494CC6A968F1A901C2BD9");
+			name = "Sources [uic]";
+			sourceTree = "<group>";
+		};
+		74B182DB50CB5611B5C1C297 = {
+			isa = PBXGroup;
+			children = (
+				"1E787E9E7DB10CDCD7826E5F",
+				"F9E9A85665E5BED88C811CF2");
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7EF0942E79C014DCEC8976BC = {
+			buildActionMask = 2147483647;
+			files = (
+				);
+			isa = PBXShellScriptBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+			name = "Qt Preprocessors";
+			inputPaths = (
+				"../res.qrc",
+				"../bookmarkMgr.h",
+				"../copyprocessdialog.h",
+				"../duplicateddialog.h",
+				"../fileclipboard.h",
+				"../filethread.h",
+				"../finddialog.h",
+				"../searchthread.h",
+				"../tfilesystemmodel.h",
+				"../dirform.h",
+				"../mainwindow.h",
+				"../tsubwindow.h",
+				"../copyprocessdialog.ui",
+				"../dirform.ui",
+				"../duplicateddialog.ui",
+				"../finddialog.ui",
+				"../mainwindow.ui");
+			outputPaths = (
+				"qrc_res.cpp",
+				"moc_bookmarkMgr.cpp",
+				"moc_copyprocessdialog.cpp",
+				"moc_duplicateddialog.cpp",
+				"moc_fileclipboard.cpp",
+				"moc_filethread.cpp",
+				"moc_finddialog.cpp",
+				"moc_searchthread.cpp",
+				"moc_tfilesystemmodel.cpp",
+				"moc_dirform.cpp",
+				"moc_mainwindow.cpp",
+				"moc_tsubwindow.cpp",
+				"ui_copyprocessdialog.h",
+				"ui_dirform.h",
+				"ui_duplicateddialog.h",
+				"ui_finddialog.h",
+				"ui_mainwindow.h");
+			shellPath = "/bin/sh";
+			shellScript = "make -C /Users/jinglinli/github/qt-moredirs/xcode -f MoreDirs.xcodeproj/qt_preprocess.mak";
+			showEnvVarsInLog = "0";
+			alwaysOutOfDate = "1";
+		};
+		F7E50F631C51CD5B5DC0BC43 = {
+			buildActionMask = 2147483647;
+			files = (
+				"370596739EF92BF9438F057C",
+				"BD0BFC0836AA0EB3A0A13534",
+				"DC4C6FB24B426049CF5CE046",
+				"F9BB596D9A3783EFC0530B9D",
+				"B0185ACDCFC8702FB2783FC5",
+				"9CE23D8BF8D8D45345B822B0",
+				"7C0FA55F0B7C85FF6E02DD20",
+				"8F654B655B89CBE49223E9F3",
+				"D3994188AA51C4EC6EC1AA8F",
+				"BC60EDBB527878A98BB500BC",
+				"04FB07FDA730863C9D99B348",
+				"83D1E2C59DBC306EB428263A",
+				"41F649C0893D13A7B15A99ED",
+				"1CDD2FF645F7181F30C4E082",
+				"D2479759C0A01575DF9EA7C5",
+				"BBF8423F416EA12288854441",
+				"DE543A8784AB3C8A90077BA8",
+				"E9D8B9E3FB6FA9A80A7F9D1E",
+				"8CE39A051C75B969D0A5CC70",
+				"FCEB800971FDC2D9C80755E1",
+				"547C598662C89A80647AC225",
+				"0D63BAA888EFF4159066A024",
+				"87A7363BC579D05247B8799B",
+				"3EAF5A71023C7E82FE956C8B",
+				"463891177ACE9FE3EAFFEABB",
+				"9695135FE3BE8BA9E177D8EA",
+				"D9052A9D52F733F3E0890BE7",
+				"8CE4D7D91848466503359B5C");
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+			name = "Compile Sources";
+		};
+		1E6D39FE830958D8ED6C67A7 = {
+			isa = PBXFileReference;
+			name = "QtWidgets.framework";
+			path = "/Users/jinglinli/Qt/6.7.2/macos/lib/QtWidgets.framework";
+			refType = 0;
+			sourceTree = "<absolute>";
+			lastKnownFileType = "wrapper.framework";
+		};
+		3F906B6177A6C0FC2DB7BC5A = {
+			fileRef = "1E6D39FE830958D8ED6C67A7";
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		AAD07E84BD371E00974A92BC = {
+			isa = PBXFileReference;
+			name = "QtGui.framework";
+			path = "/Users/jinglinli/Qt/6.7.2/macos/lib/QtGui.framework";
+			refType = 0;
+			sourceTree = "<absolute>";
+			lastKnownFileType = "wrapper.framework";
+		};
+		4676A32C0A065B44DDD0E940 = {
+			fileRef = "AAD07E84BD371E00974A92BC";
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		723F90793B2C195E2CCB2233 = {
+			isa = PBXFileReference;
+			name = "AppKit.framework";
+			path = "/System/Library/Frameworks/AppKit.framework";
+			refType = 0;
+			sourceTree = "<absolute>";
+			lastKnownFileType = "wrapper.framework";
+		};
+		F2A75ACAC9DF6A3F4E5711E7 = {
+			fileRef = "723F90793B2C195E2CCB2233";
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		3A8EF9C62A8D4790CBB89CEA = {
+			isa = PBXFileReference;
+			name = "ImageIO.framework";
+			path = "/System/Library/Frameworks/ImageIO.framework";
+			refType = 0;
+			sourceTree = "<absolute>";
+			lastKnownFileType = "wrapper.framework";
+		};
+		61EEC397DC8556BF8C4E36A7 = {
+			fileRef = "3A8EF9C62A8D4790CBB89CEA";
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		1B2543FCC48E9436F21C4F63 = {
+			isa = PBXFileReference;
+			name = "Metal.framework";
+			path = "/System/Library/Frameworks/Metal.framework";
+			refType = 0;
+			sourceTree = "<absolute>";
+			lastKnownFileType = "wrapper.framework";
+		};
+		B3FE8FAC746D3D5BB24FA398 = {
+			fileRef = "1B2543FCC48E9436F21C4F63";
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		73DE6E4FAEB8E155F87FE9AA = {
+			isa = PBXFileReference;
+			name = "QtCore5Compat.framework";
+			path = "/Users/jinglinli/Qt/6.7.2/macos/lib/QtCore5Compat.framework";
+			refType = 0;
+			sourceTree = "<absolute>";
+			lastKnownFileType = "wrapper.framework";
+		};
+		555C8B7E2AE9C9F195785401 = {
+			fileRef = "73DE6E4FAEB8E155F87FE9AA";
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F9D9A77F0688EB3A9E28A5E4 = {
+			isa = PBXFileReference;
+			name = "QtCore.framework";
+			path = "/Users/jinglinli/Qt/6.7.2/macos/lib/QtCore.framework";
+			refType = 0;
+			sourceTree = "<absolute>";
+			lastKnownFileType = "wrapper.framework";
+		};
+		359F0EADE759F0556A8D203D = {
+			fileRef = "F9D9A77F0688EB3A9E28A5E4";
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A1A67BEAA744704B29168D39 = {
+			isa = PBXFileReference;
+			name = "IOKit.framework";
+			path = "/System/Library/Frameworks/IOKit.framework";
+			refType = 0;
+			sourceTree = "<absolute>";
+			lastKnownFileType = "wrapper.framework";
+		};
+		8D267F2E4776F0ECA2F49DC8 = {
+			fileRef = "A1A67BEAA744704B29168D39";
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2B774D8E4178765CE52EAAF5 = {
+			isa = PBXFileReference;
+			name = "DiskArbitration.framework";
+			path = "/System/Library/Frameworks/DiskArbitration.framework";
+			refType = 0;
+			sourceTree = "<absolute>";
+			lastKnownFileType = "wrapper.framework";
+		};
+		A99B2AA0F9CBBDD12BA126A4 = {
+			fileRef = "2B774D8E4178765CE52EAAF5";
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		8D9815BDB5BD9F90D2BC05C5 = {
+			isa = PBXFileReference;
+			name = "AGL.framework";
+			path = "/System/Library/Frameworks/AGL.framework";
+			refType = 0;
+			sourceTree = "<absolute>";
+			lastKnownFileType = "wrapper.framework";
+		};
+		E45E51A644D5FC9F942ECE55 = {
+			fileRef = "8D9815BDB5BD9F90D2BC05C5";
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		D4B32C2222F82AC56BADEB21 = {
+			isa = PBXFileReference;
+			name = "OpenGL.framework";
+			path = "/System/Library/Frameworks/OpenGL.framework";
+			refType = 0;
+			sourceTree = "<absolute>";
+			lastKnownFileType = "wrapper.framework";
+		};
+		8771A8C96E9C391044035D99 = {
+			fileRef = "D4B32C2222F82AC56BADEB21";
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		AF39DD055C3EF8226FBE929D = {
+			children = (
+				"1E6D39FE830958D8ED6C67A7",
+				"AAD07E84BD371E00974A92BC",
+				"723F90793B2C195E2CCB2233",
+				"3A8EF9C62A8D4790CBB89CEA",
+				"1B2543FCC48E9436F21C4F63",
+				"73DE6E4FAEB8E155F87FE9AA",
+				"F9D9A77F0688EB3A9E28A5E4",
+				"A1A67BEAA744704B29168D39",
+				"2B774D8E4178765CE52EAAF5",
+				"8D9815BDB5BD9F90D2BC05C5",
+				"D4B32C2222F82AC56BADEB21");
+			isa = PBXGroup;
+			name = "Frameworks";
+			sourceTree = "<group>";
+		};
+		D1C883685E82D5676953459A = {
+			buildActionMask = 2147483647;
+			files = (
+				"3F906B6177A6C0FC2DB7BC5A",
+				"4676A32C0A065B44DDD0E940",
+				"F2A75ACAC9DF6A3F4E5711E7",
+				"61EEC397DC8556BF8C4E36A7",
+				"B3FE8FAC746D3D5BB24FA398",
+				"555C8B7E2AE9C9F195785401",
+				"359F0EADE759F0556A8D203D",
+				"8D267F2E4776F0ECA2F49DC8",
+				"A99B2AA0F9CBBDD12BA126A4",
+				"E45E51A644D5FC9F942ECE55",
+				"8771A8C96E9C391044035D99");
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+			name = "Link Binary With Libraries";
+		};
+		30414803F31797EB689AE508 = {
+			buildActionMask = 2147483647;
+			files = (
+				"EC63FBAC0E92A298F85F08A1");
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+			name = "Copy Bundle Resources";
+		};
+		99542592E9780B9225F24AA8 = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5318A8AC7D90A84177CC2E91 = {
+			isa = PBXFileReference;
+			includeInIndex = 0;
+			explicitFileType = "wrapper.application";
+			path = "MoreDirs.app";
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FE0A091FDBFB3E9C31B7A1BD = {
+			children = (
+				"5318A8AC7D90A84177CC2E91");
+			isa = PBXGroup;
+			name = "Products";
+			sourceTree = "<group>";
+		};
+		E8C543AB96796ECAA2E65C57 = {
+			children = (
+				"2EB56BE3C2D93CDAB0C52E67",
+				"25B08E2869634E9BCBA333A2",
+				"87DF60DE337FB58864343E39",
+				"12E908B8A1C3C07C115504F5",
+				"74B182DB50CB5611B5C1C297",
+				"AF39DD055C3EF8226FBE929D",
+				"FE0A091FDBFB3E9C31B7A1BD");
+			isa = PBXGroup;
+			name = "MoreDirs";
+			sourceTree = "<group>";
+		};
+		C8C9FCE96E5956EAB7E83E24 = {
+			buildPhases = (
+				"5E618435888B9D49F8540165",
+				"7EF0942E79C014DCEC8976BC");
+			dependencies = (
+				);
+			buildConfigurationList = 6CC3B5D2136C7CD6A5CF5A59;
+			isa = PBXAggregateTarget;
+			buildRules = (
+);
+			productName = "Qt Preprocess";
+			name = "Qt Preprocess";
+		};
+		4164E5AF8B4FD38E62FC878B = {
+			isa = PBXTargetDependency;
+			target = "C8C9FCE96E5956EAB7E83E24";
+		};
+		FC2256D7A454DB80736C556E = {
+			buildPhases = (
+				"F7E50F631C51CD5B5DC0BC43",
+				"D1C883685E82D5676953459A",
+				"30414803F31797EB689AE508",
+				"99542592E9780B9225F24AA8");
+			dependencies = (
+				"4164E5AF8B4FD38E62FC878B");
+			productReference = "5318A8AC7D90A84177CC2E91";
+			buildConfigurationList = 6CC3B5D2136C7CD6A5CF5A59;
+			isa = PBXNativeTarget;
+			buildRules = (
+);
+			productType = "com.apple.product-type.application";
+			name = "MoreDirs";
+			productName = "MoreDirs";
+		};
+		3AA6C32AC930069E80220CF1 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = "NO";
+				"ARCHS[sdk=macosx*]" = "x86_64 arm64";
+				COPY_PHASE_STRIP = "NO";
+				ENABLE_BITCODE = "NO";
+				GCC_OPTIMIZATION_LEVEL = "0";
+				ONLY_ACTIVE_ARCH = "YES";
+				PRODUCT_BUNDLE_IDENTIFIER = "ljl.top.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "MoreDirs";
+				QMAKE_FULL_VERSION = "1.0.0";
+				QMAKE_PKGINFO_TYPEINFO = "????";
+				QMAKE_SHORT_VERSION = "1.0";
+				QT_LIBRARY_SUFFIX = "";
+				SDKROOT = "macosx";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				CC = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang";
+				LDPLUSPLUS = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++";
+				INFOPLIST_FILE = "Info.plist";
+				SYMROOT = "$(PROJECT_DIR)";
+				DYLIB_CURRENT_VERSION = "1.0.0";
+				DYLIB_COMPATIBILITY_VERSION = "1.0";
+				MACOSX_DEPLOYMENT_TARGET = "11.0";
+				HEADER_SEARCH_PATHS = (
+					"../../qt-moredirs",
+					".",
+					"../../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers",
+					"../../../Qt/6.7.2/macos/lib/QtGui.framework/Headers",
+					"../../../Qt/6.7.2/macos/lib/QtCore5Compat.framework/Headers",
+					"../../../Qt/6.7.2/macos/lib/QtCore.framework/Headers",
+					".",
+					"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/OpenGL.framework/Headers",
+					"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/AGL.framework/Headers",
+					".",
+					"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/OpenGL.framework/Headers",
+					"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/AGL.framework/Headers",
+					"../../../Qt/6.7.2/macos/mkspecs/macx-clang");
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/jinglinli/Qt/6.7.2/macos/lib",
+					"/System/Library/Frameworks/");
+				FRAMEWORK_SEARCH_PATHS = (
+					"/Users/jinglinli/Qt/6.7.2/macos/lib",
+					"/Users/jinglinli/Qt/6.7.2/macos/lib");
+				OTHER_CFLAGS = (
+					"-pipe",
+					"-O2",
+					"-Wall",
+					"-Wextra",
+					"-DQT_NO_DEBUG",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_CORE5COMPAT_LIB",
+					"-DQT_CORE_LIB");
+				OTHER_CPLUSPLUSFLAGS = (
+					"-pipe",
+					"-stdlib=libc++",
+					"-O2",
+					"-std=gnu++1z",
+					"-Wall",
+					"-Wextra",
+					"-DQT_NO_DEBUG",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_CORE5COMPAT_LIB",
+					"-DQT_CORE_LIB");
+				OTHER_LDFLAGS = (
+						"-stdlib=libc++",
+						"-headerpad_max_install_names",
+						"-Wl,-rpath,@executable_path/../Frameworks",
+						"-Wl,-rpath,/Users/jinglinli/Qt/6.7.2/macos/lib",
+						"-F/Users/jinglinli/Qt/6.7.2/macos/lib");
+				ARCHS = "x86_64 arm64";
+			};
+			name = "Debug";
+		};
+		77418F46922677BB04ED38DD = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = "NO";
+				"ARCHS[sdk=macosx*]" = "x86_64 arm64";
+				COPY_PHASE_STRIP = "NO";
+				ENABLE_BITCODE = "NO";
+				GCC_OPTIMIZATION_LEVEL = "0";
+				ONLY_ACTIVE_ARCH = "YES";
+				PRODUCT_BUNDLE_IDENTIFIER = "ljl.top.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "MoreDirs";
+				QMAKE_FULL_VERSION = "1.0.0";
+				QMAKE_PKGINFO_TYPEINFO = "????";
+				QMAKE_SHORT_VERSION = "1.0";
+				QT_LIBRARY_SUFFIX = "";
+				SDKROOT = "macosx";
+				PRODUCT_NAME = "MoreDirs";
+			};
+			name = "Debug";
+		};
+		339EE1B2CC4FC24589A0EA95 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = "NO";
+				"ARCHS[sdk=macosx*]" = "x86_64 arm64";
+				COPY_PHASE_STRIP = "NO";
+				ENABLE_BITCODE = "NO";
+				PRODUCT_BUNDLE_IDENTIFIER = "ljl.top.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "MoreDirs";
+				QMAKE_FULL_VERSION = "1.0.0";
+				QMAKE_PKGINFO_TYPEINFO = "????";
+				QMAKE_SHORT_VERSION = "1.0";
+				QT_LIBRARY_SUFFIX = "";
+				SDKROOT = "macosx";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				CC = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang";
+				LDPLUSPLUS = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++";
+				INFOPLIST_FILE = "Info.plist";
+				SYMROOT = "$(PROJECT_DIR)";
+				DYLIB_CURRENT_VERSION = "1.0.0";
+				DYLIB_COMPATIBILITY_VERSION = "1.0";
+				MACOSX_DEPLOYMENT_TARGET = "11.0";
+				HEADER_SEARCH_PATHS = (
+					"../../qt-moredirs",
+					".",
+					"../../../Qt/6.7.2/macos/lib/QtWidgets.framework/Headers",
+					"../../../Qt/6.7.2/macos/lib/QtGui.framework/Headers",
+					"../../../Qt/6.7.2/macos/lib/QtCore5Compat.framework/Headers",
+					"../../../Qt/6.7.2/macos/lib/QtCore.framework/Headers",
+					".",
+					"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/OpenGL.framework/Headers",
+					"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/AGL.framework/Headers",
+					".",
+					"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/OpenGL.framework/Headers",
+					"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/AGL.framework/Headers",
+					"../../../Qt/6.7.2/macos/mkspecs/macx-clang");
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/jinglinli/Qt/6.7.2/macos/lib",
+					"/System/Library/Frameworks/");
+				FRAMEWORK_SEARCH_PATHS = (
+					"/Users/jinglinli/Qt/6.7.2/macos/lib",
+					"/Users/jinglinli/Qt/6.7.2/macos/lib");
+				OTHER_CFLAGS = (
+					"-pipe",
+					"-O2",
+					"-Wall",
+					"-Wextra",
+					"-DQT_NO_DEBUG",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_CORE5COMPAT_LIB",
+					"-DQT_CORE_LIB");
+				OTHER_CPLUSPLUSFLAGS = (
+					"-pipe",
+					"-stdlib=libc++",
+					"-O2",
+					"-std=gnu++1z",
+					"-Wall",
+					"-Wextra",
+					"-DQT_NO_DEBUG",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_CORE5COMPAT_LIB",
+					"-DQT_CORE_LIB");
+				OTHER_LDFLAGS = (
+						"-stdlib=libc++",
+						"-headerpad_max_install_names",
+						"-Wl,-rpath,@executable_path/../Frameworks",
+						"-Wl,-rpath,/Users/jinglinli/Qt/6.7.2/macos/lib",
+						"-F/Users/jinglinli/Qt/6.7.2/macos/lib");
+				ARCHS = "x86_64 arm64";
+			};
+			name = "Release";
+		};
+		6666AA5E688052234F6758D8 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = "NO";
+				"ARCHS[sdk=macosx*]" = "x86_64 arm64";
+				COPY_PHASE_STRIP = "NO";
+				ENABLE_BITCODE = "NO";
+				PRODUCT_BUNDLE_IDENTIFIER = "ljl.top.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "MoreDirs";
+				QMAKE_FULL_VERSION = "1.0.0";
+				QMAKE_PKGINFO_TYPEINFO = "????";
+				QMAKE_SHORT_VERSION = "1.0";
+				QT_LIBRARY_SUFFIX = "";
+				SDKROOT = "macosx";
+				PRODUCT_NAME = "MoreDirs";
+			};
+			name = "Release";
+		};
+		DAC4C1AA5EDEA1C85E9CA5E6 = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				"3AA6C32AC930069E80220CF1",
+				"339EE1B2CC4FC24589A0EA95");
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release";
+		};
+		6CC3B5D2136C7CD6A5CF5A59 = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				"77418F46922677BB04ED38DD",
+				"6666AA5E688052234F6758D8");
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release";
+		};
+		6DB9C3763D02B1415CD9D565 = {
+			hasScannedForEncodings = 1;
+			compatibilityVersion = "Xcode 3.2";
+			isa = PBXProject;
+			mainGroup = "E8C543AB96796ECAA2E65C57";
+			productRefGroup = "FE0A091FDBFB3E9C31B7A1BD";
+			buildConfigurationList = "DAC4C1AA5EDEA1C85E9CA5E6";
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				"FC2256D7A454DB80736C556E",
+				"C8C9FCE96E5956EAB7E83E24");
+			attributes = {
+				TargetAttributes = {
+				};
+			};
+		};
+	};
+	rootObject = "6DB9C3763D02B1415CD9D565";
+}

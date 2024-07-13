@@ -178,6 +178,7 @@
         <file>icons/CN.jpg</file>
         <file>icons/CN2.jpg</file>
         <file>icons/eng.jpg</file>
+        <file>icons/moredirs96.png</file>
     </qresource>
     <qresource prefix="/">
         <file>icons/icons8-filter-24.png</file>

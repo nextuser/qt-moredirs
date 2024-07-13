@@ -104,11 +104,13 @@ private slots:
 
     void on_actionFind_triggered();
 
-    void on_rowsInserted(const QModelIndex &parent, int first, int last);
+    void on_scrollLater();
 
     void on_actionViewSuperLargeIcon_triggered();
 
 
+
+    void on_actionNewFile_triggered();
 
 private:
     enum ViewIndex{
@@ -139,8 +141,6 @@ private:
     void initViewMenuAction(QMenu *men);
     ///void toggleMenu(ViewType type);
 
-    QAbstractItemView * createTableView(QString dirPath,bool replaceView);
-
     QFileSystemWatcher m_fileWatcher;
 
     Ui::DirForm *ui;
@@ -153,6 +153,8 @@ private:
     TFileSystemModel m_fileModel;
     QAbstractItemView *m_curItemView;
     bool m_viewModified = false;
+    QList<QString> m_scrollToPaths;
+
 
     int m_iconSize;
     int m_index;
@@ -161,26 +163,20 @@ private:
 
     void initViewMenu();
 
-
     QAbstractItemView * m_views[3] ;
     QList<QString> comboItems;
 
-
-
-
     // QWidget interface
 protected:
-
-
     // QWidget interface
 protected:
     void dropEvent(QDropEvent *event);
 
-
     // QWidget interface
 protected:
     void dragEnterEvent(QDragEnterEvent *event);
-    void scrollToPath(QAbstractItemView *itemView,QString newFile );
+    void scrollToPath(QString newFile);
+    void scrollToPaths(QList<QString> newFiles);
 
 };
 
