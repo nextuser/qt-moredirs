@@ -192,10 +192,10 @@ QString FileUtil::fileType(QString filePath)
     QString suffix =  info.suffix();
 
     if(info.isDir()){
-        return FileUtil::tr("目录");
+        return tr("目录");
     }
     else if(isImage(filePath)){
-        return FileUtil::tr("图片");
+        return tr("图片");
     }
     else{
         return suffix;
@@ -207,23 +207,6 @@ bool FileUtil::isImage(QString filePath)
     QList<QByteArray> formats = QImageReader::supportedImageFormats();
     QByteArray format = QFileInfo(filePath).suffix().toLower().toUtf8();
     return formats.contains(format);
-}
-
-void showHardwareInfo(){
-
-    // qDebug() << "MachineName: " << GetHardWare::getMachineName();
-    // qDebug() << "CpuInfo: " << GetHardWare::getCpuInfo();
-
-    // qDebug() << "MemoryInfo: " << GetHardWare::getMemoryInfo();
-    // qDebug() << "OSInfo: " << GetHardWare::getOSInfo();
-    // qDebug() << "DiskSerial: " << GetHardWare::getDiskSerial();
-    // qDebug() << "MacAddress: " << GetHardWare::getMacAddress();
-    // qDebug() << "InternetState: " << GetHardWare::getInternetState();
-    // qDebug() << "DiskInfo: " << GetHardWare::getDiskInfo();
-
-    // qDebug() << "CpuSerial: " << GetHardWare::getCpuSerial();
-    // qDebug() << "BiosSerial: " << GetHardWare::getBiosSerial();
-
 }
 
 QList<NameUrl> FileUtil::generatePathUrls(QString filePath){

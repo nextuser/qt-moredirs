@@ -25,14 +25,10 @@ private:
     Ui::FindDialog *ui;
     SearchThread * m_thread;
     TResultItemModel *m_model;
-    int m_count = 0;
-    void initColumns();
     void appendRows(const QStringList& files);
     FindState m_state;
     void changeState(FindState state);
 private slots:
-
-
     void on_fileFounded(QStringList file,bool bFinished);
     void on_pushButtonFind_clicked();
 

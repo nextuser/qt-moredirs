@@ -26,8 +26,8 @@ void SearchThread::incFound(int &processCount,QStringList& results, QString newF
     else{
         results.append(newFile);
     }
-    quint64 cost = m_elapsedTimer.elapsed();
-    if(cost >= 100){
+    quint64 costMs = m_elapsedTimer.elapsed();
+    if(costMs >= 100){
 
         emit file_found(results,finished);
         results.clear();
