@@ -21,6 +21,8 @@ class FileThread : public QThread
     };
 public:
     explicit FileThread(QObject *parent = nullptr);
+    ~FileThread();
+
 
     void setCountPercent(int percent);
     void doStop();

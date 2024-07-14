@@ -810,8 +810,8 @@
   <action name="actionFind">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/new/icons/icons/414.bmp</normaloff>
-     <disabledoff>:/new/icons/icons/415.bmp</disabledoff>:/new/icons/icons/414.bmp</iconset>
+     <normaloff>:/new/icons/icons/preview1.bmp</normaloff>
+     <disabledoff>:/new/icons/icons/preview2.bmp</disabledoff>:/new/icons/icons/preview1.bmp</iconset>
    </property>
    <property name="text">
     <string>查找</string>

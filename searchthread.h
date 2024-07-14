@@ -10,7 +10,8 @@ class SearchThread : public QThread
 {
     Q_OBJECT
 public:
-    SearchThread();
+    SearchThread(QObject *parent =nullptr);
+    ~SearchThread();
     void  stop();
     void  findFile(QString location, QString filter);
 

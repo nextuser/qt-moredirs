@@ -16,6 +16,7 @@ FindDialog::FindDialog(QWidget *parent,QString location)
     ui->tableViewResult->setModel(m_model);
     ui->tableViewResult->setColumnWidth(0,240);
     ui->tableViewResult->setSelectionBehavior(QAbstractItemView::SelectRows);
+
     ui->comboBoxDir->addItem(location);
     ui->comboBoxDir->setCurrentText(location);
     changeState(State_NotStart);
@@ -70,11 +71,13 @@ void FindDialog::changeState(FindState state)
     case State_NotStart:
         ui->pushButtonFind->setEnabled(true);
         ui->pushButtonStop->setEnabled(false);
+        ui->tableViewResult->setSortingEnabled(true);
         releaseThread();
         break;
     case State_Finding:
         ui->pushButtonFind->setEnabled(false);
         ui->pushButtonStop->setEnabled(true);
+        ui->tableViewResult->setSortingEnabled(false);
         break;
     }
 }
@@ -84,15 +87,26 @@ void FindDialog::on_fileFounded(QStringList files , bool finished)
     appendRows(files);
 
 
-    if(finished) changeState(State_NotStart);
+    if(finished){
+
+
+        changeState(State_NotStart);
+    }
 }
 
 void FindDialog::releaseThread(){
     if(m_thread != nullptr){
         m_thread->stop();
         m_thread->terminate();
-        delete m_thread;
+        disconnect(m_thread,&SearchThread::file_found,this,&FindDialog::on_fileFounded);
+        if(m_thread->isRunning()){
+            m_thread->msleep(100);
+        }
+        //delete m_thread;
         m_thread = nullptr;
+    }
+    else{
+        qDebug() << "thread nullptr to release";
     }
 }
 
@@ -102,7 +116,7 @@ void FindDialog::on_pushButtonFind_clicked()
     changeState(State_Finding);
     m_model->clear();
     ui->comboBoxDir->addItem(ui->comboBoxDir->currentText());
-    m_thread = new SearchThread();
+    m_thread = new SearchThread(this);
     connect(m_thread,&SearchThread::file_found,this,&FindDialog::on_fileFounded);
     m_thread->findFile(ui->comboBoxDir->currentText(),ui->comboBoxNameFilter->currentText());
 }

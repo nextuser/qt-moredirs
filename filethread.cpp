@@ -12,6 +12,12 @@ FileThread::FileThread(QObject *parent)
     : QThread{parent}
 {}
 
+FileThread::~FileThread()
+{
+    doStop();
+    wait();
+}
+
 
 constexpr static QDir::Filters SubFileDirFilter = QDir::NoDotAndDotDot| QDir::Files | QDir::Dirs;
 
@@ -91,6 +97,7 @@ void FileThread::setCountPercent(int percent)
 void FileThread::doStop()
 {
     this->m_stop = true;
+    quit();
 }
 
 

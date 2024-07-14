@@ -47,8 +47,9 @@ public:
 
     // QAbstractItemModel interface
 public:
-    QModelIndex index(int row, int column, const QModelIndex &parent) const;
-    QModelIndex parent(const QModelIndex &child) const;
+    QModelIndex index(int row, int column, const QModelIndex &parent) const override;
+    QModelIndex parent(const QModelIndex &child) const override;
+    virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override;
 };
 
 #endif // TRESULTITEMMODEL_H

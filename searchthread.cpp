@@ -3,11 +3,21 @@
 #include <QFileInfo>
 #include <QDir>
 #include <regex>
-SearchThread::SearchThread() {}
+SearchThread::SearchThread(QObject *parent):QThread(parent) {
+
+}
+
+SearchThread::~SearchThread()
+{
+    stop();
+    wait();
+
+}
 
 void SearchThread::stop()
 {
     this->m_stop = true;
+    this->quit();
 }
 
 void SearchThread::findFile(QString location, QString filter)
@@ -20,10 +30,7 @@ void SearchThread::findFile(QString location, QString filter)
 
 void SearchThread::incFound(int &processCount,QStringList& results, QString newFile,bool finished){
     ++ processCount;
-    if(newFile.isEmpty()){
-
-    }
-    else{
+    if(!newFile.isEmpty()){
         results.append(newFile);
     }
     quint64 costMs = m_elapsedTimer.elapsed();

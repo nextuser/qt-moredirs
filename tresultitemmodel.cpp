@@ -36,6 +36,7 @@ int TResultItemModel::rowCount(const QModelIndex &parent) const
 
 int TResultItemModel::columnCount(const QModelIndex &parent) const
 {
+    Q_UNUSED(parent);
     return ColCount ;
 }
 
@@ -120,12 +121,92 @@ QVariant TResultItemModel::data(const QModelIndex &index, int role) const
 
 QModelIndex TResultItemModel::index(int row, int column, const QModelIndex &parent) const
 {
+    Q_UNUSED(parent);
     return createIndex(row,column, &this->m_fileList);
 }
 
 QModelIndex TResultItemModel::parent(const QModelIndex &child) const
 {
     return QModelIndex();
+}
+
+int compTime(const QString& left,const QString &right,Qt::SortOrder order){
+    if(order == Qt::AscendingOrder){
+        return QFileInfo(left).lastModified().toMSecsSinceEpoch() -  QFileInfo(right).lastModified().toMSecsSinceEpoch();
+    }
+    else{
+        return QFileInfo(right).lastModified().toMSecsSinceEpoch() -  QFileInfo(left).lastModified().toMSecsSinceEpoch();
+    }
+}
+qint64 compString(const QString& left,const QString &right,Qt::SortOrder order){
+    return order == Qt::AscendingOrder?  left.compare(right) : right.compare(left);
+}
+
+qint64 compInt(const qint64 left,const qint64 right,Qt::SortOrder order){
+    if(order == Qt::AscendingOrder){
+        return left - right;
+    }
+    else{
+        return right -left;
+    }
+}
+
+qint64 comp(QStringList &fileList,int l, int r,int column, Qt::SortOrder order){
+    QString & left = (fileList[l]);
+    QString & right= (fileList[r]);
+    if(column == ColModifiedTime){
+        return  compInt(QFileInfo(left).lastModified().toMSecsSinceEpoch()
+                       ,QFileInfo(right).lastModified().toMSecsSinceEpoch(),order);
+    }
+    else if(column == ColName){
+        return compString(left,right,order);
+    }
+    else if(column == ColSize){
+        return compInt(QFileInfo(left).size(),QFileInfo(right).size(),order);
+    }
+    return 0;
+}
+
+
+
+void mergeSort(QStringList &fileList,int start, int end, int column, Qt::SortOrder order )
+{
+    if(end <= start  ) return;
+    int half = (end - start)/2 + start;
+    int start1 = start, end1 = half;
+    int start2 = half + 1,end2 = end;
+
+
+
+    if(end1 > start1) mergeSort(fileList,start1,end1,column,order);
+    if(end2 > start2) mergeSort(fileList,start2,end2,column,order);
+
+    QStringList recList;
+    int i1 = start1,i2 = start2 ;
+    while( i1 <= end1 && i2 <= end2){
+        if(comp(fileList,i1,i2,column,order) < 0){
+            recList.append(fileList[i1 ++]);
+        }
+        else{
+            recList.append(fileList[i2 ++]);
+        }
+    }
+    while(i1 <= end1){
+        recList.append(fileList[i1 ++]);
+    }
+    while(i2 <= end2 ){
+        recList.append(fileList[i2 ++]);
+    }
+    for(int i = start; i <= end; ++ i){
+        fileList[i] = recList[i - start];
+    }
+
+
+}
+void TResultItemModel::sort(int column, Qt::SortOrder order)
+{
+    mergeSort(m_fileList,0, m_fileList.count() - 1, column,order);
+    emit layoutChanged();
 }
 
 
