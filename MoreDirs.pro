@@ -21,6 +21,7 @@ SOURCES += \
     finddialog.cpp \
     searchthread.cpp \
     stringutil.cpp \
+    tfileinfo.cpp \
     tfilesystemmodel.cpp \
     thistory.cpp \
     dirform.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     finddialog.h \
     searchthread.h \
     stringutil.h \
+    tfileinfo.h \
     tfilesystemmodel.h \
     thistory.h \
     dirform.h \

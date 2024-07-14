@@ -49,7 +49,7 @@ QStandardItem * createItem(QString text, QVariant& data){
 }
 
 void FindDialog::appendRows(const QStringList& files){
-    m_model->addFiles(files);
+    m_model->addFiles(files,QDir(ui->comboBoxDir->currentText()));
 }
 
 void FindDialog::changeState(FindState state)
