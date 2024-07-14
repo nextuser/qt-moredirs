@@ -11,6 +11,16 @@ class TResultItemModel : public QAbstractItemModel
     Q_OBJECT
 
 public:
+
+    enum ColumnIndex{
+        ColName,
+        ColPath,
+        ColSize,
+        ///ColType,
+        ColModifiedTime,
+        ColCount
+    };
+
     explicit TResultItemModel(QObject *parent = nullptr);
 
     // Header:

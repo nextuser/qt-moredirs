@@ -1,33 +1,10 @@
 #include "tresultitemmodel.h"
 #include <QFileInfo>
 #include "fileutil.h"
-enum ColumnIndex{
-    ColName,
-    ColModifiedTime,
-    ColSize,
- //   ColType,
-
-    ColCount
-};
 
 TResultItemModel::TResultItemModel(QObject *parent)
     : QAbstractItemModel(parent)
 {}
-
-
-
-// QModelIndex TResultItemModel::index(int row, int column, const QModelIndex &parent) const
-// {
-//     if(!parent.isValid()){
-
-//     }
-//     // FIXME: Implement me!
-// }
-
-// QModelIndex TResultItemModel::parent(const QModelIndex &index) const
-// {
-//     // FIXME: Implement me!
-// }
 
 int TResultItemModel::rowCount(const QModelIndex &parent) const
 {
@@ -77,7 +54,6 @@ QString TResultItemModel::filePath(const QModelIndex &index)
         ret = m_fileList[row];
     }
     return ret;
-
 }
 
 QVariant TResultItemModel::data(const QModelIndex &index, int role) const
@@ -88,15 +64,14 @@ QVariant TResultItemModel::data(const QModelIndex &index, int role) const
     if(index.row() >= m_fileList.size() || index.column() >= ColCount )
         return ret;
 
-    QFileInfo fileInfo(m_fileList[index.row()]);
+    QString filePath = m_fileList[index.row()];
+    QFileInfo fileInfo(filePath);
     if(role == Qt::ToolTipRole){
-        return QVariant(fileInfo.fileName());
+        return QVariant(filePath);
     }
 
     if(role == Qt::DecorationRole && index.column() == 0){
-
         return m_iconProvider.icon(fileInfo);
-
     }
 
     if(role == Qt::DisplayRole){
@@ -107,9 +82,8 @@ QVariant TResultItemModel::data(const QModelIndex &index, int role) const
         case ColSize:
             return FileUtil::sizeFormat(fileInfo.size());
             break;
-        // case ColType:
-        //     return fileInfo.suffix().toUpper();
-        //     break;
+        case ColPath:
+            return fileInfo.absolutePath();
         case ColModifiedTime:
             return FileUtil::timeStr(fileInfo.lastModified());
             break;
@@ -127,6 +101,7 @@ QModelIndex TResultItemModel::index(int row, int column, const QModelIndex &pare
 
 QModelIndex TResultItemModel::parent(const QModelIndex &child) const
 {
+    Q_UNUSED(child);
     return QModelIndex();
 }
 
@@ -154,15 +129,18 @@ qint64 compInt(const qint64 left,const qint64 right,Qt::SortOrder order){
 qint64 comp(QStringList &fileList,int l, int r,int column, Qt::SortOrder order){
     QString & left = (fileList[l]);
     QString & right= (fileList[r]);
-    if(column == ColModifiedTime){
+    if(column == TResultItemModel::ColModifiedTime){
         return  compInt(QFileInfo(left).lastModified().toMSecsSinceEpoch()
                        ,QFileInfo(right).lastModified().toMSecsSinceEpoch(),order);
     }
-    else if(column == ColName){
-        return compString(left,right,order);
+    else if(column == TResultItemModel::ColName){
+        return compString(QFileInfo(left).fileName(),QFileInfo(right).fileName(),order);
     }
-    else if(column == ColSize){
+    else if(column == TResultItemModel::ColSize){
         return compInt(QFileInfo(left).size(),QFileInfo(right).size(),order);
+    }
+    else if(column == TResultItemModel::ColPath){
+        return compString(QFileInfo(left).absolutePath(), QFileInfo(right).absolutePath(),order);
     }
     return 0;
 }
@@ -175,8 +153,6 @@ void mergeSort(QStringList &fileList,int start, int end, int column, Qt::SortOrd
     int half = (end - start)/2 + start;
     int start1 = start, end1 = half;
     int start2 = half + 1,end2 = end;
-
-
 
     if(end1 > start1) mergeSort(fileList,start1,end1,column,order);
     if(end2 > start2) mergeSort(fileList,start2,end2,column,order);
@@ -223,9 +199,9 @@ QVariant TResultItemModel::headerData(int section, Qt::Orientation orientation, 
         case ColSize:
             return tr("大小");
             break;
-        // case ColType:
-        //     return tr("文件类型");
-        //     break;
+        case ColPath:
+            return tr("目录");
+            break;
         }
     }
     return QAbstractItemModel::headerData(section,orientation,role);

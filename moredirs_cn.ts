@@ -496,12 +496,12 @@
 <context>
     <name>FileThread</name>
     <message>
-        <location filename="filethread.cpp" line="49"/>
+        <location filename="filethread.cpp" line="55"/>
         <source>文件[%1]不存在 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="filethread.cpp" line="50"/>
+        <location filename="filethread.cpp" line="56"/>
         <source>错误</source>
         <translation></translation>
     </message>
@@ -542,7 +542,7 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="finddialog.cpp" line="130"/>
+        <location filename="finddialog.cpp" line="117"/>
         <source>选择查询目录位置</source>
         <translation>选择查询的目录</translation>
     </message>
@@ -750,19 +750,24 @@
 <context>
     <name>TResultItemModel</name>
     <message>
-        <location filename="tresultitemmodel.cpp" line="137"/>
+        <location filename="tresultitemmodel.cpp" line="194"/>
         <source>文件名</source>
-        <translation type="unfinished">名称</translation>
+        <translation>名称</translation>
     </message>
     <message>
-        <location filename="tresultitemmodel.cpp" line="140"/>
+        <location filename="tresultitemmodel.cpp" line="197"/>
         <source>修改时间</source>
-        <translation type="unfinished">修改时间</translation>
+        <translation>修改时间</translation>
     </message>
     <message>
-        <location filename="tresultitemmodel.cpp" line="143"/>
+        <location filename="tresultitemmodel.cpp" line="200"/>
         <source>大小</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="tresultitemmodel.cpp" line="203"/>
+        <source>目录</source>
+        <translation></translation>
     </message>
 </context>
 </TS>
