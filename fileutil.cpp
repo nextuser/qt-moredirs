@@ -13,9 +13,9 @@ const QString FileUtil::TIME_FORMAT = "yyyy-MM-dd hh:mm:ss";
 
 bool FileUtil::isParentOf(QString leftPath,QString rightPath){
     QFileInfo left(leftPath);
-    QString leftStr = left.absoluteFilePath() + "/";
+    QString leftStr = left.absoluteFilePath() + QDir::separator();
     QFileInfo right(rightPath);
-    QString rightStr = right.absoluteFilePath() + "/";
+    QString rightStr = right.absoluteFilePath() + QDir::separator();
     return rightStr.contains(leftStr) ;
 }
 
@@ -241,7 +241,6 @@ QString FileUtil::generateFileLink(QString filePath){
 
         QFileInfo info(nameUrl.second);
         if(info.isDir() ){
-
             name = nameUrl.first + sep;
             name = name.toHtmlEscaped();
             std::string str = name.toStdString();
@@ -258,7 +257,7 @@ QString FileUtil::generateFileLink(QString filePath){
 
 QString FileUtil::getNewFile(QString path, QString fileName)
 {
-    QString newPath = path + "/" + fileName;
+    QString newPath = path + QDir::separator() + fileName;
     QFile* currFile = new QFile(newPath);
     int i = 0;
     while(currFile->exists()){
@@ -271,7 +270,7 @@ QString FileUtil::getNewFile(QString path, QString fileName)
             baseName = fileName.left(index);
             extName = fileName.right(fileName.size() - index - 1);
         }
-        newPath = path + "/" + baseName + QString::number(i++) ;
+        newPath = path + QDir::separator() + baseName + QString::number(i++) ;
         if(!extName.isEmpty()) newPath += "." +  extName;
         currFile = new QFile(newPath);
     }

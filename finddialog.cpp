@@ -14,7 +14,10 @@ FindDialog::FindDialog(QWidget *parent,QString location)
     ui->setupUi(this);
     m_model = new TResultItemModel(this);
     ui->tableViewResult->setModel(m_model);
-    ui->tableViewResult->setColumnWidth(0,240);
+    ui->tableViewResult->setColumnWidth(TResultItemModel::ColName,140);
+    ui->tableViewResult->setColumnWidth(TResultItemModel::ColPath,200);
+    ui->tableViewResult->setColumnWidth(TResultItemModel::ColSize,80);
+    ui->tableViewResult->setColumnWidth(TResultItemModel::ColModifiedTime,160);
     ui->tableViewResult->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     ui->comboBoxDir->addItem(location);
@@ -46,23 +49,7 @@ QStandardItem * createItem(QString text, QVariant& data){
 }
 
 void FindDialog::appendRows(const QStringList& files){
-
-    /**for(auto & file : files)
-    {
-        QFileInfo info(file);
-        QList<QStandardItem*> tableRow;
-        QVariant data(file);
-        tableRow.append(createItem(file,data));
-        tableRow.append(createItem(FileUtil::sizeFormat(info.size()),data));
-        tableRow.append(createItem(FileUtil::fileType(file),data));
-        tableRow.append(createItem(FileUtil::timeStr(info.lastModified()),data));
-
-        m_model->appendRow(tableRow);
-
-    }
-    m_count += files.size();**/
     m_model->addFiles(files);
-
 }
 
 void FindDialog::changeState(FindState state)
@@ -86,10 +73,7 @@ void FindDialog::on_fileFounded(QStringList files , bool finished)
 {
     appendRows(files);
 
-
     if(finished){
-
-
         changeState(State_NotStart);
     }
 }
@@ -97,7 +81,8 @@ void FindDialog::on_fileFounded(QStringList files , bool finished)
 void FindDialog::releaseThread(){
     if(m_thread != nullptr){
         m_thread->stop();
-        m_thread->terminate();
+        m_thread->quit();
+        m_thread->wait();
         disconnect(m_thread,&SearchThread::file_found,this,&FindDialog::on_fileFounded);
         if(m_thread->isRunning()){
             m_thread->msleep(100);
@@ -115,10 +100,13 @@ void FindDialog::on_pushButtonFind_clicked()
 
     changeState(State_Finding);
     m_model->clear();
+
+    QString path = QFileInfo(ui->comboBoxDir->currentText()).absoluteFilePath();
+    m_model->setParentLen(path.length());
     ui->comboBoxDir->addItem(ui->comboBoxDir->currentText());
     m_thread = new SearchThread(this);
     connect(m_thread,&SearchThread::file_found,this,&FindDialog::on_fileFounded);
-    m_thread->findFile(ui->comboBoxDir->currentText(),ui->comboBoxNameFilter->currentText());
+    m_thread->findFile(path,ui->comboBoxNameFilter->currentText());
 }
 
 

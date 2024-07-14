@@ -3,7 +3,7 @@
 #include "fileutil.h"
 
 TResultItemModel::TResultItemModel(QObject *parent)
-    : QAbstractItemModel(parent)
+    : QAbstractItemModel(parent),m_parentLen(-1)
 {}
 
 int TResultItemModel::rowCount(const QModelIndex &parent) const
@@ -27,7 +27,7 @@ void TResultItemModel::addFiles(QList<QString> files)
     int count = m_fileList.count();
     beginInsertRows(QModelIndex(),count , count +  files.count() - 1);
     for(auto & file : files){
-        m_fileList.append(file);
+        m_fileList.append(QFileInfo(file));
     }
     endInsertRows();
 }
@@ -47,15 +47,24 @@ bool TResultItemModel::isRootIndex(const QModelIndex &index)
 
 QString TResultItemModel::filePath(const QModelIndex &index)
 {
-    QString ret;
+    QFileInfo ret;
     int row = index.row();
 
     if(row >= 0 && row < m_fileList.count()){
         ret = m_fileList[row];
     }
+    return ret.absoluteFilePath();
+}
+QString getLocation(QString path, int parentLen){
+    QString ret = path;
+    if(parentLen > 0 && path.length() >= parentLen){
+        ret = path.sliced(parentLen);
+        if(ret.startsWith(QDir::separator())){
+            ret = ret.sliced(1);
+        }
+    }
     return ret;
 }
-
 QVariant TResultItemModel::data(const QModelIndex &index, int role) const
 {
 
@@ -64,10 +73,10 @@ QVariant TResultItemModel::data(const QModelIndex &index, int role) const
     if(index.row() >= m_fileList.size() || index.column() >= ColCount )
         return ret;
 
-    QString filePath = m_fileList[index.row()];
-    QFileInfo fileInfo(filePath);
+    const QFileInfo &fileInfo = m_fileList[index.row()];
+
     if(role == Qt::ToolTipRole){
-        return QVariant(filePath);
+        return QVariant(fileInfo.absoluteFilePath());
     }
 
     if(role == Qt::DecorationRole && index.column() == 0){
@@ -83,7 +92,7 @@ QVariant TResultItemModel::data(const QModelIndex &index, int role) const
             return FileUtil::sizeFormat(fileInfo.size());
             break;
         case ColPath:
-            return fileInfo.absolutePath();
+            return getLocation(fileInfo.absolutePath(),m_parentLen);
         case ColModifiedTime:
             return FileUtil::timeStr(fileInfo.lastModified());
             break;
@@ -126,28 +135,28 @@ qint64 compInt(const qint64 left,const qint64 right,Qt::SortOrder order){
     }
 }
 
-qint64 comp(QStringList &fileList,int l, int r,int column, Qt::SortOrder order){
-    QString & left = (fileList[l]);
-    QString & right= (fileList[r]);
+qint64 comp(QList<QFileInfo>& fileList,int l, int r,int column, Qt::SortOrder order){
+    QFileInfo & left = (fileList[l]);
+    QFileInfo & right= (fileList[r]);
     if(column == TResultItemModel::ColModifiedTime){
-        return  compInt(QFileInfo(left).lastModified().toMSecsSinceEpoch()
-                       ,QFileInfo(right).lastModified().toMSecsSinceEpoch(),order);
+        return  compInt((left).lastModified().toMSecsSinceEpoch()
+                       ,(right).lastModified().toMSecsSinceEpoch(),order);
     }
     else if(column == TResultItemModel::ColName){
-        return compString(QFileInfo(left).fileName(),QFileInfo(right).fileName(),order);
+        return compString((left).fileName(),(right).fileName(),order);
     }
     else if(column == TResultItemModel::ColSize){
-        return compInt(QFileInfo(left).size(),QFileInfo(right).size(),order);
+        return compInt((left).size(),(right).size(),order);
     }
     else if(column == TResultItemModel::ColPath){
-        return compString(QFileInfo(left).absolutePath(), QFileInfo(right).absolutePath(),order);
+        return compString((left).absolutePath(), (right).absolutePath(),order);
     }
     return 0;
 }
 
 
 
-void mergeSort(QStringList &fileList,int start, int end, int column, Qt::SortOrder order )
+void mergeSort(QList<QFileInfo> &fileList,int start, int end, int column, Qt::SortOrder order )
 {
     if(end <= start  ) return;
     int half = (end - start)/2 + start;
@@ -157,7 +166,7 @@ void mergeSort(QStringList &fileList,int start, int end, int column, Qt::SortOrd
     if(end1 > start1) mergeSort(fileList,start1,end1,column,order);
     if(end2 > start2) mergeSort(fileList,start2,end2,column,order);
 
-    QStringList recList;
+    QList<QFileInfo> recList;
     int i1 = start1,i2 = start2 ;
     while( i1 <= end1 && i2 <= end2){
         if(comp(fileList,i1,i2,column,order) < 0){

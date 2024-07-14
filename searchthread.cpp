@@ -10,6 +10,7 @@ SearchThread::SearchThread(QObject *parent):QThread(parent) {
 SearchThread::~SearchThread()
 {
     stop();
+    this->terminate();
     wait();
 
 }
@@ -17,7 +18,7 @@ SearchThread::~SearchThread()
 void SearchThread::stop()
 {
     this->m_stop = true;
-    this->quit();
+
 }
 
 void SearchThread::findFile(QString location, QString filter)

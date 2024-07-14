@@ -14,8 +14,7 @@ FileThread::FileThread(QObject *parent)
 
 FileThread::~FileThread()
 {
-    doStop();
-    wait();
+
 }
 
 
@@ -94,10 +93,12 @@ void FileThread::setCountPercent(int percent)
     m_countPercent = percent;
 }
 
+// call this method in other thread
 void FileThread::doStop()
 {
     this->m_stop = true;
     quit();
+    wait();
 }
 
 
