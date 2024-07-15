@@ -33,34 +33,36 @@
     <number>3</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
-     <property name="leftMargin">
-      <number>3</number>
-     </property>
-     <property name="topMargin">
-      <number>3</number>
-     </property>
-     <property name="rightMargin">
-      <number>3</number>
-     </property>
-     <property name="bottomMargin">
-      <number>3</number>
-     </property>
-     <item>
-      <widget class="QLabel" name="labelStatus">
-       <property name="text">
-        <string>统计进度</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="labelCountStat">
-       <property name="text">
-        <string>文件数%1 目录数%2  文件占用%3</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QGroupBox" name="groupCount">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
+      <property name="leftMargin">
+       <number>3</number>
+      </property>
+      <property name="topMargin">
+       <number>3</number>
+      </property>
+      <property name="rightMargin">
+       <number>3</number>
+      </property>
+      <property name="bottomMargin">
+       <number>3</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="labelStatus">
+        <property name="text">
+         <string>统计进度</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelCountStat">
+        <property name="text">
+         <string>文件数%1 目录数%2  文件占用%3</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <widget class="QGroupBox" name="groupBox_2">
@@ -84,6 +86,9 @@
        <widget class="QLabel" name="label">
         <property name="text">
          <string>拷贝进度</string>
+        </property>
+        <property name="margin">
+         <number>0</number>
         </property>
        </widget>
       </item>
@@ -127,13 +132,13 @@
        <number>3</number>
       </property>
       <property name="topMargin">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="rightMargin">
        <number>3</number>
       </property>
       <property name="bottomMargin">
-       <number>0</number>
+       <number>3</number>
       </property>
       <item>
        <widget class="QCheckBox" name="checkBoxAutoClose">
