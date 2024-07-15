@@ -25,17 +25,15 @@ void FileThread::countDirSize(const QDir &dir,int &process,int &dirCount ,quint6
     if(m_stop) return;
     for(auto& info: dir.entryInfoList(SubFileDirFilter)){
         ++ process;
+        if(!info.exists()) continue;
         if(FileUtil::isLocalDir(info)){
             ++ dirCount;
             countDirSize(QDir(info.absoluteFilePath()),process,dirCount,fsize);
         }
-        else{
-            fsize += info.size();
-        }
+        fsize += info.size();
         if(process % COUNT_PROCESS_IN_1MS == 0){
             emit countSizeProcessInd(process,dirCount,fsize,false);
         }
-
     }
     return ;
 }
@@ -61,9 +59,8 @@ quint64 FileThread::countFileSize(QStringList paths)
             countDirSize(QDir(filePath),process,dirCount,fsize);
             ++ dirCount;
         }
-        else{
-           fsize += info.size();
-        }
+
+        fsize += info.size();
         ++ process;
     }
     emit countSizeProcessInd(process,dirCount,fsize,true);
@@ -113,16 +110,17 @@ void FileThread::copyDir(const QDir&  srcDir,const QDir& dstDir,int & fileCount,
         QString fileName = entry.fileName();
         QString targetPath = dstDir.absolutePath() + "/" + fileName;
         QString srcPath = entry.absoluteFilePath();
+        if(!entry.exists()) continue;
         if(FileUtil::isLocalDir(entry)){
             dstDir.mkdir(fileName);
             ++ dirCount;
-            incCopy(srcPath,fileCount,dirCount,processSize);
+            incCopy(srcPath,fileCount,dirCount,processSize,entry.size());
             copyDir(QDir(srcPath),QDir(targetPath), fileCount,dirCount,processSize);
         }
         else if(entry.isSymbolicLink())
         {
             FileUtil::copySymbolicLink(srcPath,targetPath);
-            incCopy(srcPath,fileCount,dirCount,processSize);
+            incCopy(srcPath,fileCount,dirCount,processSize,entry.size());
         }
         else
         {
@@ -144,16 +142,14 @@ void FileThread::copyFile(const QMap<QString,QString> &copyMap){
         QFileInfo srcInfo(srcPath);
         QString   targetPath = copyMap[srcPath];
         QFileInfo dstInfo(targetPath);
-
-
-
+        if(!srcInfo.exists()) {
+            continue;
+        }
         if(FileUtil::isLocalDir(srcInfo)){
             QDir(dstInfo.absolutePath()).mkdir(dstInfo.fileName());
             ++ dirCount;
             incCopy(srcPath,count,dirCount,fsize);
-
             copyDir(QDir(srcPath),QDir(targetPath),count,dirCount,fsize);
-
         }
         else if(srcInfo.isSymbolicLink())
         {
