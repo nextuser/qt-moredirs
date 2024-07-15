@@ -11,12 +11,12 @@
     <message>
         <location filename="copyprocessdialog.ui" line="52"/>
         <source>统计进度</source>
-        <translation>Counting...</translation>
+        <translation>计数进度：</translation>
     </message>
     <message>
         <location filename="copyprocessdialog.ui" line="86"/>
         <source>拷贝进度</source>
-        <translation>拷贝进度</translation>
+        <translation>拷贝进度:</translation>
     </message>
     <message>
         <location filename="copyprocessdialog.ui" line="59"/>
@@ -67,12 +67,12 @@
     <message>
         <location filename="copyprocessdialog.cpp" line="70"/>
         <source>统计完成: 文件数%1 目录数%2  文件占用%3</source>
-        <translation>统计完成: 文件数%1 目录数%2  文件占用%3</translation>
+        <translation>计数完成! 文件数%1 目录数%2  文件占用%3</translation>
     </message>
     <message>
         <location filename="copyprocessdialog.cpp" line="81"/>
         <source>正在统计: 文件数%1 目录数%2  文件占用%3</source>
-        <translation>正在统计: 文件数%1 目录数%2  文件占用%3</translation>
+        <translation>正在计数... 文件数%1 目录数%2  文件占用%3</translation>
     </message>
     <message>
         <location filename="copyprocessdialog.cpp" line="96"/>
@@ -87,7 +87,7 @@
     <message>
         <location filename="copyprocessdialog.cpp" line="102"/>
         <source>拷贝完成:文件数%1 目录数%2  文件占用%3</source>
-        <translation>拷贝完成:文件数%1 目录数%2  文件占用%3&quot;</translation>
+        <translation>拷贝完成:文件数%1 目录数%2  文件占用%3</translation>
     </message>
     <message>
         <source>CopyedArg3</source>

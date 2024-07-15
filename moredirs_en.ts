@@ -11,12 +11,12 @@
     <message>
         <location filename="copyprocessdialog.ui" line="52"/>
         <source>统计进度</source>
-        <translation>Counting...</translation>
+        <translation>Counting progress:</translation>
     </message>
     <message>
         <location filename="copyprocessdialog.ui" line="86"/>
         <source>拷贝进度</source>
-        <translation>Copying</translation>
+        <translation>Copy progress:</translation>
     </message>
     <message>
         <source>尚未拷贝</source>
@@ -94,22 +94,22 @@
     <message>
         <location filename="copyprocessdialog.cpp" line="70"/>
         <source>统计完成: 文件数%1 目录数%2  文件占用%3</source>
-        <translation>Counted:File Count %1,Directory Count %2 , File Space %3</translation>
+        <translation>Counted! File Count %1,Directory Count %2 , File Space %3</translation>
     </message>
     <message>
         <location filename="copyprocessdialog.cpp" line="81"/>
         <source>正在统计: 文件数%1 目录数%2  文件占用%3</source>
-        <translation>Counting:File Count %1,Directory Count %2 , File Space %3</translation>
+        <translation>Counting... File Count %1,Directory Count %2 , File Space %3</translation>
     </message>
     <message>
         <location filename="copyprocessdialog.cpp" line="96"/>
         <source>正在拷贝...:文件数 %1 目录数 %2  文件占用 %3</source>
-        <translation>Copying:File Count %1,Directory Count %2 , File Space %3</translation>
+        <translation>Copying... File Count %1,Directory Count %2 , File Space %3</translation>
     </message>
     <message>
         <location filename="copyprocessdialog.cpp" line="102"/>
         <source>拷贝完成:文件数%1 目录数%2  文件占用%3</source>
-        <translation>Copy Complete:File Count %1,Directory Count %2 , File Space %3</translation>
+        <translation>Copy Completed! File Count %1,Directory Count %2 , File Space %3</translation>
     </message>
     <message>
         <source>Counted_FileCount</source>
