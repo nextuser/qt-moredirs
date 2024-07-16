@@ -25,13 +25,14 @@ FindDialog::FindDialog(QWidget *parent,QString location)
     changeState(State_NotStart);
     connect(ui->tableViewResult,&QTableView::doubleClicked,
             this, &FindDialog::on_tableCellDoubleClicked);
+    connect(this,&QDialog::finished,this,&FindDialog::on_finished);
 
 }
 
 FindDialog::~FindDialog()
 {
     delete ui;
-    void releaseThread();
+
 }
 enum Column{
     Col_Name = 0,
@@ -84,10 +85,7 @@ void FindDialog::releaseThread(){
         m_thread->quit();
         m_thread->wait();
         disconnect(m_thread,&SearchThread::file_found,this,&FindDialog::on_fileFounded);
-        if(m_thread->isRunning()){
-            m_thread->msleep(100);
-        }
-        //delete m_thread;
+        delete m_thread;
         m_thread = nullptr;
     }
     else{
@@ -100,10 +98,8 @@ void FindDialog::on_pushButtonFind_clicked()
 
     changeState(State_Finding);
     m_model->clear();
-
-    QString path = QFileInfo(ui->comboBoxDir->currentText()).absoluteFilePath();
-    m_model->setParentLen(path.length());
-    ui->comboBoxDir->addItem(ui->comboBoxDir->currentText());
+    QString path = ui->comboBoxDir->currentText();
+    ui->comboBoxDir->addItem(path);
     m_thread = new SearchThread(this);
     connect(m_thread,&SearchThread::file_found,this,&FindDialog::on_fileFounded);
     m_thread->findFile(path,ui->comboBoxNameFilter->currentText());
@@ -115,6 +111,7 @@ void FindDialog::closeEvent(QCloseEvent *event)
 {
     Q_UNUSED(event);
     releaseThread();
+
 }
 
 #include <QFileDialog>
@@ -147,5 +144,11 @@ void FindDialog::on_tableCellDoubleClicked(const QModelIndex &index)
 void FindDialog::on_pushButtonStop_clicked()
 {
     changeState(State_NotStart);
+}
+
+void FindDialog::on_finished(int val)
+{
+    Q_UNUSED(val);
+    this->releaseThread();
 }
 

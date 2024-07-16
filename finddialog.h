@@ -37,10 +37,13 @@ private slots:
     void on_tableCellDoubleClicked(const QModelIndex &index);
 
     void on_pushButtonStop_clicked();
-
+    void on_finished(int val);
 protected:
     void closeEvent(QCloseEvent *event);
     void releaseThread();
+
+
+
 };
 
 #endif // FINDDIALOG_H
