@@ -202,9 +202,7 @@ void MainWindow::on_actionTileWindow_triggered()
 {
     ((QAction*)sender())->setChecked(true);
     ui->mdiArea->setViewMode(QMdiArea::SubWindowView);
-
     showSubWin(4);
-
     setSubWindowFrameLess(true);
     ui->mdiArea->tileSubWindows();
 
@@ -249,6 +247,7 @@ void MainWindow::on_subWindowActivated(QMdiSubWindow * w)
 
 void MainWindow::on_actionTile2Window_triggered()
 {
+    ((QAction*)sender())->setChecked(true);
     ui->mdiArea->setViewMode(QMdiArea::SubWindowView);
 
     showSubWin(2);
@@ -258,11 +257,14 @@ void MainWindow::on_actionTile2Window_triggered()
 }
 
 
+
+
+
 void MainWindow::on_actionSwitchTab_triggered()
 {
     ((QAction*)sender())->setChecked(true);
-
     ui->mdiArea->setViewMode(QMdiArea::TabbedView); //Tab多页显示模式
+    showSubWin(4);
     ui->mdiArea->setTabsClosable(true);
     ui->mdiArea->setTabsMovable(true);
 }
