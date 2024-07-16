@@ -32,15 +32,15 @@ public:
     void startPasteFiles(const QMap<QString,QString>& copyMap);
 
 Q_SIGNALS:
-    void countSizeProcessInd(int count,int dirCount,quint64 fileSize, bool bFinished );
-    void copyProcessInd(int count ,int dirCount,quint64 fileSize,QString curPath, bool stopped = false);
+    void countSizeProcessInd(int count,int dirCount,qint64 fileSize, bool bFinished );
+    void copyProcessInd(int count ,int dirCount,qint64 fileSize,QString curPath, bool stopped = false);
 
     // QThread interface
 protected:
     void run();
     static const int COUNT_PROCESS_IN_1MS = 10000;
     const static int COPY_STEP_COUNT =500;
-    const static quint64 COPY_STEP_SIZE = 1 << 23; //(8MB)
+    const static qint64 COPY_STEP_SIZE = 1 << 23; //(8MB)
 private :
     TaskType m_taskType;
     QMap<QString,QString> m_copyMap;
@@ -49,13 +49,13 @@ private :
     int     m_countPercent;
     bool    m_stop;
     int     m_sizeStep = 0;
-    void countDirSize(const QDir &dir,int &process,int &dirCount ,quint64& fsize);
-    quint64 countFileSize(QStringList paths);
+    void countDirSize(const QDir &dir,int &process,int &dirCount ,qint64& fsize);
+    qint64 countFileSize(QStringList paths);
 
 
-    void copyDir(const QDir&  srcDir,const QDir& dstDir,int & fileCount,int &dirCount,quint64 &processSize);
-    //void copyFile(QFileInfo  srcInfo,const QFileInfo& dstDirInfo,int &fileCount,quint64 &processSize);
-    void incCopy(const QString &curPath,int &count,int dirCount,quint64 &processSize, int incSize = -1);
+    void copyDir(const QDir&  srcDir,const QDir& dstDir,int & fileCount,int &dirCount,qint64 &processSize);
+
+    void incCopy(const QString &curPath,int &count,int dirCount,qint64 &processSize, qint64 incSize = -1);
 
     void copyFile(const QMap<QString,QString>& copyMap);
 

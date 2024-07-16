@@ -38,11 +38,6 @@ public:
 
     // Fetch data dynamically:
     bool hasChildren(const QModelIndex &parent = QModelIndex()) const override;
-
-    void setParentLen(int len){
-        m_parentLen = len;
-    };
-
     void  addFiles(QList<QString> files,QDir dir);
     void  clear();
     bool  isRootIndex(const QModelIndex & index);
@@ -50,9 +45,7 @@ public:
     QList<TFileInfo> m_fileList;
 
     QFileIconProvider m_iconProvider;
-private:
-    int m_parentLen;
-    // QAbstractItemModel interface
+
 public:
     // QVariant data(const QModelIndex &index, int role) ;
 

@@ -4,12 +4,12 @@
 #include "tfileinfo.h"
 #include <QDir>
 TResultItemModel::TResultItemModel(QObject *parent)
-    : QAbstractItemModel(parent),m_parentLen(-1)
+    : QAbstractItemModel(parent)
 {}
 
 int TResultItemModel::rowCount(const QModelIndex &parent) const
 {
-        return parent.isValid() ?  0 : m_fileList.count() ;
+        return parent.isValid() ?  0 : (int)m_fileList.count() ;
 }
 
 int TResultItemModel::columnCount(const QModelIndex &parent) const
@@ -25,8 +25,8 @@ bool TResultItemModel::hasChildren(const QModelIndex &parent) const
 
 void TResultItemModel::addFiles(QList<QString> files,QDir dir)
 {
-    int count = m_fileList.count();
-    beginInsertRows(QModelIndex(),count , count +  files.count() - 1);
+    int count = (int)m_fileList.count();
+    beginInsertRows(QModelIndex(),count ,(int)( count +  files.count() - 1));
     for(auto & file : files){
         m_fileList.append(TFileInfo(file,dir));
     }
@@ -35,7 +35,7 @@ void TResultItemModel::addFiles(QList<QString> files,QDir dir)
 
 void TResultItemModel::clear()
 {
-    beginRemoveRows(QModelIndex(), 0, m_fileList.size() - 1);
+    beginRemoveRows(QModelIndex(), 0, (int)(m_fileList.size() - 1));
     m_fileList.clear();
     endRemoveRows();
 
@@ -114,14 +114,7 @@ QModelIndex TResultItemModel::parent(const QModelIndex &child) const
     return QModelIndex();
 }
 
-int compTime(const QString& left,const QString &right,Qt::SortOrder order){
-    if(order == Qt::AscendingOrder){
-        return QFileInfo(left).lastModified().toMSecsSinceEpoch() -  QFileInfo(right).lastModified().toMSecsSinceEpoch();
-    }
-    else{
-        return QFileInfo(right).lastModified().toMSecsSinceEpoch() -  QFileInfo(left).lastModified().toMSecsSinceEpoch();
-    }
-}
+
 qint64 compString(const QString& left,const QString &right,Qt::SortOrder order){
     return order == Qt::AscendingOrder?  left.compare(right) : right.compare(left);
 }
@@ -190,7 +183,7 @@ void mergeSort(QList<TFileInfo> &fileList,int start, int end, int column, Qt::So
 }
 void TResultItemModel::sort(int column, Qt::SortOrder order)
 {
-    mergeSort(m_fileList,0, m_fileList.count() - 1, column,order);
+    mergeSort(m_fileList,0, (int)(m_fileList.count() - 1), column,order);
     emit layoutChanged();
 }
 

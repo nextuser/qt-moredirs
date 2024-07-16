@@ -21,7 +21,7 @@ FileThread::~FileThread()
 constexpr static QDir::Filters SubFileDirFilter = QDir::NoDotAndDotDot| QDir::Files | QDir::Dirs;
 
 
-void FileThread::countDirSize(const QDir &dir,int &process,int &dirCount ,quint64 &fsize){
+void FileThread::countDirSize(const QDir &dir,int &process,int &dirCount ,qint64 &fsize){
     if(m_stop) return;
     for(auto& info: dir.entryInfoList(SubFileDirFilter)){
         ++ process;
@@ -39,9 +39,9 @@ void FileThread::countDirSize(const QDir &dir,int &process,int &dirCount ,quint6
 }
 
 
-quint64 FileThread::countFileSize(QStringList paths)
+qint64 FileThread::countFileSize(QStringList paths)
 {
-    quint64 fsize = 0;
+    qint64 fsize = 0;
     int process = 0;
     int dirCount = 0;
     for(auto &path :paths)
@@ -99,7 +99,7 @@ void FileThread::doStop()
 }
 
 
-void FileThread::copyDir(const QDir&  srcDir,const QDir& dstDir,int & fileCount,int &dirCount,quint64 &processSize)
+void FileThread::copyDir(const QDir&  srcDir,const QDir& dstDir,int & fileCount,int &dirCount,qint64 &processSize)
 {
     if(m_stop){
         emit copyProcessInd(fileCount,dirCount,processSize,srcDir.absolutePath(),true);
@@ -134,7 +134,7 @@ void FileThread::copyDir(const QDir&  srcDir,const QDir& dstDir,int & fileCount,
 void FileThread::copyFile(const QMap<QString,QString> &copyMap){
     int count = 0;
     int dirCount = 0;
-    quint64 fsize = 0;
+    qint64 fsize = 0;
     QString path ;
     for(auto &srcPath : copyMap.keys())
     {
@@ -167,10 +167,10 @@ void FileThread::copyFile(const QMap<QString,QString> &copyMap){
     emit  copyProcessInd(count,dirCount,fsize,path);
 }
 
-static inline int  getSizeStep(quint64 size){
-    return size >> 23;
+static inline int  getSizeStep(qint64 size){
+    return (int)(size >> 23);
 }
-void FileThread::incCopy(const QString &curPath,int &count,int dirCount,quint64 &processSize, int incSize)
+void FileThread::incCopy(const QString &curPath,int &count,int dirCount,qint64 &processSize, qint64 incSize)
 {
     ++ count;
     if(incSize > 0){

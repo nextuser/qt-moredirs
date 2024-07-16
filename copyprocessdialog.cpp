@@ -32,11 +32,11 @@ CopyProcessDialog::~CopyProcessDialog()
     delete ui;
 }
 
-const quint64 LIMIT_SPACE = 1 << 23;
+const qint64 LIMIT_SPACE = 1 << 23;
 const int LIMIT_COUNT = 3000;
 
 
-void CopyProcessDialog::ensureShow(int count, quint64 size){
+void CopyProcessDialog::ensureShow(int count, qint64 size){
     if(count < LIMIT_COUNT && size < LIMIT_SPACE) return;
 
     if(!m_showed){
@@ -56,7 +56,7 @@ void CopyProcessDialog::accept()
 }
 
 
-void CopyProcessDialog::on_countSizeProcessInd(int count, int dirCount ,quint64 fileSize, bool bFinished)
+void CopyProcessDialog::on_countSizeProcessInd(int count, int dirCount ,qint64 fileSize, bool bFinished)
 {
     ensureShow(count,fileSize);
 
@@ -83,7 +83,7 @@ void CopyProcessDialog::on_countSizeProcessInd(int count, int dirCount ,quint64 
 }
 
 const static int SIZE_LIMIT = 1 << 23;//8MB
-void CopyProcessDialog::on_copyProcessInd(int copyCount,int dirCount,quint64 fileSize, QString curPath, bool stopped)
+void CopyProcessDialog::on_copyProcessInd(int copyCount,int dirCount,qint64 fileSize, QString curPath, bool stopped)
 {
     Q_UNUSED(stopped);
     ensureShow(copyCount,fileSize);

@@ -20,8 +20,8 @@ public:
     explicit CopyProcessDialog(QWidget *parent ,FileThread *thread);
     ~CopyProcessDialog();
 public slots:
-    void on_countSizeProcessInd(int count, int dirCount ,quint64 fileSize, bool bFinished);
-    void on_copyProcessInd(int count ,int dirCount,quint64 fileSize,QString curPath, bool stopped = false);
+    void on_countSizeProcessInd(int count, int dirCount ,qint64 fileSize, bool bFinished);
+    void on_copyProcessInd(int count ,int dirCount,qint64 fileSize,QString curPath, bool stopped = false);
 private slots:
     void on_pushButtonCancel_clicked();
 
@@ -31,11 +31,11 @@ private slots:
 private:
     Ui::CopyProcessDialog *ui;
     FileThread *m_thread;
-    quint64 m_totalSize;
+    qint64 m_totalSize;
     int m_totalCount;
     int m_dirCount ;
     bool m_showed = false;
-    void ensureShow(int count, quint64 size);
+    void ensureShow(int count, qint64 size);
     QString countTpl;
     QString copyTpl;
 

@@ -39,8 +39,8 @@ public:
     static QList<NameUrl> generatePathUrls(QString filePath);
     static QString generateFileLink(QString filePath);
     static bool isParentOf(QString leftPath,QString rightPath);
-    static quint64 countFileSize(QString path);
-    static quint64 countDirSize(const QDir &dir,int &process);
+    static qint64 countFileSize(QString path);
+    static qint64 countDirSize(const QDir &dir,int &process);
     static bool copySymbolicLink(const QString &sourceLink, const QString &targetLink);
     static QString getNewFile(QString path, QString fileName);
 
