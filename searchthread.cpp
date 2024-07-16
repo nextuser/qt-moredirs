@@ -9,10 +9,6 @@ SearchThread::SearchThread(QObject *parent):QThread(parent) {
 
 SearchThread::~SearchThread()
 {
-    stop();
-    this->terminate();
-    wait();
-
 }
 
 void SearchThread::stop()
@@ -34,7 +30,7 @@ void SearchThread::incFound(int &processCount,QStringList& results, QString newF
     if(!newFile.isEmpty()){
         results.append(newFile);
     }
-    quint64 costMs = m_elapsedTimer.elapsed();
+    qint64 costMs = m_elapsedTimer.elapsed();
     if(costMs >= 100){
 
         emit file_found(results,finished);
