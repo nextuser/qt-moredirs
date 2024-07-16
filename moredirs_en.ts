@@ -9,12 +9,12 @@
         <translation>Copying</translation>
     </message>
     <message>
-        <location filename="copyprocessdialog.ui" line="52"/>
+        <location filename="copyprocessdialog.ui" line="53"/>
         <source>统计进度</source>
         <translation>Counting progress:</translation>
     </message>
     <message>
-        <location filename="copyprocessdialog.ui" line="86"/>
+        <location filename="copyprocessdialog.ui" line="88"/>
         <source>拷贝进度</source>
         <translation>Copy progress:</translation>
     </message>
@@ -23,27 +23,27 @@
         <translation type="vanished">Not started</translation>
     </message>
     <message>
-        <location filename="copyprocessdialog.ui" line="59"/>
+        <location filename="copyprocessdialog.ui" line="60"/>
         <source>文件数%1 目录数%2  文件占用%3</source>
         <translation>File Count %1 Directory Count %1 File Space %3</translation>
     </message>
     <message>
-        <location filename="copyprocessdialog.ui" line="93"/>
+        <location filename="copyprocessdialog.ui" line="98"/>
         <source>拷贝...:文件数%1 目录数%2  文件占用%3</source>
         <translation>Copy... File Count %1 Directory Count %1 File Space %3</translation>
     </message>
     <message>
-        <location filename="copyprocessdialog.ui" line="141"/>
+        <location filename="copyprocessdialog.ui" line="146"/>
         <source>自动关闭</source>
         <translation>Auto Close when finished</translation>
     </message>
     <message>
-        <location filename="copyprocessdialog.ui" line="161"/>
+        <location filename="copyprocessdialog.ui" line="166"/>
         <source>停止</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="copyprocessdialog.ui" line="171"/>
+        <location filename="copyprocessdialog.ui" line="176"/>
         <source>关闭</source>
         <translation>Close</translation>
     </message>
@@ -274,7 +274,7 @@
         <location filename="dirform.ui" line="712"/>
         <location filename="dirform.cpp" line="735"/>
         <source>打开目录</source>
-        <translation>Open Directory</translation>
+        <translation>Open Folder</translation>
     </message>
     <message>
         <source>切换视图</source>
@@ -381,13 +381,10 @@
     </message>
     <message>
         <location filename="dirform.ui" line="801"/>
-        <source>新建</source>
-        <translation>New</translation>
-    </message>
-    <message>
         <location filename="dirform.ui" line="804"/>
         <location filename="dirform.cpp" line="777"/>
         <source>新建文件夹</source>
+        <oldsource>新建</oldsource>
         <translation>New Folder</translation>
     </message>
     <message>
@@ -418,7 +415,7 @@
     <message>
         <location filename="dirform.cpp" line="735"/>
         <source>选择目录打开</source>
-        <translation>Select the directory you want to open</translation>
+        <translation>Select the folder  to open</translation>
     </message>
     <message>
         <location filename="dirform.cpp" line="777"/>
@@ -434,15 +431,15 @@
         <location filename="dirform.cpp" line="782"/>
         <location filename="dirform.cpp" line="786"/>
         <location filename="dirform.cpp" line="809"/>
-        <location filename="dirform.cpp" line="1039"/>
-        <location filename="dirform.cpp" line="1051"/>
+        <location filename="dirform.cpp" line="1040"/>
+        <location filename="dirform.cpp" line="1052"/>
         <source>错误</source>
         <translation>Error！</translation>
     </message>
     <message>
         <location filename="dirform.cpp" line="782"/>
         <location filename="dirform.cpp" line="809"/>
-        <location filename="dirform.cpp" line="1039"/>
+        <location filename="dirform.cpp" line="1040"/>
         <source>文件已存在</source>
         <translation>A folder with the same name already exists!</translation>
     </message>
@@ -452,17 +449,17 @@
         <translation>Failed to create folder</translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="1032"/>
+        <location filename="dirform.cpp" line="1033"/>
         <source>新建文本文件</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="1032"/>
+        <location filename="dirform.cpp" line="1033"/>
         <source>请输入新文件名称</source>
         <translation>请输入新文件名称</translation>
     </message>
     <message>
-        <location filename="dirform.cpp" line="1051"/>
+        <location filename="dirform.cpp" line="1052"/>
         <source>新建文件失败</source>
         <translation>Failed to create file</translation>
     </message>
@@ -523,12 +520,12 @@
 <context>
     <name>FileThread</name>
     <message>
-        <location filename="filethread.cpp" line="55"/>
+        <location filename="filethread.cpp" line="52"/>
         <source>文件[%1]不存在 </source>
         <translation>File [%1] does not exist</translation>
     </message>
     <message>
-        <location filename="filethread.cpp" line="56"/>
+        <location filename="filethread.cpp" line="53"/>
         <source>错误</source>
         <translation>Error</translation>
     </message>
@@ -585,7 +582,7 @@
         <translation type="vanished">Last Modified</translation>
     </message>
     <message>
-        <location filename="finddialog.cpp" line="117"/>
+        <location filename="finddialog.cpp" line="120"/>
         <source>选择查询目录位置</source>
         <translation>Select the directory location to find</translation>
     </message>
@@ -763,22 +760,22 @@
 <context>
     <name>TResultItemModel</name>
     <message>
-        <location filename="tresultitemmodel.cpp" line="194"/>
+        <location filename="tresultitemmodel.cpp" line="196"/>
         <source>文件名</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="tresultitemmodel.cpp" line="197"/>
+        <location filename="tresultitemmodel.cpp" line="199"/>
         <source>修改时间</source>
         <translation>Last Modified</translation>
     </message>
     <message>
-        <location filename="tresultitemmodel.cpp" line="200"/>
+        <location filename="tresultitemmodel.cpp" line="202"/>
         <source>大小</source>
         <translation>Size</translation>
     </message>
     <message>
-        <location filename="tresultitemmodel.cpp" line="203"/>
+        <location filename="tresultitemmodel.cpp" line="205"/>
         <source>目录</source>
         <translation>Directory</translation>
     </message>

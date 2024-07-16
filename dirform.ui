@@ -798,7 +798,7 @@
      <normaloff>:/new/icons/icons/addfolder2.png</normaloff>:/new/icons/icons/addfolder2.png</iconset>
    </property>
    <property name="text">
-    <string>新建</string>
+    <string>新建文件夹</string>
    </property>
    <property name="toolTip">
     <string>新建文件夹</string>

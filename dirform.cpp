@@ -823,10 +823,11 @@ void DirForm::on_customContextMenuRequested(const QPoint &pos)
     QMenu menu(this);
     menu.addAction(ui->actionCutSelect);
     menu.addAction(ui->actionCopySelect);
-
     menu.addAction(ui->actionPasteSelect);
     menu.addAction(ui->actionRenameSelect);
     menu.addAction(ui->actionMoveToTrash);
+    menu.addAction(ui->actionNewFile);
+    menu.addAction(ui->actionNew_Folder);
     updateButtonState();
     menu.exec(QCursor::pos());
 
