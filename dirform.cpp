@@ -875,7 +875,7 @@ void DirForm::on_scrollLater()
         auto index = m_fileModel.index(path);
         qDebug()<< "scroll to:row=" << index.row() << " col=" << index.column();
         m_curItemView->scrollTo(index);
-        m_curItemView->selectionModel()->select(index,QItemSelectionModel::SelectionFlag::Select);
+        m_curItemView->selectionModel()->select(index,QItemSelectionModel::SelectionFlag::Select | QItemSelectionModel::SelectionFlag::Rows);
     }
 
     m_scrollToPaths.clear();
@@ -937,8 +937,8 @@ QString fileName(const QFileInfo &fileInfo){
     QString fileName = fileInfo.fileName();
     if(fileName.isEmpty()){
         QString path = fileInfo.canonicalFilePath();
-        int len = path.length();
-        int index = path.lastIndexOf("/");
+        int len = (int)path.length();
+        int index = (int)path.lastIndexOf(QDir::separator());
         if(index >= 0 && len > index + 1)
             return path.last(path.length() - index - 1);
     }
