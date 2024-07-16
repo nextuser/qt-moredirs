@@ -6,6 +6,7 @@
 #include <QMimeData>
 #include <QActionGroup>
 #include <QTranslator>
+#include "taboutdialog.h"
 QTranslator translator;
 const static QString KEY_LOCAL_QM_FILE = "locale/qmfile";
 void MainWindow::initLocale(const QSettings *settings){
@@ -277,5 +278,12 @@ void MainWindow::on_actionTranslateEng_triggered()
 void MainWindow::on_actionTranslateSimpleCn_triggered()
 {
     switchUi(QM_FILE_CN);
+}
+
+
+void MainWindow::on_actionAbout_triggered()
+{
+    TAboutDialog dlg;
+    dlg.exec();
 }
 

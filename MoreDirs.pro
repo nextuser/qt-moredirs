@@ -21,6 +21,7 @@ SOURCES += \
     finddialog.cpp \
     searchthread.cpp \
     stringutil.cpp \
+    taboutdialog.cpp \
     tfileinfo.cpp \
     tfilesystemmodel.cpp \
     thistory.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     finddialog.h \
     searchthread.h \
     stringutil.h \
+    taboutdialog.h \
     tfileinfo.h \
     tfilesystemmodel.h \
     thistory.h \
@@ -55,7 +57,8 @@ FORMS += \
     dirform.ui \
     duplicateddialog.ui \
     finddialog.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    taboutdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

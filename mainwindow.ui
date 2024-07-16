@@ -65,6 +65,7 @@
    <addaction name="actionTranslateEng"/>
    <addaction name="actionTranslateSimpleCn"/>
    <addaction name="separator"/>
+   <addaction name="actionAbout"/>
    <addaction name="actionExit"/>
    <addaction name="separator"/>
   </widget>
@@ -228,6 +229,18 @@
    </property>
    <property name="text">
     <string>繁体中文</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/new/icons/icons/about.png</normaloff>:/new/icons/icons/about.png</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>

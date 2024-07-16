@@ -457,7 +457,7 @@
     <message>
         <location filename="duplicateddialog.ui" line="20"/>
         <source>目标目录存在同名文件</source>
-        <translation></translation>
+        <translation>目标文件夹存在同名文件</translation>
     </message>
     <message>
         <location filename="duplicateddialog.ui" line="40"/>
@@ -513,7 +513,7 @@
     <message>
         <location filename="fileutil.cpp" line="195"/>
         <source>目录</source>
-        <translation></translation>
+        <translation>文件夹</translation>
     </message>
     <message>
         <location filename="fileutil.cpp" line="198"/>
@@ -536,7 +536,7 @@
     <message>
         <location filename="finddialog.ui" line="27"/>
         <source>位于目录</source>
-        <translation></translation>
+        <translation>文件夹</translation>
     </message>
     <message>
         <location filename="finddialog.cpp" line="120"/>
@@ -597,74 +597,79 @@
         <translation>窗口</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="73"/>
-        <location filename="mainwindow.ui" line="76"/>
+        <location filename="mainwindow.ui" line="74"/>
+        <location filename="mainwindow.ui" line="77"/>
         <source>关闭标签页</source>
         <translation>关闭本页</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="84"/>
-        <location filename="mainwindow.ui" line="87"/>
+        <location filename="mainwindow.ui" line="85"/>
+        <location filename="mainwindow.ui" line="88"/>
         <source>关闭其他标签页</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="95"/>
-        <location filename="mainwindow.ui" line="98"/>
+        <location filename="mainwindow.ui" line="96"/>
+        <location filename="mainwindow.ui" line="99"/>
         <source>关闭所有标签页</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="113"/>
-        <location filename="mainwindow.ui" line="116"/>
+        <location filename="mainwindow.ui" line="114"/>
+        <location filename="mainwindow.ui" line="117"/>
         <source>显示标签页</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="132"/>
+        <location filename="mainwindow.ui" line="133"/>
         <source>级联</source>
         <translation>级联</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="135"/>
+        <location filename="mainwindow.ui" line="136"/>
         <source>显示级联窗口</source>
         <translation>级联显示窗口</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="151"/>
+        <location filename="mainwindow.ui" line="152"/>
         <source>平铺窗口</source>
         <translation>平铺所有窗口</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="167"/>
-        <location filename="mainwindow.ui" line="170"/>
+        <location filename="mainwindow.ui" line="168"/>
+        <location filename="mainwindow.ui" line="171"/>
         <source>左右平铺</source>
         <translation>左右平铺</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="182"/>
+        <location filename="mainwindow.ui" line="183"/>
         <source>退出</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="185"/>
+        <location filename="mainwindow.ui" line="186"/>
         <source>Esc</source>
         <translation>Esc</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="200"/>
+        <location filename="mainwindow.ui" line="201"/>
         <source>英文</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="215"/>
+        <location filename="mainwindow.ui" line="216"/>
         <source>简体中文</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="230"/>
+        <location filename="mainwindow.ui" line="231"/>
         <source>繁体中文</source>
         <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="243"/>
+        <source>About</source>
+        <translation>关于</translation>
     </message>
     <message>
         <source>File</source>
@@ -718,6 +723,34 @@
     <message>
         <source>Tile 2 Windows</source>
         <translation type="vanished">平铺两个窗口</translation>
+    </message>
+</context>
+<context>
+    <name>TAboutDialog</name>
+    <message>
+        <location filename="taboutdialog.ui" line="14"/>
+        <source>About</source>
+        <translation>关于</translation>
+    </message>
+    <message>
+        <location filename="taboutdialog.ui" line="35"/>
+        <source>Version: 1.0</source>
+        <translation>版本：1.0</translation>
+    </message>
+    <message>
+        <location filename="taboutdialog.ui" line="48"/>
+        <source>Build Date: 2024-07-15</source>
+        <translation>构建日期:2024-07-15</translation>
+    </message>
+    <message>
+        <location filename="taboutdialog.ui" line="61"/>
+        <source>author: lijinglin323@163.com</source>
+        <translation>作者: lijinglin323@163.com</translation>
+    </message>
+    <message>
+        <location filename="taboutdialog.ui" line="74"/>
+        <source>icon provided</source>
+        <translation>图标来源：</translation>
     </message>
 </context>
 <context>
