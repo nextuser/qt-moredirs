@@ -184,4 +184,8 @@
         <file>icons/icons8-filter-24.png</file>
         <file>icons/icons8-tab-24.png</file>
     </qresource>
+    <qresource prefix="/qm">
+        <file>moredirs_en.qm</file>
+        <file>moredirs_cn.qm</file>
+    </qresource>
 </RCC>

@@ -76,6 +76,6 @@ protected:
 
 };
 
-const static QString QM_FILE_EN = "moredirs_en.qm";
-const static QString QM_FILE_CN = "moredirs_cn.qm";
+const static QString QM_FILE_EN = ":/qm/moredirs_en.qm";
+const static QString QM_FILE_CN = ":/qm/moredirs_cn.qm";
 #endif // MAINWINDOW_H
