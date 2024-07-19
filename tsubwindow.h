@@ -16,6 +16,10 @@ protected:
 
 private :
     MainWindow *mainWindow;
+
+    // QWidget interface
+protected:
+    void closeEvent(QCloseEvent *event);
 };
 
 #endif // TSUBWINDOW_H
